@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Resume | Resufit</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #000000;
+            --bg-alt: #0a0a0c;
+            --text: #f5f5f7;
+            --text-muted: #86868b;
+            --primary: #0071e3;
+            --primary-hover: #0077ed;
+
+            --gradient-start: #32c5ff;
+            --gradient-mid: #b620e0;
+            --gradient-end: #f7b500;
+
+            --card-bg: rgba(20, 20, 22, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --font-heading: 'Outfit', -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.8;
+        }
+
+        .orb-1 {
+            top: -20%;
+            left: 10%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(50, 197, 255, 0.07) 0%, transparent 60%);
+        }
+
+        .orb-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(182, 32, 224, 0.08) 0%, transparent 60%);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(110deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #32c5ff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .user-email {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .btn-nav,
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            padding: 8px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-nav {
+            background: transparent;
+            border-color: transparent;
+        }
+
+        .btn-nav:hover,
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 160px 24px 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: fadeDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .header-section h1 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        /* Upload Area */
+        .upload-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px dashed rgba(50, 197, 255, 0.3);
+            border-radius: 32px;
+            padding: 60px 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .upload-card:hover,
+        .upload-card.dragover {
+            border-color: rgba(50, 197, 255, 0.8);
+            background: rgba(50, 197, 255, 0.05);
+            box-shadow: 0 30px 60px -15px rgba(50, 197, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .upload-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(50, 197, 255, 0.2), rgba(50, 197, 255, 0.05));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: #32c5ff;
+            border: 1px solid rgba(50, 197, 255, 0.2);
+        }
+
+        .upload-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .upload-title {
+            font-size: 1.5rem;
+            font-family: var(--font-heading);
+            color: var(--text);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .upload-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 32px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn-upload {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upload-card:hover .btn-upload {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 113, 227, 0.4);
+        }
+
+        .file-name {
+            margin-top: 24px;
+            font-weight: 600;
+            color: var(--gradient-start);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .file-name.active {
+            display: flex;
+        }
+
+        .action-area {
+            margin-top: 32px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .action-area.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .btn-analyze {
+            background: linear-gradient(110deg, var(--gradient-start) 0%, var(--gradient-mid) 100%);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(182, 32, 224, 0.3);
+        }
+
+        .btn-analyze:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(182, 32, 224, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Results Section */
+        .results-container {
+            margin-top: 64px;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .score-badge {
+            background: rgba(50, 197, 255, 0.1);
+            color: var(--gradient-start);
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: 1px solid rgba(50, 197, 255, 0.2);
+            box-shadow: 0 0 20px rgba(50, 197, 255, 0.1);
+        }
+
+        .result-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .result-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-size: 1.05rem;
+            color: var(--text);
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .mistake-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mistake-list li {
+            background: rgba(255, 59, 48, 0.05);
+            border-left: 4px solid #ff3b30;
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .mistake {
+            color: #ff3b30;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .correction {
+            color: #34c759;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .explanation {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .improvement-list {
+            padding-left: 20px;
+            color: var(--text-muted);
+        }
+
+        .improvement-list li {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Timelines for Experience / Education */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .timeline-item {
+            padding-left: 16px;
+            border-left: 2px solid var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 20px 24px;
+            }
+
+            .header-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .upload-card {
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Glow -->
+    <div class="bg-glow">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/dashboard" class="logo">Resufit</a>
+
+        <div class="nav-right">
+            <a href="/dashboard" class="btn-logout">Dashboard</a>
+            <span class="user-email">{{ name }}</span>
+            <a href="/logout" class="btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <div class="main-container">
+
+        <div class="header-section">
+            <h1>Check Your <span class="gradient-text">Resume</span></h1>
+            <p>Upload your resume to analyze ATS score and improvements.</p>
+        </div>
+
+        <!-- Upload Form -->
+        <form action="/analyze_resume" method="POST" enctype="multipart/form-data">
+
+            <div class="upload-card">
+
+                <h3 class="upload-title">Upload Your Resume</h3>
+                <p class="upload-desc">Supported formats: PDF, DOC, DOCX</p>
+
+
+                <!-- Hidden file input -->
+                <input type="file" id="fileInput" name="resume" required>
+
+                <!-- Visible button -->
+                <label for="fileInput" class="btn-upload">
+                    Choose File
+                </label>
+
+                <div style="margin-top: 30px;">
+                    <button type="submit" class="btn-analyze">
+                        Analyze Resume
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Results Area (Injected via Jinja) -->
+            {% if result %}
+            <div class="results-container">
+                <div class="result-header">
+                    <h2>Analysis <span class="gradient-text">Complete</span></h2>
+                    <div class="score-badge">ATS Score: {{ result.get('analysis', {}).get('ats_score', 0) }}/100</div>
+                </div>
+
+                <!-- Personal Info Summary -->
+                <div class="result-card">
+                    <h3>Personal Info</h3>
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">{{ result.get('personal_info', {}).get('name', 'N/A') }}</span>
+                        </div>
+                        <div class="info-box">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">{{ result.get('personal_info', {}).get('email', 'N/A') }}</span>
+                        </div>
+                        <div class="info-box">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value">{{ result.get('personal_info', {}).get('phone', 'N/A') }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                {% if result.get('summary') %}
+                <div class="result-card">
+                    <h3>Professional Summary</h3>
+                    <p style="color: var(--text-muted); line-height: 1.6;">{{ result.summary }}</p>
+                </div>
+                {% endif %}
+
+                <!-- Skills -->
+                {% if result.get('skills') %}
+                <div class="result-card">
+                    <h3>Skills</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        {% for skill in result.skills %}
+                        <span
+                            style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 8px; font-size: 0.9rem;">{{
+                            skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Experience -->
+                {% if result.get('experience') %}
+                <div class="result-card">
+                    <h3>Experience</h3>
+                    <div class="timeline">
+                        {% for exp in result.experience %}
+                        {% if exp.get('role') or exp.get('company') %}
+                        <div class="timeline-item">
+                            <h4 style="color:#fff; margin-bottom:4px;">{{ exp.get('role', '') }} <span
+                                    style="color:var(--primary);">@ {{ exp.get('company', '') }}</span></h4>
+                            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">{{
+                                exp.get('duration', '') }}</div>
+                            <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.5;">{{
+                                exp.get('description', '') }}</p>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Projects -->
+                {% if result.get('projects') %}
+                <div class="result-card">
+                    <h3>Projects</h3>
+                    <div class="timeline">
+                        {% for proj in result.projects %}
+                        {% if proj.get('title') %}
+                        <div class="timeline-item">
+                            <h4 style="color:#fff; margin-bottom:4px;">{{ proj.get('title', '') }}</h4>
+                            <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:12px; line-height:1.5;">
+                                {{ proj.get('description', '') }}</p>
+                            {% if proj.get('technologies') %}
+                            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                                {% for tech in proj.technologies %}
+                                <span
+                                    style="background: rgba(50,197,255,0.1); color: var(--gradient-start); border: 1px solid rgba(50,197,255,0.2); padding: 2px 8px; border-radius: 6px; font-size: 0.75rem;">{{
+                                    tech }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Education -->
+                {% if result.get('education') %}
+                <div class="result-card">
+                    <h3>Education</h3>
+                    <div class="timeline">
+                        {% for edu in result.education %}
+                        {% if edu.get('degree') or edu.get('institution') %}
+                        <div class="timeline-item">
+                            <h4 style="color:#fff; margin-bottom:4px;">{{ edu.get('degree', '') }}</h4>
+                            <div style="font-size:0.9rem; color:var(--primary);">{{ edu.get('institution', '') }} &bull;
+                                <span style="color:var(--text-muted);">{{ edu.get('year', '') }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Spelling & Grammar Check -->
+                <div class="result-card">
+                    <h3>Errors & Grammar Fixes</h3>
+                    {% set ns = namespace(found=false) %}
+                    {% if result.get('analysis', {}).get('grammar_and_spelling_mistakes') %}
+                    <ul class="mistake-list">
+                        {% for m in result.analysis.grammar_and_spelling_mistakes %}
+                        {% set original = m.get('bullet_point_with_error') or m.get('mistake') %}
+                        {% set fix = m.get('stylish_correction') or m.get('correction') %}
+                        {% if original and original|string|trim != '' and original|string|trim|lower != 'none' %}
+                        {% set ns.found = true %}
+                        <li>
+                            <div class="mistake">
+                                <strong>Original:</strong>
+                                <span style="text-decoration: line-through; opacity: 0.8;">{{ original }}</span>
+                            </div>
+                            {% if fix %}
+                            <div class="correction"
+                                style="display: flex; gap: 8px; margin-top: 8px; align-items: start;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34c759"
+                                    stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                <div><strong>Replacement:</strong> <br />{{ fix }}</div>
+                            </div>
+                            {% endif %}
+                            {% if m.get('explanation') %}<div class="explanation"
+                                style="margin-top: 12px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 8px;">
+                                <em>{{ m.explanation }}</em>
+                            </div>{% endif %}
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if not ns.found %}
+                    <p style="color: #34A853; display: flex; align-items: center; gap: 8px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        No grammar or spelling mistakes found! Looking extremely sharp.
+                    </p>
+                    {% endif %}
+                </div>
+
+                <!-- Improvements / Actions -->
+                <div class="result-card">
+                    <h3>How to Stand Out</h3>
+                    {% set ns2 = namespace(found=false) %}
+                    {% if result.get('analysis', {}).get('improvements_to_stand_out') %}
+                    <ul class="improvement-list">
+                        {% for tip in result.analysis.improvements_to_stand_out %}
+                        {% if tip and tip|string|trim != '' and 'Improvement tip' not in tip %}
+                        {% set ns2.found = true %}
+                        <li>{{ tip }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if not ns2.found %}
+                    <p>Your resume already contains fantastic structural impact.</p>
+                    {% endif %}
+                </div>
+
+                <!-- General Feedback -->
+                <div class="result-card">
+                    <h3>Formatting Feedback</h3>
+                    {% set feedback = result.get('analysis', {}).get('formatting_and_structure_feedback', '') %}
+                    {% if feedback and feedback|trim != '' %}
+                    <p style="color: var(--text-muted); line-height: 1.6;">{{ feedback }}</p>
+                    {% else %}
+                    <p style="color: var(--text-muted); line-height: 1.6;">Your resume structure looks good overall.</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+    </div>
+
+    <!-- Upload Logic script -->
+    <script>
+        const fileUpload = document.getElementById('fileInput');
+
+        fileUpload.addEventListener('change', function (e) {
+            if (this.files.length > 0) {
+                const btn = document.querySelector('.btn-upload');
+                btn.innerHTML = 'Selected: <span style="color:#fff; margin-left:4px;">' + this.files[0].name + '</span>';
+                btn.style.borderColor = '#34c759';
+                btn.style.color = '#34c759';
+            }
+        });
+
+        document.querySelector('form').addEventListener('submit', function (e) {
+            if (fileUpload.files.length === 0) return;
+            const btn = document.querySelector('.btn-analyze');
+            btn.innerHTML = 'Analyzing... Please wait.';
+            btn.style.opacity = '0.7';
+            btn.style.pointerEvents = 'none';
+        });
+    </script>
+</body>
+
+</html>

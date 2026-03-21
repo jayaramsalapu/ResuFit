@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resufit | AI Resume Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Cinematic Apple-Style Dark Theme */
+      --bg: #000000;
+      /* Deep charcoal gray for subtle contrast sections */
+      --bg-alt: #0a0a0c;
+      --text: #f5f5f7;
+      --text-muted: #86868b;
+      /* Apple Active Blue */
+      --primary: #0071e3;
+      --primary-hover: #0077ed;
+      /* Vibrant multi-color gradient similar to Apple Intelligence */
+      --gradient-start: #32c5ff;
+      --gradient-mid: #b620e0;
+      --gradient-end: #f7b500;
+      --accent-green: #34c759;
+      --accent-red: #ff3b30;
+      
+      --card-bg: #111112;
+      --card-border: rgba(255, 255, 255, 0.1);
+      
+      --font-body: 'Inter', -apple-system, sans-serif;
+      /* Using Outfit globally for all headings makes it instantly more beautiful */
+      --font-heading: 'Outfit', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Soft ambient glows in background */
+    .bg-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .glow-orb {
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(182, 32, 224, 0.15) 0%, rgba(50, 197, 255, 0.05) 40%, transparent 70%);
+      filter: blur(80px);
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .text-center { text-align: center; }
+
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 140px 0;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    /* Clean Pill Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      background: var(--text);
+      color: #000000;
+      text-decoration: none;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      border: 1px solid var(--text);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-blue {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-blue:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 0 20px rgba(0, 113, 227, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 113, 227, 0.1);
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-sm {
+      padding: 6px 16px;
+      font-size: 0.85rem;
+    }
+
+    /* Cinematic CSS Scroll Animations */
+    @keyframes scrollFadeUpScale {
+      from { opacity: 0; transform: translateY(60px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes scrollFadeInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes scrollFadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @supports (animation-timeline: view()) {
+      .reveal {
+        animation: scrollFadeUpScale linear both;
+        animation-timeline: view();
+        animation-range: entry 5% cover 25%;
+      }
+      .slide-left {
+        animation: scrollFadeInLeft linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 30%;
+      }
+      .slide-right {
+        animation: scrollFadeInRight linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 30%;
+      }
+      /* Parallax effect on massive visual */
+      .parallax {
+        animation: scrollFadeUpScale linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 50%;
+      }
+    }
+
+    @supports not (animation-timeline: view()) {
+      .reveal, .slide-left, .slide-right, .parallax {
+        animation: scrollFadeUpScale 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; /* Moved higher up since visual is smaller */
+      text-align: center;
+      padding-top: 180px;
+    }
+
+    .hero-label {
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+      animation: scrollFadeUpScale 1s ease-out;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading); /* Forced explicitly purely for certainty */
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      margin-bottom: 24px;
+      max-width: 1000px;
+      line-height: 1.1;
+      animation: scrollFadeUpScale 1s ease-out 0.1s backwards;
+    }
+
+    .hero h1 span.thin {
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 650px;
+      font-weight: 400;
+      animation: scrollFadeUpScale 1s ease-out 0.2s backwards;
+    }
+
+    .hero .btn-group {
+      display: flex;
+      gap: 16px;
+      animation: scrollFadeUpScale 1s ease-out 0.3s backwards;
+    }
+
+    /* Cinematic Hero Visual - Smaller & Tighter */
+    .hero-visual {
+      margin-top: 60px;
+      width: 100%;
+      max-width: 500px; /* Shrunk for perfect sizing */
+      height: 250px;    /* Shrunk for perfect sizing */
+      position: relative;
+      perspective: 1200px;
+      animation: scrollFadeUpScale 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards;
+    }
+
+    .cinematic-panel {
+      width: 100%;
+      height: 100%;
+      background: rgba(20, 20, 22, 0.7);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      box-shadow: 
+        0 40px 100px -20px rgba(182, 32, 224, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      transform: rotateX(15deg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: slowFloat 8s ease-in-out infinite alternate;
+    }
+
+    .cinematic-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    }
+
+    .panel-content {
+      text-align: center;
+      font-family: var(--font-heading);
+    }
+    
+    .panel-content .massive-score {
+      font-size: 5.5rem; /* Shrunk to match the tighter box */
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      filter: drop-shadow(0 0 40px rgba(50, 197, 255, 0.5));
+    }
+
+    .panel-content .label {
+      font-size: 1rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 12px;
+    }
+
+    @keyframes slowFloat {
+      0% { transform: rotateX(15deg) translateY(0); }
+      100% { transform: rotateX(12deg) translateY(-20px); box-shadow: 0 60px 120px -20px rgba(50, 197, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.3); }
+    }
+
+    /* Section Headers */
+    .section-header {
+      margin-bottom: 80px;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 24px;
+      letter-spacing: -0.04em;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Problem Section */
+    .problem {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: rgba(26, 26, 28, 0.4);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 64px 40px;
+      text-align: center;
+      transition: all 0.4s ease;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .stat-card:hover {
+      background: rgba(36, 36, 40, 0.6);
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Beautiful Typography for Stats */
+    .stat-value {
+      font-size: 5rem;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, white 0%, #a1a1a6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      line-height: 1;
+      filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.05));
+    }
+
+    .stat-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    /* How It Works (Timeline) */
+    .steps { background: var(--bg); }
+    
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 32px;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--card-border), var(--primary), var(--accent-2), var(--card-border));
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 48px;
+      margin-bottom: 64px;
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 64px;
+      height: 64px;
+      background: var(--bg);
+      border: 2px solid var(--text-muted);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px black;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-item:hover .timeline-dot {
+      border-color: var(--text);
+      box-shadow: 0 0 30px rgba(255,255,255,0.2);
+    }
+
+    .timeline-content {
+      padding-top: 12px;
+      flex-grow: 1;
+    }
+
+    .timeline-content h3 { font-family: var(--font-heading); font-size: 1.75rem; margin-bottom: 12px; }
+    .timeline-content p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; }
+
+    /* Features Section */
+    .features {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--card-border);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      padding: 48px 32px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      transform: scale(1.02);
+    }
+
+    /* Subtle top glow inside card */
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    }
+
+    .feature-icon {
+      margin-bottom: 24px;
+      font-size: 2.5rem;
+      color: var(--text);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: translateY(-5px);
+    }
+
+    .feature-card h3 { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 16px; }
+    .feature-card p { color: var(--text-muted); font-size: 1.05rem; }
+
+    /* Bento Grid Sizes */
+    .feature-card:nth-child(1), .feature-card:nth-child(2) { grid-column: span 1; }
+    .feature-card:nth-child(3) { grid-column: span 1; }
+    .feature-card:nth-child(4) { grid-column: span 2; }
+    .feature-card:nth-child(5) { grid-column: span 1; }
+
+    /* Comparison Section */
+    .comparison { background: var(--bg); }
+    .comparison-wrapper {
+      display: flex;
+      gap: 40px;
+      align-items: stretch;
+    }
+
+    .compare-side {
+      flex: 1;
+      background: var(--bg-alt);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      padding: 60px 40px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .compare-side.after {
+      background: #111112; 
+      border-color: rgba(52, 199, 89, 0.3);
+      box-shadow: inset 0 0 100px rgba(52, 199, 89, 0.05);
+    }
+
+    .compare-side.after::before {
+      content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+    }
+
+    .compare-badge {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 40px;
+      opacity: 0.5;
+    }
+
+    .after .compare-badge {
+      color: var(--accent-green);
+      opacity: 1;
+    }
+
+    .score-wrap { text-align: center; margin-bottom: 40px; }
+    .score-value { font-family: var(--font-heading); font-size: 5rem; font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
+    
+    .low .score-value { color: var(--text-muted); opacity: 0.5; }
+    .high .score-value { color: var(--text); }
+
+    .compare-list { width: 100%; max-width: 320px; }
+    .compare-list li {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1.4;
+    }
+
+    .low-list li::before { content: '—'; color: var(--card-border); font-weight: bold; }
+    .high-list li { color: var(--text); }
+    .high-list li::before { content: '✓'; color: var(--accent-green); font-weight: bold; }
+
+    /* Results */
+    .results {
+      padding: 100px 0;
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .result-item h3 { font-family: var(--font-heading); font-size: 4rem; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.05em; }
+    .result-item p { font-size: 1.1rem; color: var(--text-muted); max-width: 250px; margin: 0 auto; }
+
+    /* Testimonials */
+    .testimonials { background: var(--bg); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+
+    .testimonial-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      padding: 48px 40px;
+    }
+
+    .test-text {
+      color: var(--text);
+      margin-bottom: 32px;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .test-author { display: flex; align-items: center; gap: 16px; }
+    .test-avatar { width: 48px; height: 48px; border-radius: 50%; background: #333; }
+    
+    .test-author-info h4 { font-family: var(--font-heading); font-size: 1rem; margin-bottom: 2px; }
+    .test-author-info p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* Final CTA Section */
+    .final-cta {
+      text-align: center;
+      padding: 200px 24px;
+      background: var(--bg);
+      position: relative;
+    }
+
+    .final-cta h2 { font-family: var(--font-heading); font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 32px; line-height: 1.1; }
+    .final-cta p { color: var(--text-muted); margin-bottom: 48px; font-size: 1.35rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      background: var(--bg-alt);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card:nth-child(n) { grid-column: span 1; }
+      .comparison-wrapper { flex-direction: column; }
+      .results-grid { grid-template-columns: 1fr; gap: 64px; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 16px; background: var(--bg); backdrop-filter: none; }
+      .nav-links { display: none; }
+      section { padding: 100px 0; }
+      .timeline::before { left: 24px; }
+      .timeline-dot { width: 48px; height: 48px; font-size: 1.1rem; border-width: 2px; }
+      .timeline-item { gap: 24px; }
+      .hero-visual { display: none; }
+      .hero { padding-top: 140px; }
+      .cinematic-panel { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Cinematic Glow -->
+  <div class="bg-glow">
+    <div class="glow-orb"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+      Resufit
+    </a>
+    <div class="nav-links">
+      <a href="/login" class="nav-link">Sign In</a>
+      <a href="/register" class="btn btn-sm">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero container">
+    <h1>Resufit Intelligence.<br><span class="thin"></span></h1>
+    <div class="btn-group">
+      <a href="/register" class="btn btn-blue">Check my Resume</a>
+      <a href="#how-it-works" class="btn btn-outline">Process</a>
+    </div>
+    
+    <div class="hero-visual parallax">
+      <div class="cinematic-panel">
+        <div class="panel-content">
+          <div class="massive-score gradient-text">98%</div>
+          <div class="label">Total ATS Match Setup</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Awareness Section -->
+  <section class="problem">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <h2>Your Resume is Getting <span style="color: var(--accent-red);">Rejected</span>.</h2>
+        <p>Applicant Tracking Systems mercilessly filter resumes that don't meet strict technical parameters.</p>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card reveal">
+          <div class="score-value gradient-text" >75%</div>
+          <div class="stat-desc">Of resumes are blocked by backend filters before human review</div>
+        </div>
+
+        <div class="stat-card reveal">
+          <div class="score-value gradient-text">6 sec</div>
+          <div class="stat-desc">Average time a recruiter spends looking at poor formatting</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br>
+  <br>
+
+  <!-- How It Works Section -->
+ 
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <h2>Take total <span class="gradient-text">format control.</span></h2>
+        <p>Pro-level features crafted to guarantee the highest tier of candidacy.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">🔍</div>
+          <h3>Deep Inspection</h3>
+          <p>Catch grammar anomalies and inconsistencies that human proofreaders inherently miss.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">💡</div>
+          <h3>Prose Synthesis</h3>
+          <p>Transform passive bullet points into aggressive, data-backed success statements.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📊</div>
+          <h3>System Scoring</h3>
+          <p>See your exact numeric value. Mirror the exact mathematical logic used by Fortune 500 ATS.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🎯</div>
+          <h3>Precision Alignment</h3>
+          <p>Automatically tailor every single paragraph to strike the core requirements of the job listing.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🔠</div>
+          <h3>Keyword Matrix</h3>
+          <p>Inject high-density terminology directly into your flow to ensure machine approvals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before / After Section -->
+  <section class="comparison">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <h2>Thinpossible. Simply transformative.</h2>
+        <p>Experience the clear division between basic candidacy and total domination.</p>
+      </div>
+
+      <div class="comparison-wrapper">
+        <!-- Before -->
+        <div class="compare-side slide-left">
+          <div class="compare-badge">BEFORE</div>
+          <div class="score-wrap low">
+            <div class="score-value">45%</div>
+          </div>
+          <ul class="compare-list low-list">
+            <li>Vague, task-based bullet points</li>
+            <li>Missing critical skill keywords</li>
+            <li>Cluttered, unreadable format</li>
+            <li>Generic summary statement</li>
+          </ul>
+        </div>
+
+        <!-- After -->
+        <div class="compare-side after slide-right">
+          <div class="compare-badge">AFTER - ResuFit</div>
+          <div class="score-wrap high">
+            <div class="score-value gradient-text">92%</div>
+          </div>
+          <ul class="compare-list high-list">
+            <li>Action-driven, scalable metrics</li>
+            <li>Perfectly mapped to job desc.</li>
+            <li>Clean, machine-readable parsing</li>
+            <li>Targeted value proposition</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="results">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <h2>Speed of lightness.<br>Interviews instantly.</h2>
+      </div>
+      <div class="results-grid">
+        <div class="result-item reveal">
+          <h3 class="gradient-text">+300%</h3>
+          <p>Faster ATS clearing rates globally.</p>
+        </div>
+        <div class="result-item reveal" style="transition-delay: 0.1s;">
+          <h3 class="gradient-text">10x</h3>
+          <p>Multiplier on interview acquisition.</p>
+        </div>
+        <div class="result-item reveal" style="transition-delay: 0.2s;">
+          <h3 class="gradient-text">100%</h3>
+          <p>Dynamic profile adaptation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+ <section id="how-it-works" class="steps">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <h2>Built for Speed. Built for Accuracy.</h2>
+        <p>A precision-engineered workflow to formulate the perfect profile.</p>
+      </div>
+
+      <div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-dot">1</div>
+    <div class="timeline-content slide-right">
+      <h3>Upload Resume</h3>
+      <p>Upload your resume in PDF or DOCX format. The system securely extracts and processes the content for analysis.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot">2</div>
+    <div class="timeline-content slide-left">
+      <h3>Enter Job Description</h3>
+      <p>Provide the target job role or paste the job description to define required skills and qualifications.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot">3</div>
+    <div class="timeline-content slide-right">
+      <h3>Analyze Match</h3>
+      <p>The backend system compares your resume with the job requirements to identify strengths and gaps.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot">4</div>
+    <div class="timeline-content slide-left">
+      <h3>Get Suggestions</h3>
+      <p>Receive actionable feedback to improve keywords, skills, and formatting for better ATS compatibility.</p>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot">5</div>
+    <div class="timeline-content slide-right">
+      <h3>Download Improved Resume</h3>
+      <p>Apply the recommendations and download an optimized resume ready for job applications.</p>
+    </div>
+  </div>
+</div>
+  </section>
+
+
+
+
+
+  <!-- Testimonials Section -->
+  
+  <!-- Final CTA Section -->
+  <section class="final-cta reveal">
+    <h2>Your Dream Job Starts.<br><span class="gradient-text">With the Right Resume.</span></h2>
+    <p>Upload your current resume and unlock your true value.</p>
+    <a href="/register" class="btn btn-blue" style="padding: 16px 40px; font-size: 1.125rem;">Optimize Now</a>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Resufit Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
