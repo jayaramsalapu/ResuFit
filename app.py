@@ -334,6 +334,7 @@ def analyze_resume():
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
     resume_text = extract_text(filepath)
+    os.remove(filepath)
     result = analyze_resume_with_groq(resume_text)
     
     email = session.get('email', '')
