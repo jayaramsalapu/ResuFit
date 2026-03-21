@@ -251,115 +251,185 @@
       position: relative;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: flex-start; /* Moved higher up since visual is smaller */
-      text-align: center;
-      padding-top: 180px;
+      justify-content: space-between;
+      gap: 40px;
+      padding-top: 120px;
     }
 
-    .hero-label {
-      color: var(--text-muted);
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: 24px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      letter-spacing: -0.01em;
-      animation: scrollFadeUpScale 1s ease-out;
+    .hero-content {
+      flex: 1;
+      max-width: 550px;
+      text-align: left;
+      z-index: 10;
+      animation: scrollFadeInLeft 1s ease-out backwards;
     }
 
-    .hero h1 {
-      font-family: var(--font-heading); /* Forced explicitly purely for certainty */
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      margin-bottom: 24px;
-      max-width: 1000px;
-      line-height: 1.1;
-      animation: scrollFadeUpScale 1s ease-out 0.1s backwards;
+    .hero-content h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      margin-bottom: 12px;
+      line-height: 1.05;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
     }
 
-    .hero h1 span.thin {
-      font-weight: 400;
-      color: var(--text-muted);
-    }
-
-    .hero p {
-      font-size: 1.25rem;
+    .hero-subtitle {
+      font-size: 1.6rem;
       color: var(--text-muted);
       margin-bottom: 40px;
-      max-width: 650px;
       font-weight: 400;
-      animation: scrollFadeUpScale 1s ease-out 0.2s backwards;
     }
 
-    .hero .btn-group {
-      display: flex;
-      gap: 16px;
-      animation: scrollFadeUpScale 1s ease-out 0.3s backwards;
+    .btn-hero-primary {
+      background: linear-gradient(90deg, #1e58fc, #439dfc);
+      color: white;
+      border: none;
+      padding: 18px 36px;
+      font-size: 1.15rem;
+      border-radius: 40px;
+      box-shadow: 0 10px 30px rgba(30, 88, 252, 0.4);
+      display: inline-flex;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
 
-    /* Cinematic Hero Visual - Smaller & Tighter */
-    .hero-visual {
-      margin-top: 60px;
-      width: 100%;
-      max-width: 500px; /* Shrunk for perfect sizing */
-      height: 250px;    /* Shrunk for perfect sizing */
+    .btn-hero-primary:hover {
+      background: linear-gradient(90deg, #2b62ff, #51a6ff);
+      box-shadow: 0 15px 40px rgba(30, 88, 252, 0.6);
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    /* Right side visual */
+    .hero-visual-container {
+      flex: 1;
       position: relative;
+      height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       perspective: 1200px;
-      animation: scrollFadeUpScale 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards;
+      animation: scrollFadeInRight 1s ease-out backwards;
     }
 
-    .cinematic-panel {
+    /* AI Orb */
+    .ai-orb {
+      position: absolute;
+      top: 50%;
+      right: 0%;
+      transform: translateY(-50%);
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #439dfc 0%, #1e58fc 50%, transparent 80%);
+      box-shadow: 0 0 80px 40px rgba(30, 88, 252, 0.4), 0 0 120px 60px rgba(30, 88, 252, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      animation: pulseOrb 4s infinite alternate;
+    }
+
+    .orb-core {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: white;
+      text-shadow: 0 0 20px rgba(255,255,255,0.8);
+    }
+
+    .orb-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .ring-1 { width: 340px; height: 340px; animation: spin 20s linear infinite; }
+    .ring-2 { width: 500px; height: 500px; animation: spin 30s linear infinite reverse; }
+
+    /* Tablet Mockup */
+    .tablet-mockup {
+      width: 340px;
+      height: 480px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 12px;
+      position: relative;
+      z-index: 5;
+      box-shadow: 
+        -20px 30px 60px rgba(0,0,0,0.6),
+        0 0 0 4px #e5e5ea,
+        0 0 0 8px #98989d;
+      transform: rotateY(-15deg) rotateX(10deg) rotateZ(-5deg);
+      transform-style: preserve-3d;
+      animation: floatTablet 6s ease-in-out infinite alternate;
+      top: -20px;
+      left: -50px;
+    }
+
+    .tablet-screen {
+      background: #fbfbfd;
       width: 100%;
       height: 100%;
-      background: rgba(20, 20, 22, 0.7);
-      backdrop-filter: blur(30px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 30px;
-      box-shadow: 
-        0 40px 100px -20px rgba(182, 32, 224, 0.2),
-        inset 0 1px 1px rgba(255, 255, 255, 0.2);
-      transform: rotateX(15deg);
-      position: relative;
+      border-radius: 12px;
       overflow: hidden;
+      position: relative;
+      padding: 24px;
+      color: #1d1d1f;
+      text-align: left;
+    }
+
+    /* Base Resume styling inside Tablet */
+    .resume-header { border-bottom: 2px solid #e5e5ea; padding-bottom: 12px; margin-bottom: 16px; }
+    .resume-title-text { font-family: var(--font-heading); color: #1d1d1f; font-weight: 700; font-size: 1.1rem; }
+    .resume-body { display: flex; gap: 12px; margin-bottom: 20px; }
+    .resume-avatar { width: 32px; height: 32px; background: #e5e5ea; border-radius: 50%; flex-shrink: 0; }
+    .resume-lines { flex: 1; display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+    .resume-line { height: 4px; background: #e5e5ea; border-radius: 2px; width: 100%; }
+    .resume-line.title-line { height: 6px; width: 60%; background: #c7c7cc; margin-bottom: 2px; }
+    .resume-line.short { width: 70%; }
+    
+    .resume-section { margin-bottom: 16px; }
+    .resume-section .title-line { height: 6px; width: 40%; background: #c7c7cc; margin-bottom: 8px; border-radius: 2px; }
+
+    /* Floating Chips */
+    .floating-chip {
+      position: absolute;
+      background: rgba(30, 88, 252, 0.9);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      justify-content: center;
-      animation: slowFloat 8s ease-in-out infinite alternate;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transform: translateZ(40px);
+      white-space: nowrap;
     }
+    .chip-1 { top: 30%; right: -30px; animation: floatChip 4s infinite alternate; }
+    .chip-2 { bottom: 25%; left: -20px; animation: floatChip 5s infinite alternate-reverse; }
+    .chip-3 { bottom: 10%; right: -10px; animation: floatChip 4.5s infinite alternate; background: rgba(52, 199, 89, 0.9); }
 
-    .cinematic-panel::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    @keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+    @keyframes pulseOrb {
+      0% { transform: translateY(-50%) scale(1); box-shadow: 0 0 80px 40px rgba(30, 88, 252, 0.4); }
+      100% { transform: translateY(-50%) scale(1.05); box-shadow: 0 0 100px 50px rgba(30, 88, 252, 0.6); }
     }
-
-    .panel-content {
-      text-align: center;
-      font-family: var(--font-heading);
+    @keyframes floatTablet {
+      0% { transform: rotateY(-15deg) rotateX(10deg) rotateZ(-5deg) translateY(0); }
+      100% { transform: rotateY(-12deg) rotateX(12deg) rotateZ(-4deg) translateY(-15px); }
     }
-    
-    .panel-content .massive-score {
-      font-size: 5.5rem; /* Shrunk to match the tighter box */
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.05em;
-      filter: drop-shadow(0 0 40px rgba(50, 197, 255, 0.5));
-    }
-
-    .panel-content .label {
-      font-size: 1rem;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 12px;
-    }
-
-    @keyframes slowFloat {
-      0% { transform: rotateX(15deg) translateY(0); }
-      100% { transform: rotateX(12deg) translateY(-20px); box-shadow: 0 60px 120px -20px rgba(50, 197, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.3); }
+    @keyframes floatChip {
+      0% { transform: translateZ(40px) translateY(0); }
+      100% { transform: translateZ(40px) translateY(-8px); }
     }
 
     /* Section Headers */
@@ -692,15 +762,17 @@
     }
 
     @media (max-width: 768px) {
-      .navbar { padding: 16px; background: var(--bg); backdrop-filter: none; }
-      .nav-links { display: none; }
+      .navbar { padding: 16px 20px; background: var(--bg); backdrop-filter: none; }
+      .nav-links { gap: 12px; }
+      .nav-link { font-size: 0.85rem; }
+      .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
       section { padding: 100px 0; }
       .timeline::before { left: 24px; }
       .timeline-dot { width: 48px; height: 48px; font-size: 1.1rem; border-width: 2px; }
       .timeline-item { gap: 24px; }
-      .hero-visual { display: none; }
-      .hero { padding-top: 140px; }
-      .cinematic-panel { display: none; }
+      .hero { padding-top: 120px; flex-direction: column; text-align: center; }
+      .hero-content { align-items: center; text-align: center; }
+      .hero-visual-container { display: none; }
     }
   </style>
 </head>
@@ -725,17 +797,64 @@
 
   <!-- Hero Section -->
   <section class="hero container">
-    <h1>Resufit Intelligence.<br><span class="thin"></span></h1>
-    <div class="btn-group">
-      <a href="/register" class="btn btn-blue">Check my Resume</a>
-      <a href="#how-it-works" class="btn btn-outline">Process</a>
+    <div class="hero-content">
+      <h1>ResuFit</h1>
+      <p class="hero-subtitle">AI-Powered Builder</p>
+      <a href="/register" class="btn-hero-primary">Build Your Resume Now</a>
     </div>
     
-    <div class="hero-visual parallax">
-      <div class="cinematic-panel">
-        <div class="panel-content">
-          <div class="massive-score gradient-text">98%</div>
-          <div class="label">Total ATS Match Setup</div>
+    <div class="hero-visual-container">
+      <!-- AI Glowing Orb -->
+      <div class="ai-orb">
+        <div class="orb-core">AI</div>
+        <div class="orb-ring ring-1"></div>
+        <div class="orb-ring ring-2"></div>
+      </div>
+      
+      <!-- Tablet Mockup -->
+      <div class="tablet-mockup">
+        <div class="tablet-screen">
+          <div class="resume-header">
+            <div class="resume-title-text">ResuFit</div>
+          </div>
+          <div class="resume-body">
+            <div class="resume-avatar"></div>
+            <div class="resume-lines">
+               <div class="resume-line title-line"></div>
+               <div class="resume-line"></div>
+               <div class="resume-line"></div>
+               <div class="resume-line short"></div>
+            </div>
+          </div>
+          
+          <div class="resume-section">
+            <div class="title-line"></div>
+            <div class="resume-line"></div>
+            <div class="resume-line"></div>
+            <div class="resume-line"></div>
+          </div>
+          <div class="resume-section">
+            <div class="title-line"></div>
+            <div class="resume-line"></div>
+            <div class="resume-line"></div>
+            <div class="resume-line"></div>
+          </div>
+          <div class="resume-section">
+            <div class="title-line"></div>
+            <div class="resume-line"></div>
+            <div class="resume-line short"></div>
+          </div>
+          
+          <!-- Floating Chips -->
+          <div class="floating-chip chip-1">
+            <span class="chip-icon"></span> Grammar Optimized
+          </div>
+          <div class="floating-chip chip-2">
+            <span class="chip-icon"></span> Experience Synced
+          </div>
+          <div class="floating-chip chip-3">
+            <span class="chip-icon"></span> Format Verified
+          </div>
         </div>
       </div>
     </div>
@@ -768,43 +887,7 @@
 
   <!-- How It Works Section -->
  
-  <!-- Features Section -->
-  <section class="features">
-    <div class="container">
-      <div class="section-header text-center reveal">
-        <h2>Take total <span class="gradient-text">format control.</span></h2>
-        <p>Pro-level features crafted to guarantee the highest tier of candidacy.</p>
-      </div>
 
-      <div class="features-grid">
-        <div class="feature-card reveal">
-          <div class="feature-icon">🔍</div>
-          <h3>Deep Inspection</h3>
-          <p>Catch grammar anomalies and inconsistencies that human proofreaders inherently miss.</p>
-        </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">💡</div>
-          <h3>Prose Synthesis</h3>
-          <p>Transform passive bullet points into aggressive, data-backed success statements.</p>
-        </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">📊</div>
-          <h3>System Scoring</h3>
-          <p>See your exact numeric value. Mirror the exact mathematical logic used by Fortune 500 ATS.</p>
-        </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">🎯</div>
-          <h3>Precision Alignment</h3>
-          <p>Automatically tailor every single paragraph to strike the core requirements of the job listing.</p>
-        </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon">🔠</div>
-          <h3>Keyword Matrix</h3>
-          <p>Inject high-density terminology directly into your flow to ensure machine approvals.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Before / After Section -->
   <section class="comparison">
@@ -845,6 +928,48 @@
       </div>
     </div>
   </section>
+
+
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <h2>Take total <span class="gradient-text">format control.</span></h2>
+        <p>Pro-level features crafted to guarantee the highest tier of candidacy.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon"></div>
+          <h3>Deep Inspection</h3>
+          <p>Catch grammar anomalies and inconsistencies that human proofreaders inherently miss.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"></div>
+          <h3>Prose Synthesis</h3>
+          <p>Transform passive bullet points into aggressive, data-backed success statements.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"></div>
+          <h3>System Scoring</h3>
+          <p>See your exact numeric value</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"></div>
+          <h3>Precision Alignment</h3>
+          <p>Automatically tailor every single paragraph to strike the core requirements of the job listing.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"></div>
+          <h3>Keyword Matrix</h3>
+          <p>Inject high-density terminology directly into your flow to ensure machine approvals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 
   <!-- Results Section -->
   <section class="results">
