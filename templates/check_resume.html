@@ -508,6 +508,18 @@
             .header-section h1 {
                 font-size: 2.25rem;
             }
+            .header-section p {
+                font-size: 1rem;
+            }
+            .upload-title {
+                font-size: 1.25rem;
+            }
+            .score-badge {
+                font-size: 1rem;
+            }
+            .result-card h3 {
+                font-size: 1.15rem;
+            }
             .upload-card {
                 padding: 32px 20px;
             }
@@ -630,8 +642,8 @@
                         {% for exp in result.experience %}
                         {% if exp.get('role') or exp.get('company') %}
                         <div class="timeline-item">
-                            <h4 style="color:#fff; margin-bottom:4px;">{{ exp.get('role', '') }} <span
-                                    style="color:var(--primary);">@ {{ exp.get('company', '') }}</span></h4>
+                            <h4 style="color:#fff; margin-bottom:4px;"><span
+                                    style="color:var(--primary);">@{{ exp.get('company', '') }}</span></h4>
                             <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">{{
                                 exp.get('duration', '') }}</div>
                             <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.5;">{{
@@ -703,7 +715,7 @@
                         <li>
                             <div class="mistake">
                                 <strong>Original:</strong>
-                                <span style="text-decoration: line-through; opacity: 0.8;">{{ original }}</span>
+                                <span style="opacity: 0.8;">{{ original }}</span>
                             </div>
                             {% if fix %}
                             <div class="correction"
