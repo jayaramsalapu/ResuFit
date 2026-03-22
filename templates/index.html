@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -261,137 +262,324 @@
       background: var(--ai-gradient);
     }
 
-    /* --- Features Section --- */
-    .features {
-      background: var(--surface);
-      padding: 120px 24px;
-      border-radius: 40px;
-      max-width: 1400px;
-      margin: 0 auto 80px;
+    /* --- New Features Section --- */
+    .features-section {
+      padding: 100px 24px;
+      background-color: var(--bg);
     }
 
-    .section-header {
+    .features-header {
       text-align: center;
-      margin-bottom: 64px;
+      margin-bottom: 60px;
     }
 
-    .section-header h2 {
-      font-size: 2.5rem;
+    .features-header h2 {
+      font-size: 2.2rem;
       font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
     }
 
-    .section-header p {
-      font-size: 1.15rem;
+    .features-header p {
+      font-size: 1.1rem;
       color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto;
     }
 
-    .bento-grid {
+    .features-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .bento-card {
+    .feature-card {
       background: #ffffff;
-      border-radius: var(--radius-md);
-      padding: 40px;
+      border-radius: 8px;
+      /* Slightly sharp like the image */
+      padding: 40px 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+      /* Soft shadow like image */
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.03);
       transition: transform 0.2s, box-shadow 0.2s;
-      border: 1px solid var(--surface-variant);
-      display: flex;
-      flex-direction: column;
     }
 
-    .bento-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.06);
     }
 
-    .bento-card.large {
-      grid-column: span 2;
-    }
-
-    .bento-card.tall {
-      grid-row: span 2;
-    }
-
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--primary-container);
-      color: var(--primary);
-      border-radius: 16px;
+    .icon-wrapper {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 24px;
+      margin: 0 auto 30px auto;
     }
 
-    .bento-card h3 {
-      font-size: 1.5rem;
-      font-weight: 500;
+    .icon-blue {
+      background: #f0f4ff;
+      color: #3b82f6;
+    }
+
+    .icon-purple {
+      background: #faf5ff;
+      color: #a855f7;
+    }
+
+    .icon-red {
+      background: #fff1f2;
+      color: #f43f5e;
+    }
+
+    .icon-green {
+      background: #f0fdf4;
+      color: #22c55e;
+    }
+
+    .feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* --- How It Works Section --- */
+    .how-it-works {
+      padding: 100px 24px;
+      background: linear-gradient(135deg, #ffffff 0%, #f9f5ff 100%);
+      overflow: hidden;
+    }
+
+    .hiw-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .hiw-header h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
       margin-bottom: 12px;
       letter-spacing: -0.02em;
     }
 
-    .bento-card p {
+    .hiw-header p {
+      font-size: 1.1rem;
       color: var(--text-secondary);
-      font-size: 1.05rem;
-      line-height: 1.5;
     }
 
-    .bento-visual {
-      margin-top: 32px;
-      flex: 1;
-      background: var(--surface);
-      border-radius: 16px;
-      min-height: 150px;
+    .process-wrapper {
+      max-width: 1300px;
+      margin: 0 auto;
+      overflow-x: auto;
+      padding: 20px 0 40px 0;
+      scrollbar-width: none;
+      /* Firefox */
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .process-wrapper::-webkit-scrollbar {
+      display: none;
+      /* Chrome/Safari */
+    }
+
+    .process-timeline {
       display: flex;
+      justify-content: space-between;
+      position: relative;
+      min-width: 1000px;
+      padding: 0 40px;
+    }
+
+    .timeline-line {
+      position: absolute;
+      top: 24px;
+      left: 60px;
+      right: 60px;
+      height: 2px;
+      background: #e5e5e5;
+      z-index: 1;
+    }
+
+    .timeline-progress {
+      position: absolute;
+      top: 24px;
+      left: 60px;
+      width: 15%;
+      height: 2px;
+      background: #7c3aed;
+      z-index: 2;
+    }
+
+    .process-step {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
       align-items: center;
+      width: 130px;
+    }
+
+    .step-indicator {
+      width: 48px;
+      height: 48px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #999;
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .step-indicator.active {
+      background: #7c3aed;
+      border-color: #7c3aed;
+      color: #ffffff;
+    }
+
+    .step-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px 20px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      text-align: left;
+    }
+
+    .step-icon {
+      color: #1f1f1f;
+      margin-bottom: 24px;
+      display: flex;
+    }
+
+    .step-number {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #9ca3af;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .step-card h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    /* --- Premium Comparison / CTA Section --- */
+    .comparison-section {
+      margin-top: 120px;
+      padding: 0 24px 120px;
+      display: flex;
       justify-content: center;
     }
 
-    /* --- Testimonial / Comparison --- */
-    .comparison {
-      max-width: 1000px;
-      margin: 0 auto 120px;
-      padding: 0 24px;
+    .comparison-content {
+      background: linear-gradient(145deg, #ffffff, #f0f4f9);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      border-radius: 24px;
+      padding: 60px 40px;
+      max-width: 900px;
+      width: 100%;
       text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative background shapes */
+    .comparison-content::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .comparison-content::after {
+      content: '';
+      position: absolute;
+      bottom: -40%;
+      right: -5%;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(66, 133, 244, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .stat-container {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
     }
 
     .stat-huge {
-      font-size: 60px;
-      font-weight: 700;
+      font-size: 80px;
+      font-weight: 800;
       letter-spacing: -0.05em;
-      background: var(--ai-gradient);
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 16px;
       line-height: 1;
+    }
+
+    .comparison-title {
+      position: relative;
+      z-index: 1;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .comparison-desc {
+      position: relative;
+      z-index: 1;
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .comparison-btn {
+      position: relative;
+      z-index: 1;
+      padding: 14px 36px;
+      font-size: 1.05rem;
     }
 
     /* --- Footer --- */
     footer {
-      padding: 40px 24px;
+      padding: 20px 24px;
       text-align: center;
       border-top: 1px solid var(--surface-variant);
       color: var(--text-secondary);
       font-size: 0.9rem;
     }
 
-    @media (max-width: 900px) {
-      .bento-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .bento-card.large,
-      .bento-card.tall {
-        grid-column: span 1;
-        grid-row: span 1;
+    @media (max-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .preview-window {
@@ -416,28 +604,54 @@
         font-size: 1rem;
       }
 
-      .section-header h2 {
-        font-size: 2rem;
+      .features-header h2,
+      .hiw-header h2 {
+        font-size: 1.8rem;
       }
 
-      .bento-card h3 {
-        font-size: 1.25rem;
-      }
-
-      .bento-card p {
-        font-size: 0.95rem;
-      }
-
-      .comparison h2 {
-        font-size: 1.5rem !important;
+      .comparison-content {
+        padding: 40px 20px;
+        border-radius: 16px;
       }
 
       .stat-huge {
-        font-size: 3rem;
+        font-size: 4rem;
+      }
+
+      .comparison-title {
+        font-size: 1.8rem;
+      }
+
+      .comparison-desc {
+
+        font-size: 1.05rem;
+        margin-bottom: 24px;
+      }
+
+      .comparison-btn {
+        width: 100%;
+        justify-content: center;
       }
 
       .nav-links {
-        display: none;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-link {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+      }
+
+      .btn-try {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -473,8 +687,8 @@
       Powered by advanced ATS-scoring models
     </div>
     <br>
-    <h1 style="font-family: var(--font-family); letter-spacing:-0.005em;">AI-Enhanced <span
-        class="gradient-text"> Resume</span></h1>
+    <h1 style="font-family: var(--font-family); letter-spacing:-0.005em;">AI-Enhanced <span class="gradient-text">
+        Resume</span></h1>
     <p>Upload your resume, analyze it against any job description, and get real-time feedback to improve your chances of
       passing initial screening.</p>
 
@@ -493,114 +707,240 @@
 
 
 
-  <!-- Features Section (Bento Grid) -->
-  <section class="features">
-    <div class="section-header">
-      <h2>Everything you need to land the interview</h2>
-      <p>Our tools decode the systems that companies use to filter candidates.</p>
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="features-header">
+      <h2>More than just a resume builder</h2>
+      <p>Explore what else ResuFit can do for your career</p>
     </div>
 
-    <div class="bento-grid">
-      <!-- Large Card -->
-      <div class="bento-card large">
-        <div class="card-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    <div class="features-grid">
+
+
+      <!-- Card 2 -->
+      <div class="feature-card">
+        <div class="icon-wrapper icon-purple">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-            <polyline points="10 9 9 9 8 9"></polyline>
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
         </div>
-        <h3>Job Requirement Mapping</h3>
-        <p>Paste any job description and instantly see a unified view of your matching skills, missing keywords, and
-          experience gaps.</p>
-        <div class="bento-visual">
-          <div style="display: flex; gap: 8px;">
-            <div
-              style="padding: 8px 16px; background: #c2e7ff; color: #001d35; border-radius: 100px; font-size: 0.85rem; font-weight: 500;">
-              React</div>
-            <div
-              style="padding: 8px 16px; background: #c2e7ff; color: #001d35; border-radius: 100px; font-size: 0.85rem; font-weight: 500;">
-              Node.js</div>
-            <div
-              style="padding: 8px 16px; border: 1px dashed var(--text-secondary); color: var(--text-secondary); border-radius: 100px; font-size: 0.85rem; font-weight: 500;">
-              Docker (Missing)</div>
+        <h3>Job description<br> Match Analysis</h3>
+        <p>Discover how well your skills match the job descriptions you are targeting.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="feature-card">
+        <div class="icon-wrapper icon-red">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+        </div>
+        <h3>ATS Optimization</h3>
+        <p>Ensure your formatting and keywords bypass Applicant Tracking Systems with ease.</p>
+      </div>
+
+      <!-- Card 1 -->
+      <div class="feature-card">
+        <div class="icon-wrapper icon-blue">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+          </svg>
+        </div>
+        <h3>AI Resume Building</h3>
+        <p>Create tailored resumes effortlessly and track your progress all in one place.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="feature-card">
+        <div class="icon-wrapper icon-green">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <h3>Score Tracking</h3>
+        <p>Save time and effort by monitoring your resume score improvements for every role.</p>
+      </div>
+
+
+
+
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="hiw-header">
+      <h2>How ResuFit Works</h2>
+      <p>The step-by-step process of optimizing your resume</p>
+    </div>
+
+    <div class="process-wrapper">
+      <div class="process-timeline">
+        <div class="timeline-line"></div>
+        <div class="timeline-progress"></div>
+
+        <!-- Step 1 -->
+        <div class="process-step">
+          <div class="step-indicator active">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="step-card">
+            <div class="step-icon">
+              <!-- Upload -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <div class="step-number">STEP 1</div>
+            <h4 style="font-family: 'DM Sans', sans-serif;">Upload<br>Resume</h4>
           </div>
         </div>
-      </div>
 
-      <!-- Standard Card -->
-      <div class="bento-card">
-        <div class="card-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
-        </div>
-        <h3>Grammar & Tone</h3>
-        <p>Delivers error-free grammar and powerful action verbs using advanced NLP.</p>
-      </div>
-
-      <!-- Standard Card -->
-      <div class="bento-card">
-        <div class="card-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="3" y1="9" x2="21" y2="9"></line>
-            <line x1="9" y1="21" x2="9" y2="9"></line>
-          </svg>
-        </div>
-        <h3>ATS Simulation</h3>
-        <p>We parse your resume exactly how Workday, Greenhouse, and Lever will, to ensure perfect formatting
-          extraction.</p>
-      </div>
-
-      <!-- Large / Tall Card -->
-      <div class="bento-card large">
-        <div class="card-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="17 8 12 3 7 8"></polyline>
-            <line x1="12" y1="3" x2="12" y2="15"></line>
-          </svg>
-        </div>
-        <h3>One-Click Adjustments</h3>
-        <p>Receive inline suggestions to rephrase bullet points. Accept them with one click, and download your refined
-          PDF immediately.</p>
-        <div class="bento-visual">
-          <div
-            style="width: 80%; padding: 16px; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: left;">
-            <p
-              style="text-decoration: line-through; color: var(--text-secondary); margin-bottom: 8px; font-size: 0.9rem;">
-              Did the marketing for the new product launch...</p>
-            <p style="color: var(--text-primary); font-weight: 500; font-size: 0.9rem;">Spearheaded go-to-market
-              strategy for flagship launch, driving 150% YoY growth...</p>
-            <div
-              style="margin-top: 12px; display: inline-block; padding: 4px 12px; background: #c2e7ff; color: #001d35; border-radius: 100px; font-size: 0.8rem; font-weight: 500;">
-              Accept Suggestion</div>
+        <!-- Step 2 -->
+        <div class="process-step">
+          <div class="step-indicator">02</div>
+          <div class="step-card">
+            <div class="step-icon">
+              <!-- Target -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg>
+            </div>
+            <div class="step-number">STEP 2</div>
+            <h4 style="font-family: 'DM Sans', sans-serif;">Paste Job<br>Description</h4>
           </div>
         </div>
+
+        <!-- Step 3 -->
+        <div class="process-step">
+          <div class="step-indicator">03</div>
+          <div class="step-card">
+            <div class="step-icon">
+              <!-- Magnify -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <div class="step-number">STEP 3</div>
+            <h4 style="font-family: 'DM Sans', sans-serif;">AI Match<br>Analysis</h4>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="process-step">
+          <div class="step-indicator">04</div>
+          <div class="step-card">
+            <div class="step-icon">
+              <!-- Edit -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+            </div>
+            <div class="step-number">STEP 4</div>
+            <h4 style="font-family: 'DM Sans', sans-serif;">Grammar &<br>Tone Edit</h4>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="process-step">
+          <div class="step-indicator">05</div>
+          <div class="step-card">
+            <div class="step-icon">
+              <!-- Check -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+              </svg>
+            </div>
+            <div class="step-number">STEP 5</div>
+            <h4 style="font-family: 'DM Sans', sans-serif;">ATS Friendly<br>Formatting</h4>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="process-step">
+          <div class="step-indicator">06</div>
+          <div class="step-card">
+            <div class="step-icon">
+              <!-- Review -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <div class="step-number">STEP 6</div>
+            <h4 style="font-family: 'DM Sans', sans-serif;">Accept<br>Suggestions</h4>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="process-step">
+          <div class="step-indicator">07</div>
+          <div class="step-card">
+            <div class="step-icon">
+              <!-- Download -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+            </div>
+            <div class="step-number">STEP 7</div>
+            <h4 style="font-family: 'DM Sans', sans-serif;">Download<br>Final PDF</h4>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Comparison Section -->
-  <section class="comparison">
-    <div class="gradient-text" style="font-size: 60px;">10x</div>
-    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 16px;">Higher Call-Back Rates</h2>
-    <p style="font-size: 1.15rem; color: var(--text-secondary); max-width: 500px; margin: 0 auto;">Candidates who align
-      their resumes to JD requirements see a massive increase in recruiter responses. Stop guessing and start screening.
-    </p>
+  <!-- Comparison / CTA Section -->
+  <section class="comparison-section">
+    <div class="comparison-content">
+      <h2 class="comparison-title"> <span class="stat-huge gradient-text" style="font-size: 40px;">10x </span> Higher Call-Back Rates</h2>
+      <p class="comparison-desc">Candidates who perfectly align their resumes to JD requirements experience a massive
+        increase in recruiter responses. Stop guessing and start landing interviews.</p>
+      <a href="/register" class="btn-primary comparison-btn">
+        Optimize Your Resume Now
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    &copy; 2026 ResuFit. Built for precision.
+    @ 2026 ResuFit. Built for precision.
   </footer>
 
 </body>
