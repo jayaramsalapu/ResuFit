@@ -11,32 +11,42 @@
         }
     </script>
     <!-- Fonts -->
+    <!-- Use DM Sans for NotebookLM look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* Cinematic Apple-Style Dark Theme */
-            --bg: #000000;
-            --bg-alt: #0a0a0c;
-            --text: #f5f5f7;
-            --text-muted: #86868b;
-            --primary: #0071e3;
-            --primary-hover: #0077ed;
+            /* NotebookLM Base Theme Variables */
+            --bg: #F0F4F9;
+            --surface: #F0F4F9;
+            --surface-variant: #E3E3E3;
+            --text-primary: #1F1F1F;
+            --text-secondary: #444746;
+            --primary: #0B57D0;
+            --primary-container: #D3E3FD;
+            --on-primary-container: #041E49;
+            --ai-gradient: linear-gradient(90deg, #4285f4 0%, #9b72cb 50%, #d96570 100%);
+            --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-sm: 12px;
+            --radius-md: 24px;
+            --radius-lg: 32px;
 
-            /* Gradients for UI accents */
-            --gradient-start: #32c5ff;
-            --gradient-mid: #b620e0;
-            --gradient-end: #f7b500;
-
-            --card-bg: rgba(20, 20, 22, 0.4);
-            --card-border: rgba(255, 255, 255, 0.08);
-
-            --font-body: 'Inter', -apple-system, sans-serif;
-            --font-heading: 'Outfit', -apple-system, sans-serif;
+            /* Legacy component-specific variables */
+            --bg-alt: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text: #1F1F1F;
+            --text-muted: #444746;
+            --primary-hover: #0842A0;
+            --card-border: #E3E3E3;
+            --gradient-start: #4285f4;
+            --gradient-mid: #9b72cb;
+            --gradient-end: #d96570;
+            --accent-green: #188038;
+            --accent-red: #D93025;
+            --font-body: var(--font-family);
+            --font-heading: var(--font-family);
         }
 
         * {
@@ -57,7 +67,7 @@
         }
 
         /* Ambient Glows */
-        .bg-glow {
+        .bg-glow { display: none !important;
             position: fixed;
             top: 0;
             left: 0;
@@ -121,7 +131,7 @@
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -151,8 +161,8 @@
         }
 
         .btn-logout {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--bg-alt);
+            border: 1px solid var(--card-border);
             color: var(--text);
             padding: 8px 20px;
             border-radius: 10px;
@@ -163,7 +173,7 @@
         }
 
         .btn-logout:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--bg-alt);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
@@ -221,7 +231,7 @@
             color: inherit;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             /* Transform style for children to be popped out in 3D */
             transform-style: preserve-3d;
             transition: border-color 0.4s ease, box-shadow 0.4s ease;
@@ -251,7 +261,7 @@
         /* Card Hover Effects */
         .feature-card:hover {
             border-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 40px 80px -20px rgba(50, 197, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         /* 3D Popping Elements */
@@ -260,7 +270,7 @@
             height: 64px;
             border-radius: 20px;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--card-border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -337,8 +347,8 @@
             font-weight: 600;
             padding: 6px 12px;
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--bg-alt);
+            border: 1px solid var(--card-border);
             color: var(--text-muted);
             letter-spacing: 0.02em;
             text-transform: uppercase;
@@ -429,9 +439,8 @@
 <body>
 
     <!-- Cinematic Background -->
-    <div class="bg-glow">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
+    
+        
     </div>
 
     <!-- Navigation -->

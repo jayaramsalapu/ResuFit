@@ -7,27 +7,44 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #000000;
-            --bg-alt: #0a0a0c;
-            --text: #f5f5f7;
-            --text-muted: #86868b;
-            --primary: #0071e3;
-            --gradient-start: #32c5ff;
-            --gradient-mid: #b620e0;
-            --gradient-end: #f7b500;
-            --card-bg: rgba(20, 20, 22, 0.4);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --font-body: 'Inter', -apple-system, sans-serif;
-            --font-heading: 'Outfit', -apple-system, sans-serif;
+            /* NotebookLM Base Theme Variables */
+            --bg: #F0F4F9;
+            --surface: #F0F4F9;
+            --surface-variant: #E3E3E3;
+            --text-primary: #1F1F1F;
+            --text-secondary: #444746;
+            --primary: #0B57D0;
+            --primary-container: #D3E3FD;
+            --on-primary-container: #041E49;
+            --ai-gradient: linear-gradient(90deg, #4285f4 0%, #9b72cb 50%, #d96570 100%);
+            --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-sm: 12px;
+            --radius-md: 24px;
+            --radius-lg: 32px;
+
+            /* Legacy component-specific variables */
+            --bg-alt: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text: #1F1F1F;
+            --text-muted: #444746;
+            --primary-hover: #0842A0;
+            --card-border: #E3E3E3;
+            --gradient-start: #4285f4;
+            --gradient-mid: #9b72cb;
+            --gradient-end: #d96570;
+            --accent-green: #188038;
+            --accent-red: #D93025;
+            --font-body: var(--font-family);
+            --font-heading: var(--font-family);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.5; min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-        .bg-glow { position: fixed; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+        .bg-glow { display: none !important; position: fixed; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; z-index: 0; pointer-events: none; }
         .glow-orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.8; }
         .orb-1 { top: -20%; left: 10%; width: 800px; height: 800px; background: radial-gradient(circle, rgba(50, 197, 255, 0.07) 0%, transparent 60%); }
         .orb-2 { bottom: -20%; right: -10%; width: 1000px; height: 1000px; background: radial-gradient(circle, rgba(182, 32, 224, 0.08) 0%, transparent 60%); }
@@ -35,35 +52,35 @@
         h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; letter-spacing: -0.03em; }
         .gradient-text { background: linear-gradient(110deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
 
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .logo { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.3s ease; }
         .logo:hover { color: #32c5ff; }
 
         .nav-right { display: flex; align-items: center; gap: 24px; }
         .user-email { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; }
 
-        .btn-nav, .btn-logout { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text); padding: 8px 20px; border-radius: 10px; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: all 0.3s ease; }
+        .btn-nav, .btn-logout { background: var(--bg-alt); border: 1px solid var(--card-border); color: var(--text); padding: 8px 20px; border-radius: 10px; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: all 0.3s ease; }
         .btn-nav { background: transparent; border-color: transparent; }
-        .btn-nav:hover, .btn-logout:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
+        .btn-nav:hover, .btn-logout:hover { background: var(--bg-alt); transform: translateY(-2px); }
 
         .main-container { max-width: 800px; margin: 0 auto; padding: 160px 24px 80px; position: relative; z-index: 10; }
         .header-section { text-align: center; margin-bottom: 48px; animation: fadeDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .header-section h1 { font-size: 3rem; margin-bottom: 16px; }
         .header-section p { font-size: 1.1rem; color: var(--text-muted); }
 
-        .upload-card { background: var(--card-bg); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; padding: 40px; margin-bottom: 32px; animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .upload-card { background: var(--card-bg); backdrop-filter: blur(40px); border: 1px solid var(--card-border); border-radius: 32px; padding: 40px; margin-bottom: 32px; animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
         .upload-box { background: rgba(255,255,255,0.02); border: 1px dashed rgba(50, 197, 255, 0.3); border-radius: 20px; padding: 40px; text-align: center; transition: all 0.3s ease; cursor: pointer; margin-bottom: 24px; }
         .upload-box:hover { border-color: rgba(50, 197, 255, 0.8); background: rgba(50, 197, 255, 0.05); }
 
         input[type="file"] { display: none; }
-        .btn-upload { background: rgba(255,255,255,0.1); color: var(--text); border: 1px solid rgba(255,255,255,0.2); padding: 12px 28px; border-radius: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
-        .upload-box:hover .btn-upload { background: var(--primary); border-color: var(--primary); color: white; }
+        .btn-upload { background: var(--bg-alt); color: var(--text); border: 1px solid rgba(255,255,255,0.2); padding: 12px 28px; border-radius: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+        .upload-box:hover .btn-upload { background: var(--primary); border-color: var(--primary); color: var(--text); }
 
-        .jd-textarea { width: 100%; height: 200px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; color: #fff; font-family: var(--font-body); font-size: 1rem; resize: none; outline: none; transition: border-color 0.3s; margin-bottom: 30px; }
+        .jd-textarea { width: 100%; height: 200px; background: rgba(255, 255, 255, 0.95); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; color: var(--text); font-family: var(--font-body); font-size: 1rem; resize: none; outline: none; transition: border-color 0.3s; margin-bottom: 30px; }
         .jd-textarea:focus { border-color: var(--primary); }
 
-        .btn-analyze { background: linear-gradient(110deg, var(--gradient-start) 0%, var(--gradient-mid) 100%); color: white; border: none; padding: 16px 40px; border-radius: 16px; font-weight: 700; font-size: 1.1rem; cursor: pointer; width: 100%; transition: all 0.3s ease; }
+        .btn-analyze { background: linear-gradient(110deg, var(--gradient-start) 0%, var(--gradient-mid) 100%); color: var(--text); border: none; padding: 16px 40px; border-radius: 16px; font-weight: 700; font-size: 1.1rem; cursor: pointer; width: 100%; transition: all 0.3s ease; }
         .btn-analyze:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 15px 40px rgba(182, 32, 224, 0.5); }
 
         .results-container { margin-top: 64px; animation: fadeUp 0.8s ease forwards; }
@@ -71,9 +88,9 @@
         .score-badge { background: rgba(50, 197, 255, 0.1); color: var(--gradient-start); padding: 12px 24px; border-radius: 100px; font-size: 1.2rem; font-weight: 700; border: 1px solid rgba(50, 197, 255, 0.2); }
 
         .result-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--card-border); border-radius: 24px; padding: 32px; margin-bottom: 24px; }
-        .result-card h3 { font-size: 1.25rem; margin-bottom: 20px; color: #fff; }
+        .result-card h3 { font-size: 1.25rem; margin-bottom: 20px; color: var(--text); }
 
-        .pill { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 100px; font-size: 0.95rem; display: inline-block; margin: 4px; }
+        .pill { background: var(--bg-alt); border: 1px solid var(--card-border); padding: 6px 16px; border-radius: 100px; font-size: 0.95rem; display: inline-block; margin: 4px; }
         .pill.match { background: rgba(52,199,89,0.1); color: #34c759; border-color: rgba(52,199,89,0.2); }
         .pill.missing { background: rgba(255,59,48,0.1); color: #ff3b30; border-color: rgba(255,59,48,0.2); }
 
@@ -123,9 +140,8 @@
     </style>
 </head>
 <body>
-    <div class="bg-glow">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
+    
+        
     </div>
 
     <nav class="navbar">
@@ -172,15 +188,15 @@
             <div class="result-card">
                 <h3>Candidate Info</h3>
                 <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
-                    <div class="info-box" style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div class="info-box" style="background: var(--bg-alt); padding: 16px; border-radius: 12px; border: 1px solid var(--card-border);">
                         <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 8px;">Name</div>
                         <div style="font-size: 1.05rem; word-break: break-word;">{{ result.get('candidate', {}).get('name', 'N/A') }}</div>
                     </div>
-                    <div class="info-box" style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div class="info-box" style="background: var(--bg-alt); padding: 16px; border-radius: 12px; border: 1px solid var(--card-border);">
                         <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 8px;">Email</div>
                         <div style="font-size: 1.05rem; word-break: break-word;">{{ result.get('candidate', {}).get('email', 'N/A') }}</div>
                     </div>
-                    <div class="info-box" style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div class="info-box" style="background: var(--bg-alt); padding: 16px; border-radius: 12px; border: 1px solid var(--card-border);">
                         <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 8px;">Phone</div>
                         <div style="font-size: 1.05rem; word-break: break-word;">{{ result.get('candidate', {}).get('phone', 'N/A') }}</div>
                     </div>
@@ -191,7 +207,7 @@
             <div class="result-card">
                 <h3>Skills Analysis</h3>
                 
-                <h4 style="margin-bottom: 12px; color: #fff;">Matched Skills</h4>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Matched Skills</h4>
                 <div style="margin-bottom: 24px;">
                     {% for skill in result.get('skills', {}).get('matched', []) %}
                     <span class="pill match">{{ skill }}</span>
@@ -199,7 +215,7 @@
                     {% if not result.get('skills', {}).get('matched') %}<p style="color:var(--text-muted); font-size:0.95rem;">None detected.</p>{% endif %}
                 </div>
 
-                <h4 style="margin-bottom: 12px; color: #fff;">Missing Crucial Skills</h4>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Missing Crucial Skills</h4>
                 <div style="margin-bottom: 24px;">
                     {% for skill in result.get('skills', {}).get('missing', []) %}
                     <span class="pill missing">{{ skill }}</span>
@@ -207,7 +223,7 @@
                     {% if not result.get('skills', {}).get('missing') %}<p style="color:#34c759; font-size:0.95rem;">No missing crucial skills!</p>{% endif %}
                 </div>
 
-                <h4 style="margin-bottom: 12px; color: #fff;">Irrelevant Skills</h4>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Irrelevant Skills</h4>
                 <div style="margin-bottom: 24px;">
                     {% for skill in result.get('skills', {}).get('irrelevant', []) %}
                     <span class="pill" style="color:var(--text-muted); border-style:dashed;">{{ skill }}</span>
@@ -215,7 +231,7 @@
                     {% if not result.get('skills', {}).get('irrelevant') %}<p style="color:var(--text-muted); font-size:0.95rem;">None tracked.</p>{% endif %}
                 </div>
 
-                <h4 style="margin-bottom: 12px; color: #fff;">Suggested Skills to Add</h4>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Suggested Skills to Add</h4>
                 <ul class="styled-list">
                     {% for skill in result.get('skills', {}).get('suggestions', []) %}
                     <li>{{ skill }}</li>
@@ -229,7 +245,7 @@
                 <p style="color:var(--text-muted); margin-bottom:20px; line-height:1.6;"><strong>Relevance:</strong> {{ result.get('experience', {}).get('relevance', 'N/A') }}</p>
                 
                 {% if result.get('experience', {}).get('issues') %}
-                <h4 style="margin-bottom: 12px; color: #fff;">Identified Issues</h4>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Identified Issues</h4>
                 <ul class="styled-list" style="margin-bottom:24px;">
                     {% for issue in result.get('experience', {}).get('issues', []) %}
                     <li>{{ issue }}</li>
@@ -253,7 +269,7 @@
                 <p style="color:var(--text-muted); margin-bottom:20px; line-height:1.6;"><strong>Relevance:</strong> {{ result.get('projects', {}).get('relevance', 'N/A') }}</p>
                 
                 {% if result.get('projects', {}).get('issues') %}
-                <h4 style="margin-bottom: 12px; color: #fff;">Issues</h4>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Issues</h4>
                 <ul class="styled-list" style="margin-bottom:24px;">
                     {% for issue in result.get('projects', {}).get('issues', []) %}
                     <li>{{ issue }}</li>
@@ -262,7 +278,7 @@
                 {% endif %}
 
                 {% if result.get('projects', {}).get('suggestions') %}
-                <h4 style="margin-bottom: 12px; color: #fff;">Suggestions</h4>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Suggestions</h4>
                 <ul class="styled-list">
                     {% for pt in result.get('projects', {}).get('suggestions', []) %}
                     <li>{{ pt }}</li>
@@ -286,9 +302,9 @@
                 </div>
                 <div class="result-card" style="margin-bottom: 0;">
                     <h3>Certifications Check</h3>
-                    <h4 style="margin-bottom: 8px; color: #fff;">Existing:</h4>
+                    <h4 style="margin-bottom: 8px; color: var(--text);">Existing:</h4>
                     <p style="color:var(--text-muted); margin-bottom:16px;">{{ result.get('certifications', {}).get('existing', []) | join(', ') }}</p>
-                    <h4 style="margin-bottom: 8px; color: #fff;">Recommended:</h4>
+                    <h4 style="margin-bottom: 8px; color: var(--text);">Recommended:</h4>
                     <ul class="styled-list">
                         {% for cert in result.get('certifications', {}).get('recommended', []) %}
                         <li>{{ cert }}</li>
@@ -320,14 +336,14 @@
                 
                 <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin: 32px 0;">
 
-                <h4 style="margin-bottom: 12px; color: #fff;">Structural Issues</h4>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Structural Issues</h4>
                 <ul class="styled-list" style="margin-bottom:24px;">
                     {% for pt in result.get('structure', {}).get('issues', []) %}
                     <li>{{ pt }}</li>
                     {% endfor %}
                 </ul>
 
-                <h4 style="margin-bottom: 12px; color: #fff;">Structural Suggestions</h4>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Structural Suggestions</h4>
                 <ul class="styled-list">
                     {% for pt in result.get('structure', {}).get('suggestions', []) %}
                     <li>{{ pt }}</li>

@@ -5,29 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | Resufit</title>
+    <!-- Use DM Sans for NotebookLM look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Cinematic Apple-Style Dark Theme */
-            --bg: #000000;
-            --bg-alt: #0a0a0c;
-            --text: #f5f5f7;
-            --text-muted: #86868b;
-            --primary: #0071e3;
-            --primary-hover: #0077ed;
-            --gradient-start: #32c5ff;
-            --gradient-mid: #b620e0;
-            --gradient-end: #f7b500;
+            /* NotebookLM Base Theme Variables */
+            --bg: #F0F4F9;
+            --surface: #F0F4F9;
+            --surface-variant: #E3E3E3;
+            --text-primary: #1F1F1F;
+            --text-secondary: #444746;
+            --primary: #0B57D0;
+            --primary-container: #D3E3FD;
+            --on-primary-container: #041E49;
+            --ai-gradient: linear-gradient(90deg, #4285f4 0%, #9b72cb 50%, #d96570 100%);
+            --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-sm: 12px;
+            --radius-md: 24px;
+            --radius-lg: 32px;
 
-            --card-bg: #111112;
-            --card-border: rgba(255, 255, 255, 0.1);
-
-            --font-body: 'Inter', -apple-system, sans-serif;
-            --font-heading: 'Outfit', -apple-system, sans-serif;
+            /* Legacy component-specific variables */
+            --bg-alt: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text: #1F1F1F;
+            --text-muted: #444746;
+            --primary-hover: #0842A0;
+            --card-border: #E3E3E3;
+            --gradient-start: #4285f4;
+            --gradient-mid: #9b72cb;
+            --gradient-end: #d96570;
+            --accent-green: #188038;
+            --accent-red: #D93025;
+            --font-body: var(--font-family);
+            --font-heading: var(--font-family);
         }
 
         * {
@@ -48,7 +60,7 @@
         }
 
         /* Soft ambient glows in background */
-        .bg-glow {
+        .bg-glow { display: none !important;
             position: absolute;
             top: 0;
             left: 0;
@@ -143,11 +155,11 @@
         .auth-card {
             width: 100%;
             max-width: 900px;
-            background: rgba(20, 20, 22, 0.6);
+            background: var(--card-bg);
             backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--card-border); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             border-radius: 32px;
-            box-shadow: 0 40px 100px -20px rgba(182, 32, 224, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             animation: scrollFadeUpScale 1s cubic-bezier(0.16, 1, 0.3, 1) ease-out;
             display: flex;
             flex-direction: row;
@@ -199,7 +211,7 @@
 
         .form-control {
             width: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.95);
             border: 1px solid var(--card-border);
             color: var(--text);
             padding: 14px 16px;
@@ -213,17 +225,17 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.25);
-            background: rgba(0, 0, 0, 0.8);
+            background: #f9fafb; color: var(--text);
         }
 
         .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(0,0,0,0.1);
         }
 
         /* Right Side: Alternative Sign In */
         .auth-right {
             flex: 1;
-            background: rgba(0, 0, 0, 0.4);
+            background: var(--bg-alt);
             border-left: 1px solid var(--card-border);
             padding: 48px;
             display: flex;
@@ -255,7 +267,7 @@
 
         .btn-blue {
             background: var(--primary);
-            color: white;
+            color: #ffffff;
             border-color: var(--primary);
             margin-top: 8px;
         }
@@ -273,7 +285,7 @@
         }
 
         .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--bg-alt);
             transform: translateY(-2px);
         }
 
@@ -337,8 +349,7 @@
 <body>
 
     <!-- Background Ambient Glow -->
-    <div class="bg-glow">
-        <div class="glow-orb"></div>
+    
     </div>
 
     <!-- Navbar -->
