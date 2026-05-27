@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+  <title>
+  
+  {{ data.personal_info.name }} Resume
+
+  </title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+
+      background:#e5e5e5;
+
+      font-family:Arial,sans-serif;
+
+      display:flex;
+
+      justify-content:center;
+
+      padding:40px 20px;
+    }
+
+    .resume{
+
+      width:800px;
+
+      background:#fff;
+
+      padding:40px;
+
+      color:#222;
+
+      box-shadow:
+      0 0 10px rgba(0,0,0,0.1);
+    }
+
+    /* HEADER */
+
+    .header{
+
+      text-align:center;
+
+      margin-bottom:25px;
+    }
+
+    .header h1{
+
+      font-size:42px;
+
+      font-weight:800;
+
+      letter-spacing:1px;
+    }
+
+    .header h2{
+
+      font-size:22px;
+
+      font-weight:500;
+
+      margin-top:5px;
+
+      color:#444;
+    }
+
+    .contact{
+
+      display:flex;
+
+      justify-content:center;
+     
+      gap:30px;
+
+      margin-top:15px;
+
+      font-size:14px;
+
+      flex-wrap:wrap;
+    }
+
+    /* SECTION */
+
+    .section{
+
+    margin-top:30px;
+
+    page-break-inside:avoid;
+}
+
+    .section-title{
+
+      font-size:24px;
+
+      font-weight:800;
+
+      margin-bottom:15px;
+
+      border-bottom:2px solid #999;
+
+      padding-bottom:8px;
+
+      letter-spacing:1px;
+    }
+
+    .about-text{
+
+      font-size:15px;
+
+      line-height:1.8;
+
+      color:#333;
+    }
+
+    /* ITEMS */
+
+    .item{
+
+      margin-bottom:24px;
+    }
+
+    .item-header{
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      margin-bottom:6px;
+
+      flex-wrap:wrap;
+    }
+
+    .item-header h3{
+
+      font-size:18px;
+
+      font-weight:700;
+    }
+
+    .date{
+
+      font-size:14px;
+
+      color:#555;
+
+      font-weight:600;
+    }
+
+    .role{
+
+      font-size:15px;
+
+      font-weight:bold;
+
+      margin-bottom:8px;
+
+      color:#333;
+    }
+
+    .description{
+
+      font-size:14px;
+
+      line-height:1.7;
+
+      color:#444;
+    }
+
+    /* SKILLS */
+
+    .skills{
+
+    columns:2;
+
+    -webkit-columns:2;
+
+    -moz-columns:2;
+
+    margin-top:10px;
+
+    padding-left:20px;
+}
+
+    .skills li{
+
+    margin-bottom:10px;
+
+    font-size:15px;
+
+    break-inside:avoid;
+}
+
+    /* PROJECTS */
+
+    .project-tech{
+
+      margin-top:10px;
+
+      display:flex;
+
+      flex-wrap:wrap;
+
+      gap:8px;
+    }
+
+    .tech-badge{
+
+      background:#f1f5f9;
+
+      padding:6px 12px;
+
+      border-radius:20px;
+
+      font-size:12px;
+
+      font-weight:600;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:768px){
+
+      .resume{
+        padding:25px;
+      }
+
+      .header h1{
+        font-size:30px;
+      }
+
+      .header h2{
+        font-size:18px;
+      }
+
+      .section-title{
+        font-size:20px;
+      }
+
+      .skills{
+        grid-template-columns:1fr;
+      }
+
+      .item-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:5px;
+      }
+
+    }
+    .download-section{
+
+    text-align:center;
+    margin-top:20px;
+}
+
+.download-btn{
+
+    display:inline-block;
+
+    padding:16px 32px;
+    background:#7c3aed;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    transition:0.3s ease;
+}
+
+.download-btn:hover{
+
+    transform:translateY(-2px);
+
+    background:#7f9bea;
+}
+@media print {
+
+    .download-section{
+        display:none;
+    }
+
+}
+  </style>
+
+</head>
+
+<body>
+
+
+</div>
+
+  <div class="resume">
+
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+      <h1>
+        {{ data.personal_info.name }}
+      </h1>
+
+
+      <div class="contact">
+
+        {% if data.personal_info.phone %}
+        <span>
+          📞 {{ data.personal_info.phone }}
+        </span>
+        {% endif %}
+
+        {% if data.personal_info.email %}
+        <span>
+          ✉️ {{ data.personal_info.email }}
+        </span>
+        {% endif %}
+
+        {% if data.personal_info.linkedin %}
+        <span>
+          🔗 {{ data.personal_info.linkedin }}
+        </span>
+        {% endif %}
+
+        {% if data.personal_info.github %}
+        <span>
+          💻 {{ data.personal_info.github }}
+        </span>
+        {% endif %}
+
+        {% if data.personal_info.portfolio %}
+        <span>
+          🌐 {{ data.personal_info.portfolio }}
+        </span>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+    <!-- ABOUT -->
+
+    {% if data.summary %}
+
+    <div class="section">
+
+      <div class="section-title">
+        ABOUT ME
+      </div>
+
+      <p class="about-text">
+
+        {{ data.summary }}
+
+      </p>
+
+    </div>
+
+    {% endif %}
+
+    <!-- EXPERIENCE -->
+
+    {% if data.experience %}
+
+    <div class="section">
+
+      <div class="section-title">
+        WORK EXPERIENCE
+      </div>
+
+      {% for exp in data.experience %}
+
+      <div class="item">
+
+        <div class="item-header">
+
+          <h3>
+            {{ exp.company }}
+          </h3>
+
+          <span class="date">
+            {{ exp.duration }}
+          </span>
+
+        </div>
+
+        <div class="role">
+          {{ exp.role }}
+        </div>
+
+        <p class="description">
+          {{ exp.description }}
+        </p>
+
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    <!-- PROJECTS -->
+
+    {% if data.projects %}
+
+    <div class="section">
+
+      <div class="section-title">
+        PROJECTS
+      </div>
+
+      {% for project in data.projects %}
+
+      <div class="item">
+
+        <div class="item-header">
+
+          <h3>
+            {{ project.title }}
+          </h3>
+
+        </div>
+
+        <p class="description">
+
+          {{ project.description }}
+
+        </p>
+
+        {% if project.technologies %}
+
+        <div class="project-tech">
+
+          {% for tech in project.technologies %}
+
+          <span class="tech-badge">
+
+            {{ tech }}
+
+          </span>
+
+          {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    <!-- EDUCATION -->
+
+    {% if data.education %}
+
+    <div class="section">
+
+      <div class="section-title">
+        EDUCATION
+      </div>
+
+      {% for edu in data.education %}
+
+      <div class="item">
+
+        <div class="item-header">
+
+          <h3>
+            {{ edu.institution }}
+          </h3>
+
+          <span class="date">
+            {{ edu.year }}
+          </span>
+
+        </div>
+
+        <div class="role">
+          {{ edu.degree }}
+        </div>
+
+      </div>
+
+      {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    <!-- SKILLS -->
+
+    {% if data.skills %}
+
+    <div class="section">
+
+      <div class="section-title">
+        SKILLS
+      </div>
+
+      <ul class="skills">
+
+        {% for skill in data.skills %}
+
+        <li>
+          {{ skill }}
+        </li>
+
+        {% endfor %}
+
+      </ul>
+
+    </div>
+
+    {% endif %}
+
+    <!-- CERTIFICATIONS -->
+
+    {% if data.certifications %}
+
+    <div class="section">
+
+      <div class="section-title">
+        CERTIFICATIONS
+      </div>
+
+      <ul class="skills">
+
+        {% for cert in data.certifications %}
+
+        <li>
+          {{ cert }}
+        </li>
+
+        {% endfor %}
+
+      </ul>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+{% if pdf_mode != True %}
+
+<div class="download-section" style="margin-left: 10px;">
+
+    <a href="/download_resume/{{ selected_template }}"
+       class="download-btn">
+
+        Download PDF
+
+    </a>
+{% endif %}
+
+
+
+</body>
+
+</html>

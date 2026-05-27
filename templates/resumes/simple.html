@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Minimal Resume</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            background:#d9d9d9;
+
+            font-family:Arial,sans-serif;
+
+            padding:40px 0;
+        }
+
+        .resume{
+
+            width:210mm;
+
+            min-height:297mm;
+
+            background:white;
+
+            margin:auto;
+
+            padding:24mm 20mm;
+
+            color:#333;
+
+            box-shadow:
+            0 0 20px rgba(0,0,0,0.15);
+        }
+
+        /* HEADER */
+
+        .header{
+
+            margin-bottom:28px;
+        }
+
+        .name{
+
+            font-size:42px;
+
+            font-weight:800;
+
+            color:#2f2f2f;
+
+            margin-bottom:6px;
+
+            letter-spacing:1px;
+        }
+
+        .title{
+
+            font-size:20px;
+
+            font-weight:700;
+
+            color:#444;
+
+            margin-bottom:10px;
+        }
+
+        .contact{
+
+            font-size:13px;
+
+            color:#666;
+
+            line-height:1.6;
+        }
+
+        /* SECTION */
+
+        .section{
+
+            margin-top:24px;
+
+            page-break-inside:avoid;
+        }
+
+        .section-title{
+
+            background:#d9d9d9;
+
+            border-radius:20px;
+
+            padding:8px 16px;
+
+            font-size:15px;
+
+            font-weight:800;
+
+            letter-spacing:1px;
+
+            color:#444;
+
+            margin-bottom:18px;
+
+            text-transform:uppercase;
+        }
+
+        /* ABOUT */
+
+        .summary{
+
+            font-size:14px;
+
+            line-height:1.8;
+
+            color:#444;
+        }
+
+        /* SKILLS */
+
+        .skills-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(3,1fr);
+
+            gap:18px;
+        }
+
+        .skills-grid ul{
+
+            list-style:none;
+        }
+
+        .skills-grid li{
+
+            font-size:14px;
+
+            margin-bottom:8px;
+
+            color:#444;
+        }
+
+        /* EXPERIENCE */
+
+        .experience-item{
+
+            margin-bottom:24px;
+        }
+
+        .exp-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:flex-start;
+
+            margin-bottom:6px;
+        }
+
+        .company{
+
+            font-size:17px;
+
+            font-weight:800;
+
+            color:#333;
+        }
+
+        .date{
+
+            font-size:13px;
+
+            color:#555;
+
+            font-weight:600;
+        }
+
+        .role{
+
+            font-size:14px;
+
+            font-weight:700;
+
+            margin-bottom:10px;
+
+            color:#444;
+        }
+
+        .experience-item ul{
+
+            padding-left:18px;
+        }
+
+        .experience-item li{
+
+            font-size:14px;
+
+            line-height:1.7;
+
+            margin-bottom:6px;
+
+            color:#444;
+        }
+
+        /* EDUCATION */
+
+        .education-item{
+
+            margin-bottom:20px;
+        }
+
+        .education-item h3{
+
+            font-size:16px;
+
+            font-weight:800;
+
+            margin-bottom:4px;
+        }
+
+        .education-role{
+
+            font-size:14px;
+
+            font-weight:600;
+
+            color:#444;
+
+            margin-bottom:4px;
+        }
+
+        .education-date{
+
+            font-size:13px;
+
+            color:#555;
+        }
+
+        /* ADDITIONAL INFO */
+
+        .additional-info{
+
+            font-size:14px;
+
+            line-height:1.8;
+
+            color:#444;
+        }
+
+        .additional-info strong{
+
+            color:#222;
+        }
+
+        /* PDF */
+
+        @page{
+            size:A4;
+            margin:0;
+        }
+
+        @media print{
+
+            body{
+                background:white;
+                padding:0;
+            }
+
+            .resume{
+                box-shadow:none;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="resume">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <div class="name">
+
+                {{ data.personal_info.name }}
+
+            </div>
+
+            <div class="title">
+
+                UX DESIGNER
+
+            </div>
+
+            <div class="contact">
+
+                {% if data.personal_info.phone %}
+                {{ data.personal_info.phone }}
+                {% endif %}
+
+                {% if data.personal_info.email %}
+                | {{ data.personal_info.email }}
+                {% endif %}
+
+                {% if data.personal_info.portfolio %}
+                | {{ data.personal_info.portfolio }}
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- SUMMARY -->
+
+        {% if data.summary %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Summary
+
+            </div>
+
+            <div class="summary">
+
+                {{ data.summary }}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        <!-- TECHNICAL SKILLS -->
+
+        {% if data.skills %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Technical Skills
+
+            </div>
+
+            <div class="skills-grid">
+
+                <ul>
+
+                    {% for skill in data.skills[:5] %}
+
+                    <li>{{ skill }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+                <ul>
+
+                    {% for skill in data.skills[5:10] %}
+
+                    <li>{{ skill }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+                <ul>
+
+                    {% for skill in data.skills[10:15] %}
+
+                    <li>{{ skill }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        <!-- EXPERIENCE -->
+
+        {% if data.experience %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Professional Experience
+
+            </div>
+
+            {% for exp in data.experience %}
+
+            <div class="experience-item">
+
+                <div class="exp-header">
+
+                    <div class="company">
+
+                        {{ exp.company }}
+
+                    </div>
+
+                    <div class="date">
+
+                        {{ exp.duration }}
+
+                    </div>
+
+                </div>
+
+                <div class="role">
+
+                    {{ exp.role }}
+
+                </div>
+
+                <ul>
+
+                    <li>
+
+                        {{ exp.description }}
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+        <!-- EDUCATION -->
+
+        {% if data.education %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Education
+
+            </div>
+
+            {% for edu in data.education %}
+
+            <div class="education-item">
+
+                <div class="exp-header">
+
+                    <h3>
+
+                        {{ edu.institution }}
+
+                    </h3>
+
+                    <div class="date">
+
+                        {{ edu.year }}
+
+                    </div>
+
+                </div>
+
+                <div class="education-role">
+
+                    {{ edu.degree }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+        <!-- ADDITIONAL -->
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Additional Information
+
+            </div>
+
+            <div class="additional-info">
+
+                {% if data.certifications %}
+
+                <strong>Certifications:</strong>
+
+                {{ data.certifications | join(', ') }}
+
+                <br>
+
+                {% endif %}
+
+                <strong>Languages:</strong>
+
+                English
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

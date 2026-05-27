@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+import pdfkit
+from flask import make_response
 import sqlite3
 from flask_bcrypt import Bcrypt
 from google_auth_oauthlib.flow import Flow
@@ -233,7 +235,7 @@ def google_callback():
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
-
+    f
     if request.method == 'POST':
         step = request.form.get('step')
         email = request.form.get('email')
@@ -382,6 +384,199 @@ def logout():
     return redirect('/login')
 
 
+@app.route('/rebuild')
+def rebuild():
+    if 'user_id' not in session:
+        return redirect('/login')
+
+    email = session['email']
+    name = re.sub(r'\d+', '', email.split('@')[0])
+    return render_template('rebuild.html',email=session['email'],name=name)
+
+@app.route('/rebuild_resume', methods=['POST'])
+def rebuild_resume():
+
+    file = request.files.get('resume')
+
+    if not file or file.filename == '':
+        return "No file selected"
+
+    # template selected by user
+    template = request.form.get('template')
+
+    # save uploaded file
+    filename = secure_filename(file.filename)
+
+    filepath = os.path.join(
+        app.config['UPLOAD_FOLDER'],
+        filename
+    )
+
+    file.save(filepath)
+
+    # extract text
+    resume_text = extract_text(filepath)
+
+    # remove uploaded file
+    os.remove(filepath)
+
+    # AI analysis / JSON extraction
+    result = analyze_resume_with_groq(resume_text)
+    session['resume_data'] = result
+    # render selected template
+    return render_template(
+        f"resumes/{template}.html",
+        data=result,selected_template=template,pdf_mode=False
+    )
+
+@app.route('/download_resume/<template>')
+def download_resume(template):
+
+    data = session.get('resume_data')
+
+    rendered = render_template(
+        f"resumes/{template}.html",
+        data=data,
+        selected_template=template
+    )
+
+    config = pdfkit.configuration(
+        wkhtmltopdf=
+        r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+    )
+
+    pdf = pdfkit.from_string(
+        rendered,
+        False,
+        configuration=config
+    )
+
+    response = make_response(pdf)
+
+    response.headers['Content-Type'] = 'application/pdf'
+
+    response.headers['Content-Disposition'] = (
+        'attachment; filename=resume.pdf'
+    )
+
+    return response
+
+@app.route('/builder')
+def builder():
+    return render_template('builder.html')
+
+
+@app.route('/generate_resume', methods=['POST'])
+def generate_resume():
+
+    template = request.form.get('template')
+
+    data = {
+
+        "personal_info": {
+
+            "name":
+            request.form.get('name'),
+
+            "email":
+            request.form.get('email'),
+
+            "phone":
+            request.form.get('phone'),
+
+            "linkedin":
+            request.form.get('linkedin'),
+
+            "github":
+            request.form.get('github'),
+
+            "portfolio":
+            request.form.get('portfolio')
+        },
+
+        "summary":
+        request.form.get('summary'),
+
+        "skills":
+        request.form.get('skills').split(','),
+
+        "experience": [
+
+            {
+
+                "role":
+                request.form.get('role'),
+
+                "company":
+                request.form.get('company'),
+
+                "duration":
+                request.form.get('duration'),
+
+                "description":
+                request.form.get(
+                    'experience_description'
+                )
+            }
+
+        ],
+
+        "projects":[
+
+            {
+
+                "title":
+                request.form.get(
+                    'project_title'
+                ),
+
+                "description":
+                request.form.get(
+                    'project_description'
+                ),
+
+                "technologies":
+                request.form.get(
+                    'technologies'
+                ).split(',')
+            }
+
+        ],
+
+        "education":[
+
+            {
+
+                "degree":
+                request.form.get('degree'),
+
+                "institution":
+                request.form.get('institution'),
+
+                "year":
+                request.form.get('year')
+            }
+
+        ],
+
+        "certifications":
+        request.form.get(
+            'certifications'
+        ).split(',')
+    }
+
+    session['resume_data'] = data
+
+    return render_template(
+
+        f"resumes/{template}.html",
+
+        data=data,
+
+        selected_template=template,
+
+        pdf_mode=False
+    )
 
 if __name__ == '__main__':
     create_table()

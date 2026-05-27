@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        {{ data.personal_info.name }} Resume
+
+    </title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        @page{
+            size:A4;
+            margin:0;
+        }
+
+        body{
+
+            background:#d8d8d8;
+
+            font-family:Arial,sans-serif;
+
+            padding:40px 0;
+        }
+
+        .resume{
+
+            width:210mm;
+
+            min-height:297mm;
+
+            background:#fff;
+
+            margin:auto;
+
+            padding:24mm 22mm;
+
+            color:#333;
+
+            box-shadow:
+            0 0 20px rgba(0,0,0,0.12);
+        }
+
+        /* HEADER */
+
+        .header{
+
+            margin-bottom:30px;
+        }
+
+        .top-line{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:15px;
+
+            margin-bottom:8px;
+        }
+
+        .name{
+
+            font-size:34px;
+
+            font-weight:800;
+
+            color:#3c5f7a;
+
+            text-transform:uppercase;
+
+            letter-spacing:1px;
+        }
+
+        .line{
+
+            flex:1;
+
+            height:2px;
+
+            background:#a7bfd1;
+        }
+
+        .job-title{
+
+            font-size:18px;
+
+            color:#4c6a82;
+
+            margin-bottom:10px;
+
+            font-weight:600;
+        }
+
+        .contact{
+
+            font-size:13px;
+
+            color:#666;
+
+            line-height:1.7;
+        }
+
+        /* SECTION */
+
+        .section{
+
+            margin-top:28px;
+
+            page-break-inside:avoid;
+        }
+
+        .section-title{
+
+            font-size:18px;
+
+            font-weight:800;
+
+            color:#3c5f7a;
+
+            text-transform:uppercase;
+
+            margin-bottom:12px;
+
+            border-bottom:2px solid #a7bfd1;
+
+            padding-bottom:6px;
+        }
+
+        /* TEXT */
+
+        .summary{
+
+            font-size:14px;
+
+            line-height:1.8;
+
+            color:#444;
+        }
+
+        /* EXPERIENCE */
+
+        .item{
+
+            margin-bottom:22px;
+        }
+
+        .company{
+
+            font-size:16px;
+
+            font-weight:700;
+
+            color:#444;
+
+            margin-bottom:3px;
+        }
+
+        .role-date{
+
+            font-size:14px;
+
+            color:#666;
+
+            margin-bottom:8px;
+        }
+
+        .item ul{
+
+            padding-left:18px;
+        }
+
+        .item li{
+
+            font-size:14px;
+
+            line-height:1.8;
+
+            margin-bottom:4px;
+
+            color:#444;
+        }
+
+        /* EDUCATION */
+
+        .education{
+
+            font-size:14px;
+
+            line-height:1.8;
+
+            color:#444;
+        }
+
+        /* SKILLS */
+
+        .skills{
+
+            columns:2;
+
+            column-gap:50px;
+
+            padding-left:18px;
+        }
+
+        .skills li{
+
+            font-size:14px;
+
+            margin-bottom:8px;
+
+            break-inside:avoid;
+        }
+
+        /* DOWNLOAD BUTTON */
+
+        .download-section{
+
+            text-align:center;
+
+            margin-top:40px;
+        }
+
+        .download-btn{
+
+            display:inline-block;
+
+            padding:14px 28px;
+
+            background:#3c5f7a;
+
+            color:white;
+
+            text-decoration:none;
+
+            border-radius:10px;
+
+            font-weight:700;
+        }
+
+        /* PDF */
+
+        @media print{
+
+            body{
+                background:white;
+                padding:0;
+            }
+
+            .resume{
+                box-shadow:none;
+            }
+
+            .download-section{
+                display:none;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="resume">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <div class="top-line">
+
+                <div class="name">
+
+                    {{ data.personal_info.name }}
+
+                </div>
+
+                <div class="line"></div>
+
+            </div>
+
+            <div class="job-title">
+
+                Web Developer
+
+            </div>
+
+            <div class="contact">
+
+                {% if data.personal_info.address %}
+                {{ data.personal_info.address }}
+                {% endif %}
+
+                {% if data.personal_info.phone %}
+                | {{ data.personal_info.phone }}
+                {% endif %}
+
+                {% if data.personal_info.email %}
+                | {{ data.personal_info.email }}
+                {% endif %}
+
+                {% if data.personal_info.portfolio %}
+                | {{ data.personal_info.portfolio }}
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- SUMMARY -->
+
+        {% if data.summary %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Career Summary:
+
+            </div>
+
+            <div class="summary">
+
+                {{ data.summary }}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        <!-- EXPERIENCE -->
+
+        {% if data.experience %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Work Experience:
+
+            </div>
+
+            {% for exp in data.experience %}
+
+            <div class="item">
+
+                <div class="company">
+
+                    {{ exp.company }}
+
+                </div>
+
+                <div class="role-date">
+
+                    {{ exp.role }}
+                    |
+                    {{ exp.duration }}
+
+                </div>
+
+                <ul>
+
+                    <li>
+
+                        {{ exp.description }}
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+        <!-- PROJECTS -->
+
+        {% if data.projects %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Relevant Projects:
+
+            </div>
+
+            {% for project in data.projects %}
+
+            <div class="item">
+
+                <div class="company">
+
+                    {{ project.title }}
+
+                </div>
+
+                <ul>
+
+                    <li>
+
+                        {{ project.description }}
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+        <!-- EDUCATION -->
+
+        {% if data.education %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Education:
+
+            </div>
+
+            {% for edu in data.education %}
+
+            <div class="education">
+
+                <strong>
+
+                    {{ edu.year }}
+
+                </strong>
+
+                |
+
+                {{ edu.institution }}
+
+                <br>
+
+                {{ edu.degree }}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+        <!-- SKILLS -->
+
+        {% if data.skills %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                Skills:
+
+            </div>
+
+            <ul class="skills">
+
+                {% for skill in data.skills %}
+
+                <li>
+
+                    {{ skill }}
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+        {% endif %}
+
+        <!-- DOWNLOAD -->
+
+        {% if pdf_mode != True %}
+
+        <div class="download-section">
+
+            <a href="/download_resume/{{ selected_template }}"
+               class="download-btn">
+
+                Download PDF
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

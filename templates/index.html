@@ -2,687 +2,152 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResuFit | AI-Powered Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- PRIMARY SEO -->
+     <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Resume Analyzer & ATS Resume Checker | ResuFit</title>
+
+<meta name="description"
+content="ResuFit is an AI-powered ATS resume checker and resume analyzer that helps optimize resumes, improve ATS scores, match job descriptions, and land more interviews.">
+
+<meta name="robots"
+content="index, follow">
+
+<link rel="canonical"
+href="https://resufit.com">
+
+<!-- Open Graph -->
+
+<meta property="og:type"
+content="website">
+
+<meta property="og:title"
+content="AI Resume Analyzer & ATS Resume Checker | ResuFit">
+
+<meta property="og:description"
+content="Optimize your resume using AI and improve ATS score instantly.">
+
+<meta property="og:url"
+content="https://resufit.com">
+
+<meta property="og:image"
+content="https://resufit.com/preview.png">
+
+<!-- Twitter -->
+
+<meta name="twitter:card"
+content="summary_large_image">  
+
+<meta name="twitter:title"
+content="AI Resume Analyzer & ATS Resume Checker | ResuFit">
+
+<meta name="twitter:description"
+content="Optimize your resume using AI and improve ATS score instantly.">
+
+<meta name="twitter:image"
+content="https://resufit.com/preview.png">
+
+<!-- Schema Markup -->
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"SoftwareApplication",
+  "name":"ResuFit",
+  "applicationCategory":"BusinessApplication",
+  "operatingSystem":"Web",
+  "description":"AI-powered ATS resume analyzer and ATS resume checker platform.",
+  "offers":{
+    "@type":"Offer",
+    "price":"0",
+    "priceCurrency":"USD"
+  }
+}
+</script>
+
   <!-- Use DM Sans as it is the closest open-source match to Google Sans used in NotebookLM -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap"
     rel="stylesheet">
-  <style>
-    :root {
-      /* Exact NotebookLM / Google Material 3 Light Mode Colors */
-      --bg: #FFFFFF;
-      --surface: #F0F4F9;
-      /* Google Light Blue/Grey surface */
-      --surface-variant: #E3E3E3;
-      --text-primary: #1F1F1F;
-      --text-secondary: #444746;
-      --primary: #0B57D0;
-      --primary-container: #D3E3FD;
-      --on-primary-container: #041E49;
 
-      /* The signature Google AI Gradient (Blue -> Purple -> Red/Orange) */
-      --ai-gradient: linear-gradient(90deg, #4285f4 0%, #9b72cb 50%, #d96570 100%);
 
-      --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --radius-sm: 12px;
-      --radius-md: 24px;
-      --radius-lg: 32px;
-    }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-font-smoothing: antialiased;
-    }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text-primary);
-      font-family: var(--font-family);
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    /* --- Navbar --- */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 24px;
-      max-width: 1400px;
-      margin: 0 auto;
-      position: sticky;
-      top: 0;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-    }
-
-    .logo svg {
-      color: var(--primary);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .nav-link {
-      background: var(--primary-container);
-      color: black;
-      font-weight: 500;
-      font-size: 1rem;
-      padding: 8px 16px;
-      border-radius: 100px;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .nav-link:hover {
-      background: var(--surface);
-      color: var(--text-primary);
-    }
-
-    .btn-try {
-      background: var(--primary-container);
-      color: var(--on-primary-container);
-      font-weight: 500;
-      font-size: 1rem;
-      padding: 10px 24px;
-      border-radius: 100px;
-      transition: background 0.2s;
-    }
-
-    .btn-try:hover {
-      background: #c2e7ff;
-      /* slightly darker container */
-    }
-
-    .btn-primary {
-      background: var(--ai-gradient);
-      color: #ffffff;
-      font-weight: 500;
-      font-size: 1rem;
-      padding: 12px 32px;
-      border-radius: 100px;
-      transition: background 0.2s, box-shadow 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    }
-
-    /* --- Hero Section --- */
-    .hero {
-      padding: 120px 24px 80px;
-      text-align: center;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--surface);
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-      border: 1px solid var(--surface-variant);
-    }
-
-    .hero h1 {
-      font-size: 70px;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 24px;
-      color: var(--text-primary);
-    }
-
-    .gradient-text {
-      background: var(--ai-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: inline-block;
-    }
-
-    .hero p {
-      font-size: 1.25rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto 40px;
-      line-height: 1.5;
-    }
-
-    /* --- Product Preview / Demo --- */
-    .product-preview {
-      max-width: 1200px;
-      margin: 0 auto 120px;
-      padding: 0 24px;
-    }
-
-    .preview-container {
-      background: var(--surface);
-      border-radius: var(--radius-lg);
-      padding: 12px;
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.05);
-      border: 1px solid var(--surface-variant);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .preview-window {
-      background: #ffffff;
-      border-radius: var(--radius-md);
-      height: 600px;
-      border: 1px solid var(--surface-variant);
-      display: flex;
-      overflow: hidden;
-    }
-
-    /* Mockup of NotebookLM interface inside the window */
-    .mockup-sidebar {
-      width: 250px;
-      background: #F8F9FA;
-      border-right: 1px solid var(--surface-variant);
-      padding: 24px;
-    }
-
-    .mockup-main {
-      flex: 1;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .mockup-header {
-      height: 40px;
-      width: 60%;
-      background: var(--surface);
-      border-radius: 8px;
-      margin-bottom: 32px;
-    }
-
-    .mockup-text {
-      height: 16px;
-      background: var(--surface);
-      border-radius: 4px;
-      margin-bottom: 16px;
-      width: 100%;
-    }
-
-    .mockup-text.short {
-      width: 75%;
-    }
-
-    .mockup-text.medium {
-      width: 90%;
-    }
-
-    .mockup-chat {
-      margin-top: auto;
-      background: #F0F4F9;
-      border-radius: 24px;
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .mockup-chat-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--ai-gradient);
-    }
-
-    /* --- New Features Section --- */
-    .features-section {
-      padding: 100px 24px;
-      background-color: var(--bg);
-    }
-
-    .features-header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .features-header h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .features-header p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .feature-card {
-      background: #ffffff;
-      border-radius: 8px;
-      /* Slightly sharp like the image */
-      padding: 40px 30px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
-      /* Soft shadow like image */
-      text-align: center;
-      border: 1px solid rgba(0, 0, 0, 0.03);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.06);
-    }
-
-    .icon-wrapper {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 30px auto;
-    }
-
-    .icon-blue {
-      background: #f0f4ff;
-      color: #3b82f6;
-    }
-
-    .icon-purple {
-      background: #faf5ff;
-      color: #a855f7;
-    }
-
-    .icon-red {
-      background: #fff1f2;
-      color: #f43f5e;
-    }
-
-    .icon-green {
-      background: #f0fdf4;
-      color: #22c55e;
-    }
-
-    .feature-card h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 16px;
-    }
-
-    .feature-card p {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* --- How It Works Section --- */
-    .how-it-works {
-      padding: 100px 24px;
-      background: linear-gradient(135deg, #ffffff 0%, #f9f5ff 100%);
-      overflow: hidden;
-    }
-
-    .hiw-header {
-      text-align: center;
-      margin-bottom: 80px;
-    }
-
-    .hiw-header h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .hiw-header p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-    }
-
-    .process-wrapper {
-      max-width: 1300px;
-      margin: 0 auto;
-      overflow-x: auto;
-      padding: 20px 0 40px 0;
-      scrollbar-width: none;
-      /* Firefox */
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .process-wrapper::-webkit-scrollbar {
-      display: none;
-      /* Chrome/Safari */
-    }
-
-    .process-timeline {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      min-width: 1000px;
-      padding: 0 40px;
-    }
-
-    .timeline-line {
-      position: absolute;
-      top: 24px;
-      left: 60px;
-      right: 60px;
-      height: 2px;
-      background: #e5e5e5;
-      z-index: 1;
-    }
-
-    .timeline-progress {
-      position: absolute;
-      top: 24px;
-      left: 60px;
-      width: 15%;
-      height: 2px;
-      background: #7c3aed;
-      z-index: 2;
-    }
-
-    .process-step {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 130px;
-    }
-
-    .step-indicator {
-      width: 48px;
-      height: 48px;
-      background: #ffffff;
-      border: 1px solid #e5e5e5;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #999;
-      font-weight: 500;
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-    }
-
-    .step-indicator.active {
-      background: #7c3aed;
-      border-color: #7c3aed;
-      color: #ffffff;
-    }
-
-    .step-card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 24px 20px;
-      width: 100%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-      text-align: left;
-    }
-
-    .step-icon {
-      color: #1f1f1f;
-      margin-bottom: 24px;
-      display: flex;
-    }
-
-    .step-number {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #9ca3af;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-    }
-
-    .step-card h4 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      line-height: 1.2;
-    }
-
-    /* --- Premium Comparison / CTA Section --- */
-    .comparison-section {
-      margin-top: 120px;
-      padding: 0 24px 120px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .comparison-content {
-      background: linear-gradient(145deg, #ffffff, #f0f4f9);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      border-radius: 24px;
-      padding: 60px 40px;
-      max-width: 900px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Decorative background shapes */
-    .comparison-content::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -10%;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
-      border-radius: 50%;
-      z-index: 0;
-    }
-
-    .comparison-content::after {
-      content: '';
-      position: absolute;
-      bottom: -40%;
-      right: -5%;
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle, rgba(66, 133, 244, 0.05) 0%, transparent 70%);
-      border-radius: 50%;
-      z-index: 0;
-    }
-
-    .stat-container {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 20px;
-    }
-
-    .stat-huge {
-      font-size: 80px;
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      line-height: 1;
-    }
-
-    .comparison-title {
-      position: relative;
-      z-index: 1;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .comparison-desc {
-      position: relative;
-      z-index: 1;
-      font-size: 1.15rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto 32px;
-      line-height: 1.6;
-    }
-
-    .comparison-btn {
-      position: relative;
-      z-index: 1;
-      padding: 14px 36px;
-      font-size: 1.05rem;
-    }
-
-    /* --- Footer --- */
-    footer {
-      padding: 20px 24px;
-      text-align: center;
-      border-top: 1px solid var(--surface-variant);
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 1024px) {
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .preview-window {
-        height: 400px;
-      }
-
-      .mockup-sidebar {
-        display: none;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        padding-top: 80px;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .features-header h2,
-      .hiw-header h2 {
-        font-size: 1.8rem;
-      }
-
-      .comparison-content {
-        padding: 40px 20px;
-        border-radius: 16px;
-      }
-
-      .stat-huge {
-        font-size: 4rem;
-      }
-
-      .comparison-title {
-        font-size: 1.8rem;
-      }
-
-      .comparison-desc {
-
-        font-size: 1.05rem;
-        margin-bottom: 24px;
-      }
-
-      .comparison-btn {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .nav-link {
-        padding: 6px 12px;
-        font-size: 0.85rem;
-      }
-
-      .btn-try {
-        padding: 8px 16px;
-        font-size: 0.85rem;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
 </head>
 
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar">
-    <a href="#" class="logo">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-        <polyline points="14 2 14 8 20 8"></polyline>
-        <line x1="16" y1="13" x2="8" y2="13"></line>
-        <line x1="16" y1="17" x2="8" y2="17"></line>
-        <polyline points="10 9 9 9 8 9"></polyline>
-      </svg>
-      ResuFit
-    </a>
-    <div class="nav-links">
-      <a href="/login" class="nav-link">Sign in</a>
-      <a href="/register" class="btn-try">Try ResuFit</a>
+<nav class="navbar">
+
+    <div class="nav-left">
+
+        <a href="#" class="logo">
+
+            <div class="logo-icon">
+              📝
+            </div>
+
+            <span>ResuFit</span>
+
+        </a>
+
     </div>
-  </nav>
+
+    <div class="nav-center">
+
+        <a href="#features">Features</a>
+        <a href="#how">Work Flow</a>
+        <a href="#comparison-section">About</a>
+        <a href="#faq">FAQ</a>
+
+    </div>
+
+    <div class="nav-right">
+
+        <a href="/login" class="nav-login">
+            Sign In
+        </a>
+
+        <a href="/register" class="nav-btn">
+            Get Started
+        </a>
+
+    </div>
+
+    <div class="mobile-menu-btn" onclick="toggleMenu()">
+        ☰
+    </div>
+
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+
+    <a href="#features-section">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="/login">Sign In</a>
+    <a href="/register">Get Started</a>
+
+</div>
 
 
 
   <!-- Hero Section -->
   <section class="hero">
     <br>
+    <div class="animated-bg">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+</div>
     <div class="hero-badge">
       Powered by advanced ATS-scoring models
     </div>
@@ -705,243 +170,948 @@
   </section>
 
 
+ 
+
 
   <!-- Features Section -->
-  <section class="features-section">
-    <div class="features-header">
-      <h2>More than just a resume builder</h2>
-      <p>Explore what else ResuFit can do for your career</p>
-    </div>
-
-    <div class="features-grid">
 
 
-      <!-- Card 2 -->
-      <div class="feature-card">
-        <div class="icon-wrapper icon-purple">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-        </div>
-        <h3>Job description<br> Match Analysis</h3>
-        <p>Discover how well your skills match the job descriptions you are targeting.</p>
-      </div>
+<section class="workflow-section" id="how">
 
-      <!-- Card 3 -->
-      <div class="feature-card">
-        <div class="icon-wrapper icon-red">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-        </div>
-        <h3>ATS Optimization</h3>
-        <p>Ensure your formatting and keywords bypass Applicant Tracking Systems with ease.</p>
-      </div>
+    <div class="workflow-header">
 
-      <!-- Card 1 -->
-      <div class="feature-card">
-        <div class="icon-wrapper icon-blue">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-          </svg>
-        </div>
-        <h3>AI Resume Building</h3>
-        <p>Create tailored resumes effortlessly and track your progress all in one place.</p>
-      </div>
+        <span class="workflow-tag">
+            SIMPLE PROCESS
+        </span>
 
-      <!-- Card 4 -->
-      <div class="feature-card">
-        <div class="icon-wrapper icon-green">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"></line>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-          </svg>
-        </div>
-        <h3>Score Tracking</h3>
-        <p>Save time and effort by monitoring your resume score improvements for every role.</p>
-      </div>
+        <h2>
+            How <span class="gradient-text">ResuFit</span> Works
+        </h2>
 
-
-
+        <p>
+            Optimize your resume in minutes with our AI-powered workflow.
+        </p>
 
     </div>
-  </section>
 
-  <!-- How It Works Section -->
-  <section class="how-it-works">
-    <div class="hiw-header">
-      <h2>How ResuFit Works</h2>
-      <p>The step-by-step process of optimizing your resume</p>
+    <div class="workflow-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="workflow-left">
+
+            <div class="workflow-step active">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div class="step-content">
+
+                    <h3>Upload Your Resume</h3>
+
+                    <p>
+                        Upload your existing resume in PDF or DOCX format.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div class="step-content">
+
+                    <h3>Paste Job Description</h3>
+
+                    <p>
+                        Add the job role you want to target for ATS matching.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div class="step-content">
+
+                    <h3>AI Resume Analysis</h3>
+
+                    <p>
+                        Our AI scans keywords, formatting, grammar, and ATS score.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <div class="step-content">
+
+                    <h3>Download Optimized Resume</h3>
+
+                    <p>
+                        Export your ATS-friendly resume instantly.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="workflow-right">
+
+            <div class="workflow-preview">
+
+                <div class="preview-top">
+
+                    <div class="preview-dot"></div>
+                    <div class="preview-dot"></div>
+                    <div class="preview-dot"></div>
+
+                </div>
+
+                <div class="preview-body">
+
+                    <div class="preview-score">
+
+                        <div class="big-score">
+                            92%
+                        </div>
+
+                        <span>ATS Match Score</span>
+
+                    </div>
+
+                    <div class="preview-bars">
+
+                        <div class="preview-bar">
+                            <span>Formatting</span>
+                            <div></div>
+                        </div>
+
+                        <div class="preview-bar">
+                            <span>Keywords</span>
+                            <div></div>
+                        </div>
+
+                        <div class="preview-bar">
+                            <span>Grammar</span>
+                            <div></div>
+                        </div>
+
+                    </div>
+
+                    <div class="preview-card">
+                        Resume optimized successfully ✓
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="process-wrapper">
-      <div class="process-timeline">
-        <div class="timeline-line"></div>
-        <div class="timeline-progress"></div>
+</section>
 
-        <!-- Step 1 -->
-        <div class="process-step">
-          <div class="step-indicator active">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-              stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
-          <div class="step-card">
-            <div class="step-icon">
-              <!-- Upload -->
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
-              </svg>
-            </div>
-            <div class="step-number">STEP 1</div>
-            <h4 style="font-family: 'DM Sans', sans-serif;">Upload<br>Resume</h4>
-          </div>
-        </div>
 
-        <!-- Step 2 -->
-        <div class="process-step">
-          <div class="step-indicator">02</div>
-          <div class="step-card">
-            <div class="step-icon">
-              <!-- Target -->
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <circle cx="12" cy="12" r="6"></circle>
-                <circle cx="12" cy="12" r="2"></circle>
-              </svg>
-            </div>
-            <div class="step-number">STEP 2</div>
-            <h4 style="font-family: 'DM Sans', sans-serif;">Paste Job<br>Description</h4>
-          </div>
-        </div>
 
-        <!-- Step 3 -->
-        <div class="process-step">
-          <div class="step-indicator">03</div>
-          <div class="step-card">
-            <div class="step-icon">
-              <!-- Magnify -->
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </div>
-            <div class="step-number">STEP 3</div>
-            <h4 style="font-family: 'DM Sans', sans-serif;">AI Match<br>Analysis</h4>
-          </div>
-        </div>
 
-        <!-- Step 4 -->
-        <div class="process-step">
-          <div class="step-indicator">04</div>
-          <div class="step-card">
-            <div class="step-icon">
-              <!-- Edit -->
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 20h9"></path>
-                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-              </svg>
-            </div>
-            <div class="step-number">STEP 4</div>
-            <h4 style="font-family: 'DM Sans', sans-serif;">Grammar Edit<br></h4>
-          </div>
-        </div>
+ <section class="resume-preview-section">
 
-        <!-- Step 5 -->
-        <div class="process-step">
-          <div class="step-indicator">05</div>
-          <div class="step-card">
-            <div class="step-icon">
-              <!-- Check -->
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="3" y1="9" x2="21" y2="9"></line>
-                <line x1="9" y1="21" x2="9" y2="9"></line>
-              </svg>
-            </div>
-            <div class="step-number">STEP 5</div>
-            <h4 style="font-family: 'DM Sans', sans-serif;">ATS <br>Formatting</h4>
-          </div>
-        </div>
+    <div class="resume-preview-header">
 
-        <!-- Step 6 -->
-        <div class="process-step">
-          <div class="step-indicator">06</div>
-          <div class="step-card">
-            <div class="step-icon">
-              <!-- Review -->
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
-            <div class="step-number">STEP 6</div>
-            <h4 style="font-family: 'DM Sans', sans-serif;">Accept<br>Suggestions</h4>
-          </div>
-        </div>
+        <span class="preview-tag">
+            LIVE AI ANALYSIS
+        </span>
 
-        <!-- Step 7 -->
-        <div class="process-step">
-          <div class="step-indicator">07</div>
-          <div class="step-card">
-            <div class="step-icon">
-              <!-- Download -->
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                <polyline points="7 3 7 8 15 8"></polyline>
-              </svg>
-            </div>
-            <div class="step-number">STEP 7</div>
-            <h4 style="font-family: 'DM Sans', sans-serif;">Download<br>Final PDF</h4>
-          </div>
-        </div>
+        <h2>
+            Real-time Resume
+            <span class="gradient-text">
+                Optimization
+            </span>
+        </h2>
 
-      </div>
+        <p>
+            Analyze ATS score, missing keywords,
+            formatting issues, and recruiter visibility instantly.
+        </p>
+
     </div>
-  </section>
+
+    <div class="resume-preview-container">
+
+        <!-- LEFT RESUME -->
+
+        <div class="resume-card">
+
+            <div class="resume-top">
+                <div>
+                    <h3>John Anderson</h3>
+                    <span>Frontend Developer</span>
+                </div>
+            </div>
+
+            <div class="real-resume">
+
+    <div class="resume-header">
+
+        <h3>John Anderson</h3>
+
+        <span>
+            Frontend Developer
+        </span>
+
+        <p>
+            john@email.com • linkedin.com/in/john
+        </p>
+
+    </div>
+
+    <!-- SUMMARY -->
+
+    <div class="resume-block">
+
+        <h4>Professional Summary</h4>
+
+        <p>
+            Frontend developer with 4+ years of experience
+            building scalable React applications and modern UI systems.
+        </p>
+
+    </div>
+
+    <!-- SKILLS -->
+
+    <div class="resume-block">
+
+        <h4>Skills</h4>
+
+        <div class="skills-list">
+
+            <span class="skill good">
+                React
+            </span>
+
+            <span class="skill good">
+                JavaScript
+            </span>
+
+            <span class="skill warning">
+                TypeScript
+            </span>
+
+            <span class="skill danger">
+                Leadership
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- EXPERIENCE -->
+
+    <div class="resume-block">
+
+        <h4>Experience</h4>
+
+        <div class="experience-item">
+
+            <strong>Frontend Engineer</strong>
+
+            <span>
+                TechNova • 2022 - Present
+            </span>
+
+            <p>
+                Developed responsive React dashboards,
+                improved performance by 35%,
+                and optimized UI accessibility.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+        </div>
+
+        <!-- RIGHT ANALYSIS -->
+
+        <div class="analysis-panel">
+
+    <!-- SCORE CARD -->
+
+    <div class="analysis-score-card">
+
+        <span class="score-label">
+            ATS SCORE
+        </span>
+
+        <div class="score-circle">
+            92%
+        </div>
+
+        <p>
+            Resume is highly optimized for ATS systems.
+        </p>
+
+    </div>
+
+    <!-- ANALYSIS ITEMS -->
+
+    <div class="analysis-list">
+
+        <div class="analysis-item success">
+            ✓ Strong React & JavaScript keywords
+        </div>
+
+        <div class="analysis-item warning">
+            ⚠ Add TypeScript experience
+        </div>
+
+        <div class="analysis-item success">
+            ✓ ATS-friendly formatting detected
+        </div>
+
+        <div class="analysis-item danger">
+            ✕ Missing leadership achievements
+        </div>
+
+        <div class="analysis-item success">
+            ✓ Recruiter readability improved
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+
+</section>
+
+
+
+<section class="features-modern" id="features">
+
+    <div class="features-top">
+
+        <span class="feature-tag">
+            Powerful AI Features
+        </span>
+
+        <h2>
+            Everything you need land
+            <span class="gradient-text"> interviews faster</span>
+        </h2>
+            <p>
+            ResuFit helps you analyze, optimize, rebuild, and perfect your resume.
+        </p>
+
+    </div>
+
+    <div class="modern-grid">
+
+        <!-- BIG CARD -->
+
+        <div class="feature-large">
+
+            <div class="feature-content">
+
+                <span class="feature-mini">
+                    AI ANALYSIS
+                </span>
+
+                <h3>
+                    Deep Resume Intelligence
+                </h3>
+
+                <p>
+                    Detect grammar mistakes, weak keywords, ATS issues,
+                    formatting problems, and missing skills instantly.
+                </p>
+
+                <ul>
+                    <li>ATS Score Analysis</li>
+                    <li>Keyword Detection</li>
+                    <li>Grammar Suggestions</li>
+                    <li>Resume Strength Report</li>
+                </ul>
+
+            </div>
+
+           
+
+
+  
+
+       
+
+
+</section>
+
+
+<!-- =========================
+     SEO CONTENT SECTION
+========================= -->
+
+<section class="seo-section">
+
+    <div class="seo-container">
+
+        <span class="seo-tag">
+            ATS RESUME OPTIMIZATION
+        </span>
+
+        <h2>
+            Why ATS-Friendly Resumes Matter
+        </h2>
+
+        <p class="seo-intro">
+            Most companies today use Applicant Tracking Systems (ATS)
+            to filter resumes before recruiters ever review them.
+            A poorly optimized resume can get rejected instantly,
+            even if you are highly qualified.
+        </p>
+
+        <div class="seo-grid">
+
+            <div class="seo-card">
+
+                <h3>AI Resume Analysis</h3>
+
+                <p>
+                    ResuFit uses advanced AI resume analysis to detect
+                    formatting issues, weak keywords, grammar mistakes,
+                    and missing skills that reduce recruiter visibility.
+                </p>
+
+            </div>
+
+            <div class="seo-card">
+
+                <h3>ATS Resume Checker</h3>
+
+                <p>
+                    Our ATS resume checker compares your resume with
+                    job descriptions and calculates an ATS score to
+                    improve keyword matching and application success.
+                </p>
+
+            </div>
+
+            <div class="seo-card">
+
+                <h3>Resume Optimization</h3>
+
+                <p>
+                    Improve your resume structure, readability,
+                    and ATS compatibility using intelligent resume
+                    optimization recommendations powered by AI.
+                </p>
+
+            </div>
+
+            <div class="seo-card">
+
+                <h3>Land More Interviews</h3>
+
+                <p>
+                    Candidates with ATS-optimized resumes often receive
+                    higher recruiter response rates, better interview
+                    opportunities, and stronger job application results.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
   <!-- Comparison / CTA Section -->
-  <section class="comparison-section">
-    <div class="comparison-content">
-      <h2 class="comparison-title"> <span class="stat-huge gradient-text" style="font-size: 40px;">10x </span> Higher Call-Back Rates</h2>
-      <p class="comparison-desc">Candidates who perfectly align their resumes to JD requirements experience a massive
-        increase in recruiter responses. Stop guessing and start landing interviews.</p>
-      <a href="/register" class="btn-primary comparison-btn">
-        Optimize Your Resume Now
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </a>
+<!-- =========================
+     PREMIUM COMPARISON SECTION
+========================= -->
+
+<section class="comparison-section" id="comparison-section">
+
+    <div class="comparison-wrapper">
+
+        <!-- LEFT SIDE -->
+
+        <div class="comparison-left">
+
+            <span class="comparison-tag">
+                ATS PERFORMANCE
+            </span>
+
+            <h2>
+                Get <span class="gradient-text">10x More</span>
+                Interview Calls
+            </h2>
+
+            <p>
+                Most resumes fail ATS systems before recruiters even see them.
+                ResuFit optimizes your resume with AI to increase visibility,
+                keyword matching, and recruiter engagement.
+            </p>
+
+            <div class="comparison-stats">
+
+                <div class="stat-card">
+                    <h3>92%</h3>
+                    <span>ATS Match Score</span>
+                </div>
+
+                <div class="stat-card">
+                    <h3>10x</h3>
+                    <span>Higher Response Rate</span>
+                </div>
+
+                <div class="stat-card">
+                    <h3>85%</h3>
+                    <span>Recruiter Visibility</span>
+                </div>
+
+            </div>
+
+            <a href="/register" class="comparison-btn-modern">
+                Optimize Resume Now →
+            </a>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="comparison-right">
+
+            <!-- BAD RESUME -->
+
+            
+
+            <!-- GOOD RESUME -->
+
+            <div class="compare-card good">
+
+                <div class="compare-icon good-icon">
+                    ✓
+                </div>
+
+                <h3>Optimized with ResuFit</h3>
+
+                <ul>
+                    <li>ATS-friendly formatting</li>
+                    <li>AI keyword optimization</li>
+                    <li>Professional structure</li>
+                    <li>Higher interview chances</li>
+                </ul>
+
+            </div>
+
+        </div>
+
     </div>
-  </section>
+
+</section>
+
+<!-- =========================
+     FAQ SECTION HTML
+========================= -->
+
+<section class="faq-section" id="faq">
+
+    <div class="faq-header">
+
+        <span class="faq-tag">
+            FAQ
+        </span>
+
+        <h2>
+            Frequently Asked
+            <span class="gradient-text">
+                Questions
+            </span>
+        </h2>
+
+        <p>
+            Everything you need to know about ResuFit.
+        </p>
+
+    </div>
+
+    <div class="faq-container">
+
+        <!-- FAQ ITEM -->
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    What does ResuFit do?
+                </span>
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                ResuFit analyzes resumes using AI and ATS optimization techniques.
+                It checks grammar mistakes, ATS compatibility, keyword matching,
+                and gives intelligent suggestions to improve recruiter visibility.
+
+            </div>
+
+        </div>
+
+        <!-- FAQ ITEM -->
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    How does ATS analysis work?
+                </span>
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Our ATS engine scans your resume and compares it against
+                Applicant Tracking System requirements to detect formatting
+                issues, missing keywords, and optimization opportunities.
+
+            </div>
+
+        </div>
+
+        <!-- FAQ ITEM -->
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    Can ResuFit match resumes with job descriptions?
+                </span>
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Yes. ResuFit compares your resume with job descriptions
+                and calculates an ATS match score while identifying
+                missing skills and keywords.
+
+            </div>
+
+        </div>
+
+        <!-- FAQ ITEM -->
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    Can AI rebuild my existing resume?
+                </span>
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Absolutely. ResuFit can rebuild and optimize your
+                resume into a cleaner ATS-friendly format using AI.
+
+            </div>
+
+        </div>
+
+        <!-- FAQ ITEM -->
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    Can I build a resume from scratch?
+                </span>
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Yes. You can create professional resumes from scratch
+                using our AI-powered resume builder with modern templates.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BLOG SECTION
+========================= -->
+
+<section class="blog-section">
+
+    <div class="blog-header">
+
+        <span class="blog-tag">
+            CAREER RESOURCES
+        </span>
+
+        <h2>
+            Resume & ATS
+            <span class="gradient-text">
+                Career Guides
+            </span>
+        </h2>
+
+        <p>
+            Learn how ATS systems work, optimize resumes,
+            and improve job application success.
+        </p>
+
+    </div>
+
+    <div class="blog-grid">
+
+        <!-- BLOG CARD -->
+
+        <article class="blog-card">
+
+            <span class="blog-category">
+                ATS GUIDE
+            </span>
+
+            <h3>
+                How ATS Resume Scanners Work in 2026
+            </h3>
+
+            <p>
+                Learn how Applicant Tracking Systems filter resumes
+                and how to optimize your resume for better rankings.
+            </p>
+
+            <a href="/blogs/ats-resume-scanner-guide.html">
+                Read Article →
+            </a>
+
+        </article>
+
+        <!-- BLOG CARD -->
+
+        <article class="blog-card">
+
+            <span class="blog-category">
+                RESUME TIPS
+            </span>
+
+            <h3>
+                10 Resume Mistakes That Reduce ATS Scores
+            </h3>
+
+            <p>
+                Discover the most common resume formatting
+                and keyword mistakes that hurt job applications.
+            </p>
+
+            <a href="/blogs/resume-mistakes.html">
+                Read Article →
+            </a>
+
+        </article>
+
+        <!-- BLOG CARD -->
+
+        <article class="blog-card">
+
+            <span class="blog-category">
+                KEYWORDS
+            </span>
+
+            <h3>
+                Best Resume Keywords for Tech Jobs
+            </h3>
+
+            <p>
+                Improve resume visibility with powerful
+                ATS keywords recruiters actually search for.
+            </p>
+
+            <a href="/blogs/resume-keywords.html">
+                Read Article →
+            </a>
+
+        </article>
+
+    </div>
+
+</section>
 
   <!-- Footer -->
-  <footer>
-    @ 2026 ResuFit. Built for precision.
-  </footer>
+<footer class="premium-footer">
+        <div class="footer-brand">
+            <p>
+            <h3>ResuFit</h3>
+                AI-powered resume analysis and optimization platform
+                built to help candidates land interviews faster.
+            </p>
+        </div>
 
+    <div class="footer-bottom">
+
+        © 2026 ResuFit. All rights reserved.
+
+    </div>
+
+</footer>
+<script>
+
+/* MOBILE MENU */
+
+function toggleMenu(){
+
+    const menu = document.getElementById("mobileMenu");
+
+    if(menu.style.display === "flex"){
+        menu.style.display = "none";
+    }
+    else{
+        menu.style.display = "flex";
+    }
+
+}
+
+/* NAVBAR SCROLL EFFECT */
+
+window.addEventListener("scroll",()=>{
+
+    const navbar = document.querySelector(".navbar");
+
+    navbar.classList.toggle("scrolled",window.scrollY > 20);
+
+});
+
+
+/* =========================
+   FAQ ACCORDION
+========================= */
+
+const faqItems = document.querySelectorAll(".faq-item");
+
+faqItems.forEach(item => {
+
+    const question = item.querySelector(".faq-question");
+
+    const icon = item.querySelector(".faq-icon");
+
+    question.addEventListener("click", () => {
+
+        const isActive = item.classList.contains("active");
+
+        /* CLOSE ALL */
+
+        faqItems.forEach(faq => {
+
+            faq.classList.remove("active");
+
+            faq.querySelector(".faq-icon").innerHTML = "+";
+
+        });
+
+        /* OPEN CURRENT */
+
+        if(!isActive){
+
+            item.classList.add("active");
+
+            icon.innerHTML = "×";
+        }
+
+    });
+
+});
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const reveals = document.querySelectorAll(
+".resume-preview-section, .features-modern, .workflow-section, .faq-section, .comparison-section"
+);
+
+window.addEventListener("scroll", revealSections);
+
+function revealSections(){
+
+    const triggerBottom = window.innerHeight * 0.85;
+
+    reveals.forEach(section => {
+
+        const sectionTop = section.getBoundingClientRect().top;
+
+        if(sectionTop < triggerBottom){
+
+            section.classList.add("reveal");
+            section.classList.add("active");
+        }
+
+    });
+
+}
+
+revealSections();
+
+</script>
 </body>
 
 </html>

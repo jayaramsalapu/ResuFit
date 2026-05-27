@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Re-Build Resume | Resufit</title>
+
+    <!-- FONT -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        :root{
+
+            --bg:#F0F4F9;
+
+            --card:#ffffff;
+
+            --text:#111827;
+
+            --muted:#6b7280;
+
+            --primary:#2563eb;
+
+            --border:#E3E3E3;
+
+            --gradient:
+            linear-gradient(
+            90deg,
+            #4285f4 0%,
+            #9b72cb 50%,
+            #d96570 100%);
+        }
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            background:var(--bg);
+
+            font-family:'DM Sans',sans-serif;
+
+            min-height:100vh;
+
+            color:var(--text);
+        }
+
+        /* NAVBAR */
+
+        .navbar{
+
+            position:fixed;
+
+            top:0;
+
+            left:0;
+
+            right:0;
+
+            z-index:100;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:22px 48px;
+
+            background:
+            rgba(255,255,255,0.95);
+
+            backdrop-filter:blur(20px);
+
+            border-bottom:
+            1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo{
+
+            text-decoration:none;
+
+            font-size:1.3rem;
+
+            font-weight:800;
+
+            color:var(--text);
+        }
+
+        .nav-right{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:18px;
+        }
+
+        .btn-nav{
+
+            text-decoration:none;
+
+            color:var(--text);
+
+            padding:10px 18px;
+
+            border-radius:12px;
+
+            border:1px solid var(--border);
+
+            background:white;
+
+            transition:0.3s ease;
+
+            font-weight:600;
+        }
+
+        .btn-nav:hover{
+
+            transform:translateY(-2px);
+        }
+
+        /* MAIN */
+
+        .main-container{
+
+            max-width:1200px;
+
+            margin:auto;
+
+            padding:
+            150px 24px 80px;
+        }
+
+        /* HEADER */
+
+        .header-section{
+
+            text-align:center;
+
+            margin-bottom:55px;
+        }
+
+        .header-section h1{
+
+            font-size:3rem;
+
+            font-weight:800;
+
+            margin-bottom:18px;
+
+            letter-spacing:-0.05em;
+        }
+
+        .gradient-text{
+
+            background:var(--gradient);
+
+            -webkit-background-clip:text;
+
+            -webkit-text-fill-color:transparent;
+        }
+
+        .header-section p{
+
+            font-size:1.1rem;
+
+            color:var(--muted);
+        }
+
+        /* TEMPLATE SECTION */
+
+        .template-section{
+
+            margin-bottom:50px;
+        }
+
+        .template-title{
+
+            text-align:center;
+
+            font-size:1.4rem;
+
+            font-weight:700;
+
+            margin-bottom:30px;
+        }
+
+        .template-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(3,1fr);
+
+            gap:24px;
+        }
+
+        .template-card{
+
+            position:relative;
+
+            background:white;
+
+            border-radius:24px;
+
+            overflow:hidden;
+
+            border:2px solid transparent;
+
+            cursor:pointer;
+
+            transition:0.35s ease;
+
+            padding:14px;
+        }
+
+        .template-card:hover{
+
+            transform:translateY(-6px);
+
+            box-shadow:
+            0 25px 50px rgba(0,0,0,0.08);
+        }
+
+        .template-card img{
+
+            width:100%;
+
+            height:500px;
+
+            object-fit:cover;
+
+            border-radius:18px;
+        }
+
+        .template-card span{
+
+            display:block;
+
+            text-align:center;
+
+            margin-top:14px;
+
+            font-weight:700;
+
+            font-size:1rem;
+        }
+
+        .template-card input{
+
+            display:none;
+        }
+
+        .template-card:has(input:checked){
+
+            border:2px solid var(--primary);
+
+            box-shadow:
+            0 20px 45px rgba(37,99,235,0.18);
+        }
+
+        /* UPLOAD CARD */
+
+        .upload-card{
+
+            width:100%;
+
+            background:white;
+
+            border-radius:32px;
+
+            border:1px dashed rgba(37,99,235,0.3);
+
+            padding:70px 40px;
+
+            text-align:center;
+
+            box-shadow:
+            0 10px 30px rgba(0,0,0,0.05);
+
+            transition:0.35s ease;
+        }
+
+        .upload-card:hover{
+
+            transform:translateY(-3px);
+
+            box-shadow:
+            0 20px 50px rgba(0,0,0,0.08);
+        }
+
+        .upload-icon{
+
+            width:90px;
+
+            height:90px;
+
+            margin:auto;
+
+            margin-bottom:24px;
+
+            border-radius:50%;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            background:
+            rgba(37,99,235,0.1);
+        }
+
+        .upload-icon svg{
+
+            width:42px;
+
+            height:42px;
+
+            color:var(--primary);
+        }
+
+        .upload-title{
+
+            font-size:2rem;
+
+            font-weight:800;
+
+            margin-bottom:12px;
+        }
+
+        .upload-desc{
+
+            color:var(--muted);
+
+            margin-bottom:32px;
+        }
+
+        input[type=file]{
+
+            display:none;
+        }
+
+        .btn-upload{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            padding:14px 28px;
+
+            border-radius:16px;
+
+            border:1px solid var(--border);
+
+            background:white;
+
+            cursor:pointer;
+
+            font-weight:700;
+
+            transition:0.3s ease;
+        }
+
+        .btn-upload:hover{
+
+            transform:translateY(-2px);
+
+            box-shadow:
+            0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .btn-analyze{
+
+            margin-top:35px;
+
+            border:none;
+
+            padding:18px 42px;
+
+            border-radius:18px;
+
+            background:
+            linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed);
+
+            color:white;
+
+            font-size:1.05rem;
+
+            font-weight:700;
+
+            cursor:pointer;
+
+            transition:0.35s ease;
+
+            box-shadow:
+            0 20px 45px rgba(124,58,237,0.25);
+        }
+
+        .btn-analyze:hover{
+
+            transform:
+            translateY(-3px)
+            scale(1.02);
+        }
+
+        /* MOBILE */
+
+        @media(max-width:900px){
+
+            .template-grid{
+
+                grid-template-columns:1fr;
+            }
+
+            .header-section h1{
+
+                font-size:2.6rem;
+            }
+        }
+
+        @media(max-width:768px){
+
+            .navbar{
+
+                padding:18px 20px;
+
+                flex-direction:column;
+
+                gap:14px;
+            }
+
+            .main-container{
+
+                padding-top:170px;
+            }
+
+            .upload-card{
+
+                padding:45px 24px;
+            }
+
+            .upload-title{
+
+                font-size:1.5rem;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="/dashboard"
+           class="logo">
+
+            Resufit
+
+        </a>
+
+        <div class="nav-right">
+
+            <a href="/dashboard"
+               class="btn-nav">
+
+                Dashboard
+
+            </a>
+
+            <a href="/logout"
+               class="btn-nav">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- MAIN -->
+
+    <div class="main-container">
+
+        <!-- HEADER -->
+
+        <div class="header-section">
+
+            <h1>
+
+                Re-Build
+
+                <span class="gradient-text">
+
+                    Resume
+
+                </span>
+
+            </h1>
+
+            <p>
+
+                Upload your resume and choose a professional template.
+
+            </p>
+
+        </div>
+
+        <!-- FORM -->
+
+        <form action="/rebuild_resume"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <!-- TEMPLATE SECTION -->
+
+            <div class="template-section">
+
+                <h3 class="template-title">
+
+                    Choose Resume Template
+
+                </h3>
+
+                <div class="template-grid">
+
+                    <!-- TEMPLATE 1 -->
+
+                    <label class="template-card">
+
+                        <input type="radio"
+                               name="template"
+                               value="minimal"
+                               checked>
+
+                        <img src="/static/templates/minimal.png">
+
+                        <span>
+
+                            Minimal
+
+                        </span>
+
+                    </label>
+
+                    <!-- TEMPLATE 2 -->
+
+                    <label class="template-card">
+
+                        <input type="radio"
+                               name="template"
+                               value="simple">
+
+                        <img src="/static/templates/simple.png">
+
+                        <span>
+
+                            Modern
+
+                        </span>
+
+                    </label>
+
+                    <!-- TEMPLATE 3 -->
+
+                    <label class="template-card">
+
+                        <input type="radio"
+                               name="template"
+                               value="professional">
+
+                        <img src="/static/templates/professional.png">
+
+                        <span>
+
+                            Professional
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <!-- UPLOAD CARD -->
+
+            <div class="upload-card">
+
+                <div class="upload-icon">
+
+                    <svg fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         viewBox="0 0 24 24">
+
+                        <path d="M12 16V4"></path>
+
+                        <path d="M8 8l4-4 4 4"></path>
+
+                        <path d="M4 20h16"></path>
+
+                    </svg>
+
+                </div>
+
+                <h2 class="upload-title">
+
+                    Upload Your Resume
+
+                </h2>
+
+                <p class="upload-desc">
+
+                    Supported formats:
+                    PDF, DOC, DOCX
+
+                </p>
+
+                <input type="file"
+                       id="fileInput"
+                       name="resume"
+                       required>
+
+                <label for="fileInput"
+                       class="btn-upload">
+
+                    Choose File
+
+                </label>
+
+                <div>
+
+                    <button type="submit"
+                            class="btn-analyze">
+
+                        Rebuild Resume
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+
+
+    <!-- SCRIPT -->
+
+    <script>
+
+        const fileInput =
+            document.getElementById('fileInput');
+
+        fileInput.addEventListener(
+            'change',
+            function(){
+
+                if(this.files.length > 0){
+
+                    const btn =
+                    document.querySelector('.btn-upload');
+
+                    btn.innerHTML =
+                    this.files[0].name;
+
+                    btn.style.borderColor =
+                    '#22c55e';
+
+                    btn.style.color =
+                    '#22c55e';
+                }
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
