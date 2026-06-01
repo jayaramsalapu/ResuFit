@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import pdfkit
 from flask import make_response
 import sqlite3
 from flask_bcrypt import Bcrypt
@@ -235,7 +234,6 @@ def google_callback():
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
-    f
     if request.method == 'POST':
         step = request.form.get('step')
         email = request.form.get('email')
@@ -426,40 +424,10 @@ def rebuild_resume():
     # render selected template
     return render_template(
         f"resumes/{template}.html",
-        data=result,selected_template=template,pdf_mode=False
+        data=result,selected_template=template
     )
 
-@app.route('/download_resume/<template>')
-def download_resume(template):
 
-    data = session.get('resume_data')
-
-    rendered = render_template(
-        f"resumes/{template}.html",
-        data=data,
-        selected_template=template
-    )
-
-    config = pdfkit.configuration(
-        wkhtmltopdf=
-        r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-    )
-
-    pdf = pdfkit.from_string(
-        rendered,
-        False,
-        configuration=config
-    )
-
-    response = make_response(pdf)
-
-    response.headers['Content-Type'] = 'application/pdf'
-
-    response.headers['Content-Disposition'] = (
-        'attachment; filename=resume.pdf'
-    )
-
-    return response
 
 @app.route('/builder')
 def builder():
