@@ -250,7 +250,7 @@ def forgot_password():
             if not user:
                 return render_template('forgot_password.html', step=1, error="Email not found")
 
-            otp = str(random.randint(100000, 999999))
+            otp = str(random.randint(1000, 9999))
             otp_storage[email] = otp
 
             msg = Message(
@@ -401,7 +401,6 @@ def rebuild_resume():
 
     # template selected by user
     template = request.form.get('template')
-
     # save uploaded file
     filename = secure_filename(file.filename)
 
@@ -436,8 +435,159 @@ def builder():
 
 @app.route('/generate_resume', methods=['POST'])
 def generate_resume():
-
     template = request.form.get('template')
+
+    # -------------------------
+    # EXPERIENCE
+    # -------------------------
+
+    experiences = []
+
+    roles = request.form.getlist('role[]')
+    companies = request.form.getlist('company[]')
+    durations = request.form.getlist('duration[]')
+    descriptions = request.form.getlist(
+        'experience_description[]'
+    )
+
+    for role, company, duration, description in zip(
+        roles,
+        companies,
+        durations,
+        descriptions
+    ):
+
+        if role.strip() or company.strip():
+
+            experiences.append({
+
+                "role": role,
+
+                "company": company,
+
+                "duration": duration,
+
+                "description": description
+
+            })
+
+    # -------------------------
+    # PROJECTS
+    # -------------------------
+    projects = []
+
+    titles = request.form.getlist(
+    'project_title[]'
+    )
+
+    technologies_list = request.form.getlist(
+    'technologies[]'
+    )
+
+    project_descriptions = request.form.getlist(
+    'project_description[]'
+    )
+
+    github_urls = request.form.getlist(
+    'github_url[]'
+    )
+
+    live_urls = request.form.getlist(
+    'live_url[]'
+    )
+
+    for title, tech, description, github, live in zip(titles,technologies_list,project_descriptions,github_urls,live_urls):
+
+
+        if title.strip():
+
+            projects.append({
+
+                "title": title,
+
+                "description": description,
+
+                "technologies": [
+                    t.strip()
+                    for t in tech.split(',')
+                    if t.strip()
+                ],
+
+                "github_url": github,
+
+                "live_url": live
+
+            })
+        
+    # -------------------------
+    # EDUCATION
+    # -------------------------
+
+    education = []
+
+    degrees = request.form.getlist('degree[]')
+    institutions = request.form.getlist('institution[]')
+    years = request.form.getlist('year[]')
+
+    for degree, institution, year in zip(
+        degrees,
+        institutions,
+        years
+    ):
+
+        if degree.strip() or institution.strip():
+
+            education.append({
+
+                "degree": degree,
+
+                "institution": institution,
+
+                "year": year
+
+            })
+
+    # -------------------------
+    # SKILLS
+    # -------------------------
+
+    skills_text = request.form.get(
+        'skills',
+        ''
+    )
+
+    skills = [
+
+        skill.strip()
+
+        for skill in skills_text.split(',')
+
+        if skill.strip()
+
+    ]
+
+    # -------------------------
+    # CERTIFICATIONS
+    # -------------------------
+
+    certifications_text = request.form.get(
+        'certifications',
+        ''
+    )
+
+    certifications = [
+
+        cert.strip()
+
+        for cert in certifications_text.split(',')
+
+        if cert.strip()
+
+    ]
+
+    # -------------------------
+    # FINAL DATA
+    # -------------------------
 
     data = {
 
@@ -460,77 +610,27 @@ def generate_resume():
 
             "portfolio":
             request.form.get('portfolio')
+
         },
 
         "summary":
         request.form.get('summary'),
 
         "skills":
-        request.form.get('skills').split(','),
+        skills,
 
-        "experience": [
+        "experience":
+        experiences,
 
-            {
+        "projects":
+        projects,
 
-                "role":
-                request.form.get('role'),
-
-                "company":
-                request.form.get('company'),
-
-                "duration":
-                request.form.get('duration'),
-
-                "description":
-                request.form.get(
-                    'experience_description'
-                )
-            }
-
-        ],
-
-        "projects":[
-
-            {
-
-                "title":
-                request.form.get(
-                    'project_title'
-                ),
-
-                "description":
-                request.form.get(
-                    'project_description'
-                ),
-
-                "technologies":
-                request.form.get(
-                    'technologies'
-                ).split(',')
-            }
-
-        ],
-
-        "education":[
-
-            {
-
-                "degree":
-                request.form.get('degree'),
-
-                "institution":
-                request.form.get('institution'),
-
-                "year":
-                request.form.get('year')
-            }
-
-        ],
+        "education":
+        education,
 
         "certifications":
-        request.form.get(
-            'certifications'
-        ).split(',')
+        certifications
+
     }
 
     session['resume_data'] = data
@@ -544,8 +644,8 @@ def generate_resume():
         selected_template=template,
 
         pdf_mode=False
-    )
 
+    )
 if __name__ == '__main__':
     create_table()
     app.run()
