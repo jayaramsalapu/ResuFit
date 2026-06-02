@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask import make_response
 import sqlite3
 from flask_bcrypt import Bcrypt
@@ -12,7 +12,7 @@ import random
 from werkzeug.utils import secure_filename
 from PyPDF2 import PdfReader
 from docx import Document
-from groq_api import analyze_resume_with_groq, analyze_jd_with_groq
+from groq_api import analyze_resume_with_groq, analyze_jd_with_groq ,  optimize_text_with_groq, tailor_resume_with_groq, analyze_keywords_with_groq
 load_dotenv()
 
 
@@ -436,220 +436,130 @@ def rebuild_resume():
 def builder():
     return render_template('builder.html')
 
+# ==========================
+# AI POLISH
+# ==========================
 
-@app.route('/generate_resume', methods=['POST'])
-def generate_resume():
-    template = request.form.get('template')
+@app.route('/optimize-text', methods=['POST'])
+def optimize_text():
 
-    # -------------------------
-    # EXPERIENCE
-    # -------------------------
+    try:
+        data = request.get_json()
 
-    experiences = []
+        text = data.get('text', '')
+        text_type = data.get('type', 'general')
 
-    roles = request.form.getlist('role[]')
-    companies = request.form.getlist('company[]')
-    durations = request.form.getlist('duration[]')
-    descriptions = request.form.getlist(
-        'experience_description[]'
-    )
+        if not text.strip():
+            return jsonify({
+                "error": "No text provided"
+            }), 400
 
-    for role, company, duration, description in zip(
-        roles,
-        companies,
-        durations,
-        descriptions
-    ):
+        optimized = optimize_text_with_groq(
+            text,
+            text_type
+        )
 
-        if role.strip() or company.strip():
+        return jsonify({
+            "optimized": optimized
+        })
 
-            experiences.append({
+    except Exception as e:
+        return jsonify({
+            "error": str(e)
+        }), 500
 
-                "role": role,
 
-                "company": company,
+# ==========================
+# RESUME TAILORING
+# ==========================
 
-                "duration": duration,
+@app.route('/tailor-resume', methods=['POST'])
+def tailor_resume():
 
-                "description": description
+    try:
+        data = request.get_json()
 
-            })
+        resume_data = data.get('resumeData', {})
+        job_desc = data.get('jobdesc', '')
 
-    # -------------------------
-    # PROJECTS
-    # -------------------------
-    projects = []
+        if not job_desc:
+            return jsonify({
+                "error": "Job description missing"
+            }), 400
 
-    titles = request.form.getlist(
-    'project_title[]'
-    )
+        tailored = tailor_resume_with_groq(
+            resume_data,
+            job_desc
+        )
 
-    technologies_list = request.form.getlist(
-    'technologies[]'
-    )
+        # Fix Experience descriptions
+        for exp in tailored.get("experience", []):
 
-    project_descriptions = request.form.getlist(
-    'project_description[]'
-    )
+            desc = exp.get("description")
 
-    github_urls = request.form.getlist(
-    'github_url[]'
-    )
+            if isinstance(desc, list):
 
-    live_urls = request.form.getlist(
-    'live_url[]'
-    )
+                exp["description"] = "\n".join(
+                    f"• {str(item).strip().lstrip('•*- ')}"
+                    for item in desc
+                    if str(item).strip()
+                )
 
-    for title, tech, description, github, live in zip(titles,technologies_list,project_descriptions,github_urls,live_urls):
+        # Fix Project descriptions
+        for proj in tailored.get("projects", []):
 
+            desc = proj.get("description")
 
-        if title.strip():
+            if isinstance(desc, list):
 
-            projects.append({
+                proj["description"] = "\n".join(
+                    f"• {str(item).strip().lstrip('•*- ')}"
+                    for item in desc
+                    if str(item).strip()
+                )
 
-                "title": title,
 
-                "description": description,
 
-                "technologies": [
-                    t.strip()
-                    for t in tech.split(',')
-                    if t.strip()
-                ],
+        return jsonify({
+            "success": True,
+            "tailored": tailored
+        })
 
-                "github_url": github,
+    except Exception as e:
 
-                "live_url": live
+        import traceback
+        traceback.print_exc()
 
-            })
-        
-    # -------------------------
-    # EDUCATION
-    # -------------------------
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
 
-    education = []
+# ==========================
+# KEYWORD ANALYZER
+# ==========================
 
-    degrees = request.form.getlist('degree[]')
-    institutions = request.form.getlist('institution[]')
-    years = request.form.getlist('year[]')
+@app.route('/analyze-keywords', methods=['POST'])
+def analyze_keywords():
 
-    for degree, institution, year in zip(
-        degrees,
-        institutions,
-        years
-    ):
+    try:
+        data = request.get_json()
 
-        if degree.strip() or institution.strip():
+        resume_data = data.get('resumeData', {})
+        job_desc = data.get('jobdesc', '')
 
-            education.append({
+        result = analyze_keywords_with_groq(
+            resume_data,
+            job_desc
+        )
 
-                "degree": degree,
+        return jsonify(result)
 
-                "institution": institution,
+    except Exception as e:
+        return jsonify({
+            "error": str(e)
+        }), 500
 
-                "year": year
-
-            })
-
-    # -------------------------
-    # SKILLS
-    # -------------------------
-
-    skills_text = request.form.get(
-        'skills',
-        ''
-    )
-
-    skills = [
-
-        skill.strip()
-
-        for skill in skills_text.split(',')
-
-        if skill.strip()
-
-    ]
-
-    # -------------------------
-    # CERTIFICATIONS
-    # -------------------------
-
-    certifications_text = request.form.get(
-        'certifications',
-        ''
-    )
-
-    certifications = [
-
-        cert.strip()
-
-        for cert in certifications_text.split(',')
-
-        if cert.strip()
-
-    ]
-
-    # -------------------------
-    # FINAL DATA
-    # -------------------------
-
-    data = {
-
-        "personal_info": {
-
-            "name":
-            request.form.get('name'),
-
-            "email":
-            request.form.get('email'),
-
-            "phone":
-            request.form.get('phone'),
-
-            "linkedin":
-            request.form.get('linkedin'),
-
-            "github":
-            request.form.get('github'),
-
-            "portfolio":
-            request.form.get('portfolio')
-
-        },
-
-        "summary":
-        request.form.get('summary'),
-
-        "skills":
-        skills,
-
-        "experience":
-        experiences,
-
-        "projects":
-        projects,
-
-        "education":
-        education,
-
-        "certifications":
-        certifications
-
-    }
-
-    session['resume_data'] = data
-
-    return render_template(
-
-        f"resumes/{template}.html",
-
-        data=data,
-
-        selected_template=template,
-
-        pdf_mode=False
-
-    )
 if __name__ == '__main__':
     create_table()
     app.run()
