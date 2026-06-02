@@ -96,6 +96,8 @@ def index():
 # ---------- REGISTER ---------- #
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if 'user_id' in session:
+        return redirect('/dashboard')
 
     if request.method == 'POST':
         email = request.form['email']
@@ -127,6 +129,8 @@ def register():
 # ---------- LOGIN ---------- #
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'user_id' in session:
+        return redirect('/dashboard')
 
     if request.method == 'POST':
         email = request.form['email']
