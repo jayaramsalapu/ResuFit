@@ -16,88 +16,151 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 def analyze_resume_with_groq(resume_text):
     prompt = f"""
 ROLE:
-You are an elite executive recruiter and a strict ATS system.
+You are an elite executive recruiter, hiring manager, HR reviewer, resume writer, English language editor, and resume optimization expert.
 
 TASK:
-Analyze the resume strictly using ATS standards.
+Perform a COMPLETE resume review.
+
+Review the resume from:
+
+1. Recruiter perspective
+2. Hiring manager perspective
+3. Resume writer perspective
+4. Grammar editor perspective
+5. ATS compatibility perspective
 
 PROCESS (internal, do not output):
-1. Extract structured resume data
-2. Evaluate against ATS rules
-3. Identify weaknesses
-4. Generate improvements
 
-ATS SCORING GUIDELINE:
-- 90–100: Excellent (no issues)
-- 70–89: Strong (minor gaps)
-- 50–69: Moderate issues
-- 30–49: Weak
-- <30: Poor
+1. Extract structured resume data.
+2. Review every section line-by-line.
+3. Identify ALL grammar, spelling, wording, and formatting issues.
+4. Identify weak resume content.
+5. Identify missing achievements and missing impact.
+6. Improve weak descriptions.
+7. Return ALL issues found.
+
+IMPORTANT:
+
+* Review every sentence.
+* Review every bullet point.
+* Review every section.
+* Do NOT stop after finding a few issues.
+* Return every genuine issue found.
+* If no issue exists, do not invent one.
+* Be extremely strict.
 
 RESUME:
 {resume_text}
 
 OUTPUT FORMAT (STRICT JSON ONLY):
 {{
-  "personal_info": {{
-    "name": "",
-    "email": "",
-    "phone": "",
-    "linkedin": "",
-    "github": "",
-    "portfolio": ""
-  }},
-  "summary": "",
-  "skills": [],
-  "experience": [
-    {{
-      "role": "",
-      "company": "",
-      "duration": "",
-      "description": ""
-    }}
-  ],
-  "projects": [
-    {{
-      "title": "",
-      "description": "",
-      "technologies": []
-    }}
-  ],
-  "education": [
-    {{
-      "degree": "",
-      "institution": "",
-      "year": ""
-    }}
-  ],
-  "certifications": [],
-  "analysis": {{
-    "ats_score": 0,
-    "grammar_and_spelling_mistakes": [
-      {{
-        "mistake": "",
-        "correction": "",
-        "explanation": ""
-      }}
-    ],
-    "improvements_to_stand_out": [],
-    "formatting_and_structure_feedback": ""
+"personal_info": {{
+"name": "",
+"email": "",
+"phone": "",
+"linkedin": "",
+"github": "",
+"portfolio": ""
+}},
+
+"summary": "",
+
+"skills": [],
+
+"experience": [
+{{
+"role": "",
+"company": "",
+"duration": "",
+"description": ""
+}}
+],
+
+"projects": [
+{{
+"title": "",
+"description": "",
+"technologies": []
+}}
+],
+
+"education": [
+{{
+"degree": "",
+"institution": "",
+"year": ""
+}}
+],
+
+"certifications": [],
+
+"analysis": {{
+"grammar_and_spelling_mistakes": [
+{{
+"mistake": "",
+"correction": "",
+"explanation": ""
+}}
+],
+
+```
+"content_improvements": [
+  {{
+    "original_text": "",
+    "improved_text": "",
+    "reason": ""
   }}
+],
+
+"improvements_to_stand_out": [],
+
+"formatting_and_structure_feedback": "",
+
+"missing_information": [],
+
+"recruiter_concerns": []
+```
+
+}}
 }}
 
 STRICT OUTPUT RULES:
-- Output MUST be valid JSON (parsable with json.loads)
-- Do NOT include markdown or backticks
-- Do NOT include comments or extra text
-- Do NOT change keys
-- If data is missing, use "" or []
-- grammar_and_spelling_mistakes:
-  - Extract exact sentence
-  - Provide corrected version
-  - Give short explanation
-- Experience descriptions MUST be professional and clear
+
+* Output MUST be valid JSON.
+* Output ONLY JSON.
+* No markdown.
+* No code blocks.
+* No comments.
+* No explanations outside JSON.
+* Do NOT change keys.
+* Preserve extracted resume data.
+* Use "" for missing values.
+* Use [] for empty arrays.
+
+grammar_and_spelling_mistakes:
+
+* Extract exact text containing the issue.
+* Provide corrected version.
+* Explain the issue briefly.
+
+content_improvements:
+
+* Rewrite weak content professionally.
+* Improve clarity.
+* Improve readability.
+* Improve impact.
+* Use strong action verbs.
+* Make content recruiter-friendly.
+
+Experience descriptions:
+
+* Must be concise.
+* Must be professional.
+* Must be achievement-focused where possible.
+
+Return ALL issues found throughout the resume.
 """
+
 
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",

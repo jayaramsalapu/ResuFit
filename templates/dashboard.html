@@ -180,16 +180,14 @@
 
         /* Dashboard Container */
         .dashboard-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 140px 24px 80px;
-            position: relative;
-            z-index: 10;
-        }
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 90px 24px 10px;
+}
 
         /* Header Area */
         .welcome-header {
-            margin-bottom: 64px;
+            margin-bottom: 24px;
             text-align: center;
             animation: fadeDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
@@ -211,7 +209,7 @@
         /* Grid Layout */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 32px;
             perspective: 2000px;
             /* Essential for vivid 3D child rendering */
@@ -545,35 +543,7 @@
             </a>
 
             <!-- Card 3: Resume Rebuild -->
-            <a href='/rebuild' class="feature-card card-3" data-tilt data-tilt-max="5" data-tilt-speed="400"
-                data-tilt-glare="true" data-tilt-max-glare="0.15">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="6 9 6 2 15 2 15 9"></polyline>
-                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                        <rect x="6" y="14" width="12" height="8"></rect>
-                        <path d="M18 12h.01"></path>
-                    </svg>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Resume Rebuild</h3>
-                    <p class="card-desc">Let AI securely rewrite, improve, and reformat your existing resume to unlock
-                        better phrasing and make a stronger impact.</p>
-                    <div class="card-tags">
-                        <span class="tag">AI Rewrite</span>
-                        <span class="tag">Optimization</span>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    Rebuild Resume
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </div>
-            </a>
+           
 
             <!-- Card 4: Resume Builder -->
             <a href="/builder" class="feature-card card-4" data-tilt data-tilt-max="5" data-tilt-speed="400"

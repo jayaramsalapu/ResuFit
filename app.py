@@ -386,51 +386,6 @@ def logout():
     return redirect('/login')
 
 
-@app.route('/rebuild')
-def rebuild():
-    if 'user_id' not in session:
-        return redirect('/login')
-
-    email = session['email']
-    name = re.sub(r'\d+', '', email.split('@')[0])
-    return render_template('rebuild.html',email=session['email'],name=name)
-
-@app.route('/rebuild_resume', methods=['POST'])
-def rebuild_resume():
-
-    file = request.files.get('resume')
-
-    if not file or file.filename == '':
-        return "No file selected"
-
-    # template selected by user
-    template = request.form.get('template')
-    # save uploaded file
-    filename = secure_filename(file.filename)
-
-    filepath = os.path.join(
-        app.config['UPLOAD_FOLDER'],
-        filename
-    )
-
-    file.save(filepath)
-
-    # extract text
-    resume_text = extract_text(filepath)
-
-    # remove uploaded file
-    os.remove(filepath)
-
-    # AI analysis / JSON extraction
-    result = analyze_resume_with_groq(resume_text)
-    session['resume_data'] = result
-    # render selected template
-    return render_template(
-        f"resumes/{template}.html",
-        data=result,selected_template=template
-    )
-
-
 
 @app.route('/builder')
 def builder():
