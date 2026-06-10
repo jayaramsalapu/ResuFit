@@ -1,206 +1,164 @@
 # 📝 ResuFit - AI Resume Builder & ATS Optimization Engine
 
-ResuFit is a premium, AI-powered resume intelligence platform designed to help job seekers build, analyze, tailor, and optimize their resumes to pass Applicant Tracking Systems (ATS) and impress hiring managers.
+<p align="center">
+  <b>Build • Analyze • Optimize • Tailor Your Resume with AI</b>
+</p>
 
-By leveraging advanced large language models (LLMs) via the Groq API, ResuFit provides instant, deep recruiter-grade feedback, grammar checks, keyword matching, and automated job tailoring.
+ResuFit is an **AI-powered Resume Intelligence Platform** that helps job seekers create professional resumes, optimize them for **Applicant Tracking Systems (ATS)**, and tailor them for specific job descriptions using advanced **Large Language Models (LLMs)**.
 
----
-
-## 🚀 Key Features & How It Works (Step-by-Step)
-
-### Step 1: Build Your Resume
-
-Create a clean, recruiter-focused, ATS-friendly resume from scratch or import existing details.
-
-#### ✨ Features
-
-* **Smart Fields:** Enter details for personal information, summaries, skills, work history, projects, and education.
-* **AI Polish:** Tap on the **AI Polish** button next to summaries or experience descriptions to automatically optimize phrasing, improve readability, and ensure grammatical perfection.
-* **Interactive Design:** Instantly switch templates, preview formatting, and download your polished resume as a high-quality PDF in one click.
-
-> 📌 *Build professional resumes that are optimized for both recruiters and ATS systems.*
+It provides recruiter-grade resume analysis, ATS scoring, keyword optimization, grammar improvement, and automatic job-specific tailoring to maximize interview opportunities.
 
 ---
 
-### Step 2: Check Your Resume (ATS Compatibility)
+## 🌐 Live Demo
 
-Get an objective, rigorous review of your existing resume.
-
-#### 🔍 Features
-
-* **File Processing:** Upload your resume in **PDF** or **DOCX** format.
-* **ATS Compatibility Scan:** The engine scores your resume based on key ATS criteria, grammar, spelling, formatting issues, and readability.
-* **Recruiter Concerns Detection:** Identifies:
-
-  * Missing achievements
-  * Weak action verbs
-  * Formatting issues
-  * Potential recruiter concerns
-
-Provides actionable suggestions to improve your resume quality.
+**Website:** https://resufit-w511.onrender.com/
 
 ---
 
-### Step 3: Verify with Job Description (JD Match)
+# 🚀 Features
 
-Evaluate your resume against specific target roles before applying.
+## 📝 AI Resume Builder
 
-#### 🎯 Features
+Create a professional ATS-friendly resume from scratch.
 
-* **Gap Analysis:** Upload your resume and paste the target Job Description (JD).
-* **Weighted Match Score:** Generates a percentage score based on:
+* Personal Information
+* Professional Summary
+* Skills
+* Work Experience
+* Projects
+* Education
+* Certifications
 
-| Evaluation Factor          | Weight |
-| -------------------------- | ------ |
-| Skills Match               | 40%    |
-| Experience Relevance       | 30%    |
-| Projects Relevance         | 15%    |
-| Education & Certifications | 15%    |
+### ✨ AI Polish
 
-* **Keyword Matching:** Displays:
+Improve your content instantly using AI:
 
-  * Matched keywords
-  * Missing keywords
-  * Grammar issues
-  * Structural recommendations
-
-> 📌 *Know how closely your resume aligns with your target role before you apply.*
+* Better grammar
+* Professional wording
+* Strong action verbs
+* Improved readability
 
 ---
 
-### Step 4: Job Tailoring
+## 📊 ATS Resume Checker
 
-Automatically customize your resume for a specific Job Description.
+Upload your resume in **PDF** or **DOCX** format and receive a comprehensive ATS analysis.
 
-#### 🤖 Features
+### Analysis Includes
 
-* **Keyword Distribution:** Integrates missing JD skills naturally throughout:
-
-  * Summary
-  * Experience
-  * Projects
-
-* **Quantifiable Impact:** Enhances descriptions using strong action verbs such as:
-
-  * Engineered
-  * Optimized
-  * Automated
-  * Developed
-  * Implemented
-
-* **Business Value Focus:** Highlights measurable achievements without introducing inaccurate information.
-
-* **Formatted Output:** Converts experiences and projects into concise, ATS-friendly bullet points.
-
-> 📌 *Increase your chances of passing ATS filters while maintaining authenticity.*
+* Grammar Check
+* Spelling Check
+* Formatting Issues
+* Readability Analysis
+* Recruiter Suggestions
+* Missing Achievements
+* Weak Action Verbs Detection
 
 ---
 
-## 🛠️ Technology Stack
+## 🎯 Job Description (JD) Match
 
-ResuFit is engineered using a modern, lightweight, and performance-focused architecture.
+Compare your resume with any job description.
 
-### Backend
+### Match Score Based On
 
-* **Framework:** Python / Flask
-* Handles:
+* Skills Match (**40%**)
+* Experience (**30%**)
+* Projects (**15%**)
+* Education & Certifications (**15%**)
 
-  * Authentication
-  * Routing
-  * Database interactions
-  * File uploads
+### Additional Insights
 
-### AI Engine
-
-* **Provider:** Groq Cloud API
-* **Models:** `llama-3.3-70b-versatile` and custom configurations
-
-Used for:
-
-* Resume analysis
-* ATS scoring
-* Keyword detection
-* Grammar checks
-* Resume optimization
-* Job tailoring
-
-### Database
-
-* **SQLite3**
-* Secure storage of user accounts and hashed passwords.
-
-### Authentication
-
-Supports:
-
-* Google OAuth 2.0 Sign-In
-* Email Registration/Login
-* OTP-based password reset using Gmail SMTP
-
-### Document Processing
-
-* **PyPDF2** → PDF extraction
-* **python-docx** → DOCX extraction
-
-### Frontend
-
-* HTML5
-* CSS3 (Vanilla)
-* Vanilla JavaScript (ES6)
-
-Features include:
-
-* Premium dark-themed UI
-* Responsive layouts
-* CSS animations
-* Interactive score indicators
-
-### Production Server
-
-* **Gunicorn**
-* Enables robust and concurrent request handling.
+* Matched Keywords
+* Missing Keywords
+* Resume Gaps
+* ATS Recommendations
 
 ---
 
-## 🌐 Hosting & Keep-Alive Strategy
+## ⚡ AI Resume Tailoring
 
-### Hosting Platform
+Automatically customize your resume according to the target job description.
 
-* **Render (Free Tier)**
+### AI Optimizations
 
-### Preventing Cold Starts
+* Adds missing keywords naturally
+* Improves Summary section
+* Enhances Experience descriptions
+* Optimizes Projects
+* Uses strong action verbs
+* Generates recruiter-friendly bullet points
 
-Render's free-tier services automatically sleep after **15 minutes of inactivity**, causing startup delays of **50+ seconds**.
+Example:
 
-To prevent this:
+Instead of:
 
-* **UptimeRobot** sends an HTTP request every **5 minutes** to keep the application active.
+> Worked on web application.
 
-#### Application URL
+AI transforms it into:
+
+> Engineered and optimized a responsive web application, improving usability and reducing processing time through efficient backend integration.
+
+---
+
+# 🛠️ Technology Stack
+
+| Technology       | Purpose             |
+| ---------------- | ------------------- |
+| Python           | Backend             |
+| Flask            | Web Framework       |
+| Groq API         | AI Engine           |
+| Llama 3.3 70B    | Resume Intelligence |
+| SQLite           | Database            |
+| Google OAuth 2.0 | Authentication      |
+| Gmail SMTP       | OTP Verification    |
+| PyPDF2           | PDF Parsing         |
+| python-docx      | DOCX Parsing        |
+| HTML5            | Frontend            |
+| CSS3             | Styling             |
+| JavaScript (ES6) | Interactivity       |
+| Gunicorn         | Production Server   |
+| Render           | Deployment          |
+
+---
+
+# 📂 Project Structure
 
 ```text
-https://resufit-w511.onrender.com/
+ResuFit/
+│
+├── static/
+│   ├── images/
+│   ├── videos/
+│   └── style.css
+│
+├── templates/
+│   ├── builder.html
+│   ├── check_resume.html
+│   ├── dashboard.html
+│   ├── forgot_password.html
+│   ├── index.html
+│   ├── jd_analysis.html
+│   ├── login.html
+│   └── register.html
+│
+├── uploads/
+│
+├── app.py
+├── groq_api.py
+├── database.db
+├── requirements.txt
+├── Procfile
+├── .env
+└── .gitignore
 ```
 
-This ensures:
-
-* Faster response times
-* Better user experience
-* Reduced downtime perception
-
 ---
 
-## 💻 Local Setup & Installation
+# 💻 Local Installation
 
-### 1. Prerequisites
-
-Ensure you have the following installed:
-
-* Python 3.8+
-
----
-
-### 2. Clone the Repository
+## 1. Clone Repository
 
 ```bash
 git clone https://github.com/jayaramsalapu/ResuFit.git
@@ -210,9 +168,9 @@ cd ResuFit
 
 ---
 
-### 3. Create a Virtual Environment
+## 2. Create Virtual Environment
 
-#### Windows
+### Windows
 
 ```bash
 python -m venv env
@@ -220,7 +178,7 @@ python -m venv env
 .\env\Scripts\activate
 ```
 
-#### macOS / Linux
+### macOS/Linux
 
 ```bash
 python3 -m venv env
@@ -230,7 +188,7 @@ source env/bin/activate
 
 ---
 
-### 4. Install Dependencies
+## 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -238,104 +196,95 @@ pip install -r requirements.txt
 
 ---
 
-### 5. Configure Environment Variables
+## 4. Configure Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file.
 
 ```env
 FLASK_APP=app.py
 FLASK_ENV=development
-SECRET_KEY=your_flask_secret_key
 
-# Groq API Configuration
-GROQ_API_KEY=your_groq_api_key_here
+SECRET_KEY=your_secret_key
 
-# SQLite Database
+GROQ_API_KEY=your_groq_api_key
+
 DATABASE=database.db
 
-# Email / SMTP Configuration
-EMAIL_USER=your_gmail_address@gmail.com
-EMAIL_PASS=your_gmail_app_password
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_app_password
 
-# Google OAuth Configuration
-GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
-GOOGLE_PROJECT_ID=your_google_project_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_CLIENT_ID=your_client_id
+GOOGLE_CLIENT_SECRET=your_client_secret
+GOOGLE_PROJECT_ID=your_project_id
 GOOGLE_REDIRECT_URI=http://127.0.0.1:5000/google/callback
 ```
 
 ---
 
-### 6. Run the Application
+## 5. Run Application
 
 ```bash
 python app.py
 ```
 
-Open your browser and visit:
+Open:
 
-```text
-http://127.0.0.1:5000/
+```
+http://127.0.0.1:5000
 ```
 
 ---
 
-## ☁️ Deployment Guide
+# ☁️ Deployment (Render)
 
-### Deploying to Render
+## Build Command
 
-1. Create a new **Web Service** on Render.
-2. Connect your GitHub repository.
-3. Configure the following settings:
+```bash
+pip install -r requirements.txt
+```
 
-| Setting       | Value                             |
-| ------------- | --------------------------------- |
-| Runtime       | Python                            |
-| Build Command | `pip install -r requirements.txt` |
-| Start Command | `gunicorn app:app`                |
+## Start Command
 
-4. Add all environment variables from your `.env` file under **Environment Variables**.
-5. Update the Google callback URL:
+```bash
+gunicorn app:app
+```
 
-```text
-https://resufit-w511.onrender.com/google/callback
+Configure all environment variables in the Render dashboard.
+
+For production:
+
+```
+GOOGLE_REDIRECT_URI=https://resufit-w511.onrender.com/google/callback
 ```
 
 ---
 
-## 🔄 Setting Up UptimeRobot Keep-Alive
+# 🔥 Keep-Alive Strategy
 
-1. Sign up or log in to UptimeRobot.
-2. Click **Add New Monitor**.
-3. Select **HTTP(s)** as the monitor type.
-4. Enter a monitor name:
+Since Render's free tier may sleep after inactivity, UptimeRobot can periodically ping the application to reduce cold starts.
 
-```text
-ResuFit Keep Warm
-```
+Configuration:
 
-5. Enter your application URL:
-
-```text
-https://resufit-w511.onrender.com/
-```
-
-6. Set the monitoring interval to:
-
-```text
-Every 5 Minutes
-```
-
-7. Click **Create Monitor**.
+* Monitor Type: HTTP(s)
+* URL:
+  https://resufit-w511.onrender.com/
+* Interval:
+  Every **5 minutes**
 
 ---
 
-## 🎯 Mission
+# 🎯 Highlights
 
-ResuFit aims to bridge the gap between job seekers and modern recruitment systems by providing intelligent resume optimization tools that improve ATS compatibility while maintaining authenticity and professionalism.
-
-Build smarter. Apply confidently. Get hired faster.
+* ✅ AI Resume Builder
+* ✅ ATS Resume Checker
+* ✅ Job Description Matching
+* ✅ AI Resume Tailoring
+* ✅ Google OAuth Login
+* ✅ OTP Authentication
+* ✅ PDF Export
+* ✅ Responsive UI
+* ✅ Recruiter-Oriented Feedback
 
 ---
 
-**Made with ❤️**
+
