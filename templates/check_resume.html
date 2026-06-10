@@ -6,9 +6,8 @@
     <title>Resume Intelligence Report | Resufit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    
     <style>
         :root {
             --bg: #F8FAFC;
@@ -16,14 +15,14 @@
             --primary: #2563EB;
             --primary-light: #EFF6FF;
             --primary-hover: #1D4ED8;
-            --success: #16A34A;
-            --success-light: #F0FDF4;
+            --success: #10B981;
+            --success-light: #ECFDF5;
             --warning: #F59E0B;
             --warning-light: #FFFBEB;
-            --danger: #DC2626;
+            --danger: #EF4444;
             --danger-light: #FEF2F2;
             --text: #0F172A;
-            --text-secondary: #64748B;
+            --text-secondary: #475569;
             --border: #E2E8F0;
             --border-hover: #CBD5E1;
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
@@ -45,7 +44,6 @@
             line-height: 1.6;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         /* ─── NAVBAR ─────────────────────────────────────────── */
@@ -54,7 +52,7 @@
             height: 64px;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 40px;
-            background: rgba(248,250,252,0.85);
+            background: rgba(248, 250, 252, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
@@ -87,26 +85,24 @@
         .nav-link:hover { color: var(--text); background: rgba(0,0,0,0.04); }
         .nav-link.active { color: var(--primary); background: var(--primary-light); font-weight: 600; }
 
-        .nav-right {
-            display: flex; align-items: center; gap: 12px;
-        }
+        .nav-right { display: flex; align-items: center; gap: 12px; }
 
         .nav-user {
             display: flex; align-items: center; gap: 8px;
-            padding: 5px 10px 5px 5px;
+            padding: 5px 12px;
             border: 1px solid var(--border);
             border-radius: 100px;
             background: var(--card);
         }
 
         .nav-avatar {
-            width: 28px; height: 28px; border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 24px; height: 24px; border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
             display: flex; align-items: center; justify-content: center;
             color: white; font-size: 0.7rem; font-weight: 700;
         }
 
-        .nav-name { font-size: 0.825rem; font-weight: 500; color: var(--text); }
+        .nav-name { font-size: 0.825rem; font-weight: 600; color: var(--text); }
 
         .btn-logout {
             padding: 6px 14px;
@@ -127,14 +123,14 @@
 
         /* ─── MAIN LAYOUT ────────────────────────────────────── */
         .page-wrapper {
-            max-width: 860px; margin: 0 auto;
+            max-width: 1280px; margin: 0 auto;
             padding: 104px 24px 80px;
         }
 
         /* ─── HERO ───────────────────────────────────────────── */
         .hero {
             text-align: center;
-            margin-bottom: 56px;
+            margin-bottom: 40px;
             animation: fadeSlideUp 0.5s ease both;
         }
 
@@ -146,7 +142,7 @@
             border-radius: 100px;
             color: var(--primary);
             font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             text-transform: uppercase;
         }
 
@@ -157,20 +153,19 @@
         }
 
         .hero h1 {
-            
-            font-weight: 700;
+            font-size: 2.5rem;
+            font-weight: 800;
             letter-spacing: -0.04em;
             color: var(--text);
             line-height: 1.15;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .hero-sub {
             font-size: 1.05rem;
             color: var(--text-secondary);
             max-width: 520px;
-            margin: 0 auto 28px;
-            line-height: 1.7;
+            margin: 0 auto 20px;
         }
 
         .hero-badges {
@@ -189,33 +184,26 @@
 
         .badge svg { color: var(--primary); }
 
-        /* ─── UPLOAD CARD ────────────────────────────────────── */
+        /* ─── UPLOAD CARD (SaaS style) ───────────────────────── */
         .upload-card {
             background: var(--card);
             border: 2px dashed var(--border);
             border-radius: var(--radius-xl);
-       
-            padding: 26px 48px;
+            padding: 40px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: var(--shadow-sm);
             animation: fadeSlideUp 0.5s 0.1s ease both;
             position: relative;
-            overflow: hidden;
-        }
-
-        .upload-card::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(37,99,235,0.04) 0%, transparent 70%);
-            pointer-events: none;
+            max-width: 720px;
+            margin: 0 auto;
         }
 
         .upload-card:hover {
             border-color: var(--primary);
-            background: #FAFCFF;
-            box-shadow: var(--shadow-md), 0 0 0 4px rgba(37,99,235,0.06);
+            background: #FBFCFE;
+            box-shadow: var(--shadow-md), 0 0 0 4px rgba(37,99,235,0.04);
             transform: translateY(-2px);
         }
 
@@ -226,40 +214,38 @@
         }
 
         .upload-icon-wrap {
-            width: 72px; height: 72px;
-            margin: 0 auto 20px;
+            width: 64px; height: 64px;
+            margin: 0 auto 16px;
             background: var(--primary-light);
-            border: 1px solid rgba(37,99,235,0.15);
             border-radius: var(--radius-lg);
             display: flex; align-items: center; justify-content: center;
             color: var(--primary);
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
 
         .upload-card:hover .upload-icon-wrap {
             background: var(--primary);
             color: white;
-            transform: scale(1.05);
         }
 
         .upload-title {
-            font-size: 1.2rem; font-weight: 700; color: var(--text);
+            font-size: 1.15rem; font-weight: 700; color: var(--text);
             margin-bottom: 6px; letter-spacing: -0.02em;
         }
 
         .upload-desc {
-            color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 28px;
+            color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 24px;
         }
 
         input[type="file"] { display: none; }
 
         .btn-upload {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 22px;
+            padding: 10px 20px;
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
-            color: var(--text); font-size: 0.9rem; font-weight: 600;
+            color: var(--text); font-size: 0.875rem; font-weight: 600;
             cursor: pointer; transition: all 0.15s ease;
         }
 
@@ -271,123 +257,241 @@
 
         .file-preview {
             display: none;
-            margin-top: 20px;
+            margin: 20px auto 0;
+            max-width: 380px;
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             padding: 12px 16px;
-            align-items: center; gap: 10px;
+            align-items: center; gap: 12px;
             font-size: 0.875rem; font-weight: 500; color: var(--text);
+            box-shadow: var(--shadow-sm);
         }
 
         .file-preview.active { display: flex; }
 
         .file-preview-icon {
             width: 32px; height: 32px; border-radius: var(--radius-sm);
-            background: var(--danger-light);
+            background: #FFEBEB;
             display: flex; align-items: center; justify-content: center;
             color: var(--danger); flex-shrink: 0;
         }
 
-        .file-preview-name { flex: 1; text-align: left; }
+        .file-preview-name { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .file-preview-check { color: var(--success); flex-shrink: 0; }
 
         .btn-analyze {
             display: inline-flex; align-items: center; gap: 10px;
-            padding: 13px 32px;
+            padding: 12px 28px;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: var(--radius-md);
-            font-size: 0.95rem; font-weight: 600;
+            font-size: 0.9rem; font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 14px rgba(37,99,235,0.35);
-            margin-top: 24px;
+            box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+            margin-top: 20px;
         }
 
         .btn-analyze:hover {
             background: var(--primary-hover);
-            box-shadow: 0 6px 20px rgba(37,99,235,0.45);
+            box-shadow: 0 6px 20px rgba(37,99,235,0.35);
             transform: translateY(-1px);
         }
 
         .btn-analyze:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
-        /* ─── RESULTS ────────────────────────────────────────── */
+        /* ─── RESULTS DASHBOARD ──────────────────────────────── */
         .results-wrapper {
-            margin-top: 56px;
+            margin-top: 48px;
             animation: fadeSlideUp 0.5s ease both;
         }
 
         .results-header {
             display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .results-title {
-            font-size: 1.5rem; font-weight: 700;
+            font-size: 1.35rem; font-weight: 800;
             letter-spacing: -0.03em; color: var(--text);
         }
 
-        .results-title span { color: var(--text-secondary); font-weight: 400; font-size: 1rem; }
+        .results-title span { color: var(--text-secondary); font-weight: 400; font-size: 0.95rem; }
 
-        /* ─── KPI OVERVIEW ───────────────────────────────────── */
+        /* KPI OVERVIEW GRID */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(5, 1fr);
             gap: 12px;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
 
         .kpi-card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: 20px;
+            padding: 16px;
             box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .kpi-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+        .kpi-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 
         .kpi-icon {
-            width: 36px; height: 36px; border-radius: var(--radius-sm);
+            width: 32px; height: 32px; border-radius: var(--radius-sm);
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: 12px; font-size: 1rem;
+            margin-bottom: 10px; font-size: 0.9rem;
         }
 
         .kpi-icon.danger { background: var(--danger-light); color: var(--danger); }
         .kpi-icon.warning { background: var(--warning-light); color: var(--warning); }
         .kpi-icon.primary { background: var(--primary-light); color: var(--primary); }
         .kpi-icon.success { background: var(--success-light); color: var(--success); }
+        .kpi-icon.slate { background: #F1F5F9; color: #475569; }
 
         .kpi-value {
-            font-size: 1.75rem; font-weight: 800; letter-spacing: -0.04em;
+            font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em;
             color: var(--text); line-height: 1; margin-bottom: 4px;
         }
 
         .kpi-label {
-            font-size: 0.78rem; font-weight: 500; color: var(--text-secondary);
+            font-size: 0.725rem; font-weight: 600; color: var(--text-secondary);
             text-transform: uppercase; letter-spacing: 0.04em;
         }
 
-        /* ─── SECTION DIVIDER ────────────────────────────────── */
-        .section-divider {
-            display: flex; align-items: center; gap: 12px;
-            margin: 40px 0 20px;
+        /* ─── DUAL-PANE SPLIT VIEW ───────────────────────────── */
+        .dashboard-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: start;
         }
 
-        .section-divider-label {
-            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.08em; color: var(--text-secondary); white-space: nowrap;
+        /* RESUME PREVIEW PANEL */
+        .resume-preview-panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 32px;
+            position: sticky;
+            top: 88px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
         }
 
-        .section-divider-line {
-            flex: 1; height: 1px; background: var(--border);
+        .resume-preview-title {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--primary); margin-bottom: 20px;
+            padding-bottom: 8px; border-bottom: 2px solid var(--primary-light);
+            display: flex; align-items: center; justify-content: space-between;
         }
 
-        /* ─── CARDS ──────────────────────────────────────────── */
+        .resume-preview-badge {
+            background: var(--primary-light); color: var(--primary);
+            padding: 2px 8px; border-radius: 100px; font-size: 0.65rem; font-weight: 700;
+        }
+
+        /* Resume formatting styling */
+        .resume-doc {
+            font-size: 0.85rem; color: #334155;
+        }
+
+        .resume-header {
+            text-align: center; margin-bottom: 20px;
+        }
+
+        .resume-name {
+            font-size: 1.4rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; margin-bottom: 4px;
+        }
+
+        .resume-contact {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 0.75rem; color: var(--text-secondary);
+        }
+
+        .resume-contact span { display: inline-flex; align-items: center; gap: 4px; }
+        .resume-contact span:not(:last-child)::after { content: "•"; margin-left: 8px; color: var(--border); }
+
+        .resume-section {
+            margin-top: 20px;
+        }
+
+        .resume-section-title {
+            font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: var(--text);
+            padding-bottom: 4px; border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .resume-summary { font-style: italic; line-height: 1.55; }
+
+        .resume-skills-grid {
+            display: flex; flex-wrap: wrap; gap: 6px;
+        }
+
+        .resume-skill-pill {
+            padding: 3px 8px; background: #F1F5F9; border-radius: 4px; font-size: 0.75rem; color: #334155; font-weight: 500;
+        }
+
+        .resume-timeline-item {
+            margin-bottom: 12px;
+        }
+
+        .resume-timeline-header {
+            display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; color: var(--text);
+        }
+
+        .resume-timeline-role { font-weight: 700; color: var(--text); }
+        .resume-timeline-company { color: var(--primary); font-size: 0.8rem; }
+        .resume-timeline-date { font-size: 0.75rem; color: var(--text-secondary); font-weight: 400; }
+        .resume-timeline-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; white-space: pre-line; line-height: 1.5; }
+
+        .resume-project-item {
+            margin-bottom: 12px;
+        }
+
+        .resume-project-title { font-weight: 700; color: var(--text); }
+        .resume-project-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px; }
+        .resume-project-tech { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+        .resume-project-tag { font-size: 0.65rem; background: var(--primary-light); color: var(--primary); padding: 1px 6px; border-radius: 3px; font-weight: 600; }
+
+        /* AI AUDIT PANEL (RIGHT COLUMN) */
+        .ai-audit-panel {
+            display: flex; flex-direction: column; gap: 16px;
+        }
+
+        /* SaaS Tab Bar */
+        .tab-bar {
+            display: flex; background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius-md); padding: 4px; box-shadow: var(--shadow-sm);
+        }
+
+        .tab-btn {
+            flex: 1; border: none; background: transparent; padding: 10px;
+            font-family: var(--font); font-size: 0.825rem; font-weight: 600;
+            color: var(--text-secondary); border-radius: var(--radius-sm);
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary-light); color: var(--primary);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* CARDS */
         .card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -395,20 +499,17 @@
             padding: 24px;
             margin-bottom: 16px;
             box-shadow: var(--shadow-sm);
-            transition: box-shadow 0.2s ease;
         }
-
-        .card:hover { box-shadow: var(--shadow-md); }
 
         .card-header {
             display: flex; align-items: center; gap: 10px;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
             border-bottom: 1px solid var(--border);
         }
 
         .card-icon {
-            width: 34px; height: 34px; border-radius: var(--radius-sm);
+            width: 32px; height: 32px; border-radius: var(--radius-sm);
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0;
         }
@@ -420,7 +521,7 @@
         .card-icon.slate { background: #F1F5F9; color: #475569; }
 
         .card-title {
-            font-size: 0.975rem; font-weight: 700; color: var(--text);
+            font-size: 0.95rem; font-weight: 700; color: var(--text);
             letter-spacing: -0.01em;
         }
 
@@ -433,190 +534,56 @@
             font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);
         }
 
-        /* Personal Info Grid */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-        }
-
-        .info-item {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 14px 16px;
-        }
-
-        .info-label {
-            font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 4px;
-        }
-
-        .info-value {
-            font-size: 0.9rem; font-weight: 500; color: var(--text);
-            word-break: break-word;
-        }
-
-        /* Skills */
-        .skills-wrap {
-            display: flex; flex-wrap: wrap; gap: 8px;
-        }
-
-        .skill-pill {
-            padding: 5px 12px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            font-size: 0.825rem; font-weight: 500; color: var(--text);
-            transition: all 0.15s ease; cursor: default;
-        }
-
-        .skill-pill:hover {
-            border-color: var(--primary);
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-
-        /* Timeline */
-        .timeline { display: flex; flex-direction: column; gap: 0; }
-
-        .timeline-item {
-            display: flex; gap: 16px;
-            padding-bottom: 28px; position: relative;
-        }
-
-        .timeline-item:last-child { padding-bottom: 0; }
-
-        .timeline-left { display: flex; flex-direction: column; align-items: center; gap: 0; }
-
-        .timeline-dot {
-            width: 10px; height: 10px; border-radius: 50%;
-            background: var(--primary); flex-shrink: 0;
-            margin-top: 5px; border: 2px solid white;
-            box-shadow: 0 0 0 2px var(--primary);
-        }
-
-        .timeline-line {
-            flex: 1; width: 1px;
-            background: var(--border); margin-top: 4px;
-        }
-
-        .timeline-item:last-child .timeline-line { display: none; }
-
-        .timeline-content { flex: 1; }
-
-        .timeline-role {
-            font-size: 0.95rem; font-weight: 700; color: var(--text);
-            letter-spacing: -0.01em;
-        }
-
-        .timeline-company {
-            font-size: 0.875rem; font-weight: 500; color: var(--primary);
-            margin: 2px 0;
-        }
-
-        .timeline-duration {
-            font-size: 0.8rem; color: var(--text-secondary);
-            margin-bottom: 8px;
-            display: inline-flex; align-items: center; gap: 4px;
-        }
-
-        .timeline-desc {
-            font-size: 0.875rem; color: var(--text-secondary);
-            line-height: 1.65;
-        }
-
-        /* Project Cards */
-        .projects-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px;
-        }
-
-        .project-card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 16px;
-            transition: all 0.2s ease;
-        }
-
-        .project-card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .project-title {
-            font-size: 0.9rem; font-weight: 700; color: var(--text);
-            margin-bottom: 6px; letter-spacing: -0.01em;
-        }
-
-        .project-desc {
-            font-size: 0.8rem; color: var(--text-secondary);
-            line-height: 1.5; margin-bottom: 10px;
-        }
-
-        .tech-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-
-        .tech-tag {
-            padding: 2px 8px;
-            background: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid rgba(37,99,235,0.15);
-            border-radius: 4px;
-            font-size: 0.7rem; font-weight: 600;
-        }
-
         /* Grammar Mistakes */
         .mistake-item {
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             padding: 16px;
-            margin-bottom: 10px;
-            transition: all 0.15s ease;
+            margin-bottom: 12px;
         }
 
         .mistake-item:last-child { margin-bottom: 0; }
-        .mistake-item:hover { border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
+
+        .mistake-label {
+            font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.06em; margin-bottom: 4px; opacity: 0.75;
+        }
 
         .mistake-original {
             background: var(--danger-light);
-            border: 1px solid rgba(220,38,38,0.15);
+            border: 1px solid rgba(239,68,68,0.15);
             border-radius: var(--radius-sm);
             padding: 8px 12px;
-            font-size: 0.85rem; color: var(--danger);
+            font-size: 0.8rem; color: #991B1B;
             margin-bottom: 8px; line-height: 1.5;
-        }
-
-        .mistake-label {
-            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.06em; margin-bottom: 3px; opacity: 0.7;
         }
 
         .mistake-arrow {
             text-align: center; color: var(--text-secondary);
-            font-size: 0.8rem; margin: 6px 0;
+            font-size: 0.75rem; margin: 4px 0; font-weight: 600;
         }
 
         .mistake-fix {
             background: var(--success-light);
-            border: 1px solid rgba(22,163,74,0.15);
+            border: 1px solid rgba(16,185,129,0.15);
             border-radius: var(--radius-sm);
             padding: 8px 12px;
-            font-size: 0.85rem; color: var(--success);
+            font-size: 0.8rem; color: #065F46;
             margin-bottom: 8px; line-height: 1.5;
         }
 
         .mistake-explanation {
-            font-size: 0.8rem; color: var(--text-secondary);
+            font-size: 0.78rem; color: var(--text-secondary);
             padding-top: 8px; border-top: 1px solid var(--border);
             line-height: 1.5; margin-top: 4px;
         }
 
-        /* Content Improvements - before/after */
+        /* Content Improvements */
         .improvement-item {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 12px;
         }
 
@@ -625,24 +592,19 @@
         .improvement-before, .improvement-after {
             border-radius: var(--radius-sm);
             padding: 10px 12px;
-            font-size: 0.84rem; line-height: 1.55;
+            font-size: 0.8rem; line-height: 1.5;
         }
 
         .improvement-before {
             background: var(--danger-light);
-            border: 1px solid rgba(220,38,38,0.12);
+            border: 1px solid rgba(239,68,68,0.1);
             color: #991B1B;
         }
 
         .improvement-after {
             background: var(--success-light);
-            border: 1px solid rgba(22,163,74,0.12);
-            color: #166534;
-        }
-
-        .improve-label {
-            font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.06em; margin-bottom: 4px; opacity: 0.65;
+            border: 1px solid rgba(16,185,129,0.1);
+            color: #065F46;
         }
 
         .improvement-reason {
@@ -651,24 +613,46 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             padding: 8px 12px;
-            font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;
+            font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;
+            display: flex; gap: 6px; align-items: start;
         }
 
-        /* Recruiter Concerns */
-        .concern-item {
-            display: flex; gap: 12px; align-items: flex-start;
-            padding: 14px 16px;
-            background: var(--warning-light);
-            border: 1px solid rgba(245,158,11,0.2);
+        .improvement-reason svg { flex-shrink: 0; margin-top: 2px; color: var(--primary); }
+
+        /* Weak Bullets */
+        .bullet-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
             border-radius: var(--radius-md);
-            margin-bottom: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
         }
 
-        .concern-item:last-child { margin-bottom: 0; }
-        .concern-icon { color: var(--warning); flex-shrink: 0; margin-top: 1px; }
-        .concern-text { font-size: 0.875rem; color: #92400E; line-height: 1.55; }
+        .bullet-item:last-child { margin-bottom: 0; }
 
-        /* Missing Info Checklist */
+        .bullet-original {
+            padding: 8px 12px;
+            background: rgba(239,68,68,0.04);
+            border-left: 3px solid var(--danger);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.8rem; color: var(--text);
+            margin-bottom: 8px; line-height: 1.5;
+        }
+
+        .bullet-improved {
+            padding: 8px 12px;
+            background: rgba(16,185,129,0.04);
+            border-left: 3px solid var(--success);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.8rem; color: var(--text);
+            margin-bottom: 8px; line-height: 1.5;
+        }
+
+        .bullet-reason {
+            font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;
+        }
+
+        /* Checklist Gaps */
         .checklist { display: flex; flex-direction: column; gap: 8px; }
 
         .checklist-item {
@@ -677,63 +661,28 @@
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            font-size: 0.875rem; color: var(--text-secondary);
-            transition: all 0.15s;
+            font-size: 0.825rem; color: var(--text-secondary);
         }
-
-        .checklist-item:hover { border-color: var(--border-hover); }
 
         .checklist-box {
             width: 16px; height: 16px; border-radius: 4px;
             border: 2px solid var(--border-hover);
+            background: white;
             flex-shrink: 0;
         }
 
-        /* Weak Bullets */
-        .bullet-item {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 16px;
-            margin-bottom: 10px;
-        }
-
-        .bullet-item:last-child { margin-bottom: 0; }
-
-        .bullet-original {
-            padding: 8px 12px;
-            background: rgba(220,38,38,0.06);
-            border-left: 3px solid var(--danger);
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            font-size: 0.85rem; color: var(--text);
-            margin-bottom: 8px; line-height: 1.55;
-        }
-
-        .bullet-improved {
-            padding: 8px 12px;
-            background: rgba(22,163,74,0.06);
-            border-left: 3px solid var(--success);
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            font-size: 0.85rem; color: var(--text);
-            margin-bottom: 8px; line-height: 1.55;
-        }
-
-        .bullet-reason {
-            font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;
-        }
-
-        /* Success State */
+        /* Success state */
         .success-state {
             display: flex; align-items: center; gap: 10px;
-            padding: 14px 16px;
+            padding: 12px 16px;
             background: var(--success-light);
-            border: 1px solid rgba(22,163,74,0.2);
+            border: 1px solid rgba(16,185,129,0.2);
             border-radius: var(--radius-md);
-            color: var(--success);
-            font-size: 0.875rem; font-weight: 500;
+            color: #065F46;
+            font-size: 0.825rem; font-weight: 500;
         }
 
-        /* Stand Out Tips */
+        /* Stand Out tips */
         .tip-list { display: flex; flex-direction: column; gap: 8px; }
 
         .tip-item {
@@ -742,7 +691,7 @@
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            font-size: 0.875rem; color: var(--text-secondary); line-height: 1.55;
+            font-size: 0.825rem; color: var(--text-secondary); line-height: 1.5;
         }
 
         .tip-number {
@@ -754,9 +703,45 @@
             flex-shrink: 0; margin-top: 1px;
         }
 
-        /* Formatting Feedback */
+        /* Recruiter concerns */
+        .concern-item {
+            display: flex; gap: 12px; align-items: flex-start;
+            padding: 14px 16px;
+            background: var(--warning-light);
+            border: 1px solid rgba(245,158,11,0.2);
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+        }
+
+        .concern-item:last-child { margin-bottom: 0; }
+        .concern-icon { color: var(--warning); flex-shrink: 0; margin-top: 2px; }
+        .concern-text { font-size: 0.825rem; color: #92400E; line-height: 1.5; }
+
         .feedback-text {
-            font-size: 0.9rem; color: var(--text-secondary); line-height: 1.75;
+            font-size: 0.825rem; color: var(--text-secondary); line-height: 1.6;
+        }
+
+        /* MOBILE VIEW TOGGLE SWITCHER */
+        .mobile-pane-toggle {
+            display: none;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mobile-toggle-btn {
+            flex: 1; border: none; background: transparent; padding: 10px;
+            font-family: var(--font); font-size: 0.875rem; font-weight: 600;
+            color: var(--text-secondary); border-radius: 8px;
+            cursor: pointer; text-align: center;
+            transition: all 0.15s ease;
+        }
+
+        .mobile-toggle-btn.active {
+            background: var(--primary); color: white;
         }
 
         /* Loading Spinner */
@@ -769,10 +754,15 @@
             display: none;
         }
 
-        /* ─── ANIMATIONS ─────────────────────────────────────── */
+        /* Animations */
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(20px); }
             to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -782,39 +772,47 @@
             50% { opacity: 0.4; }
         }
 
-        /* Staggered card animations */
-        .card:nth-child(1) { animation: fadeSlideUp 0.4s 0.05s ease both; }
-        .card:nth-child(2) { animation: fadeSlideUp 0.4s 0.10s ease both; }
-        .card:nth-child(3) { animation: fadeSlideUp 0.4s 0.15s ease both; }
-        .card:nth-child(4) { animation: fadeSlideUp 0.4s 0.20s ease both; }
-        .card:nth-child(5) { animation: fadeSlideUp 0.4s 0.25s ease both; }
-        .card:nth-child(6) { animation: fadeSlideUp 0.4s 0.30s ease both; }
-        .kpi-card { animation: fadeSlideUp 0.4s ease both; }
-        .kpi-card:nth-child(1) { animation-delay: 0.05s; }
-        .kpi-card:nth-child(2) { animation-delay: 0.10s; }
-        .kpi-card:nth-child(3) { animation-delay: 0.15s; }
-        .kpi-card:nth-child(4) { animation-delay: 0.20s; }
-        .kpi-card:nth-child(5) { animation-delay: 0.25s; }
-
         /* ─── RESPONSIVE ─────────────────────────────────────── */
+        @media (max-width: 992px) {
+            .kpi-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        }
+
         @media (max-width: 768px) {
-            .navbar { padding: 0 16px; }
+            .navbar { padding: 0 20px; }
             .nav-links { display: none; }
             .page-wrapper { padding: 88px 16px 60px; }
-            .hero h1 { font-size: 1.75rem; }
-            .upload-card { padding: 36px 24px; }
-            .improvement-item { grid-template-columns: 1fr; }
-            .improvement-reason { grid-column: 1; }
+            .hero h1 { font-size: 2rem; }
+            .upload-card { padding: 24px; }
+            
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-            .projects-grid { grid-template-columns: 1fr; }
             .results-header { flex-direction: column; align-items: flex-start; gap: 8px; }
             .nav-user .nav-name { display: none; }
+
+            /* Switch split pane to toggled mobile stack */
+            .mobile-pane-toggle { display: flex; }
+            .dashboard-split { grid-template-columns: 1fr; }
+            
+            .resume-preview-panel {
+                display: none; /* hidden by default on mobile unless active */
+                max-height: none;
+                position: static;
+                padding: 20px;
+            }
+            .resume-preview-panel.active { display: block; }
+            
+            .ai-audit-panel {
+                display: none;
+            }
+            .ai-audit-panel.active { display: flex; }
+
+            .improvement-item { grid-template-columns: 1fr; }
+            .improvement-reason { grid-column: 1; }
         }
 
         @media (max-width: 480px) {
             .hero-badges { gap: 6px; }
             .badge { font-size: 0.72rem; padding: 4px 10px; }
-            .kpi-grid { grid-template-columns: 1fr 1fr; }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -859,24 +857,23 @@
             <span class="hero-eyebrow-dot"></span>
             AI-Powered Analysis
         </div>
-        <h1>Resume Analysis Report</h1>
+        <h1>Resume Checker &amp; Auditor</h1>
+        <p class="hero-sub" style="font-size: 0.95rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 16px;">
+            Audit your resume structure, grammatical syntax, and ATS score against recruiter metrics.
+        </p>
         
         <div class="hero-badges">
             <span class="badge">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                ATS Compatible
+                ATS Match Check
             </span>
             <span class="badge">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Grammar Review
+                Grammar Editor
             </span>
             <span class="badge">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Content Optimization
-            </span>
-            <span class="badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Recruiter Feedback
+                Bullet Quality Audit
             </span>
         </div>
     </div>
@@ -886,13 +883,13 @@
 
         <div class="upload-card" id="uploadCard">
             <div class="upload-icon-wrap">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                     <polyline points="17 8 12 3 7 8"/>
                     <line x1="12" y1="3" x2="12" y2="15"/>
                 </svg>
             </div>
-            <p class="upload-title">Drop your resume here</p>
+            <p class="upload-title">Drop your resume here to audit</p>
             <p class="upload-desc">Supports PDF, DOC, DOCX — Max 10MB</p>
 
             <input type="file" id="fileInput" name="resume" accept=".pdf,.doc,.docx" required>
@@ -903,9 +900,10 @@
                     <polyline points="17 8 12 3 7 8"/>
                     <line x1="12" y1="3" x2="12" y2="15"/>
                 </svg>
-                Choose File
+                Choose Resume File
             </label>
 
+            <!-- Legible active preview card -->
             <div class="file-preview" id="filePreview">
                 <div class="file-preview-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -919,23 +917,24 @@
                 </svg>
             </div>
 
+            <br>
             <button type="submit" class="btn-analyze" id="analyzeBtn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                 </svg>
-                <span id="analyzeBtnText">Analyze Resume</span>
+                <span id="analyzeBtnText">Start AI Audit</span>
                 <div class="spinner" id="analyzeSpinner"></div>
             </button>
         </div>
 
-        <!-- ═══ RESULTS ═══════════════════════════════════════ -->
+        <!-- ═══ RESULTS SECTION ═══════════════════════════════ -->
         {% if result %}
-        <div class="results-wrapper">
+        <div class="results-wrapper" id="resultsSection">
 
             <!-- Results Header -->
             <div class="results-header">
                 <div>
-                    <h2 class="results-title">Analysis Complete <span>— here's what we found</span></h2>
+                    <h2 class="results-title">AI Analysis Complete <span>— audit workspace active</span></h2>
                 </div>
             </div>
 
@@ -943,7 +942,7 @@
             <div class="kpi-grid">
                 <div class="kpi-card">
                     <div class="kpi-icon danger">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
                         </svg>
                     </div>
@@ -952,25 +951,25 @@
                 </div>
                 <div class="kpi-card">
                     <div class="kpi-icon primary">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
                         </svg>
                     </div>
                     <div class="kpi-value">{{ result.get('analysis', {}).get('content_improvements', [])|length }}</div>
-                    <div class="kpi-label">Content Improvements</div>
+                    <div class="kpi-label">Improvements</div>
                 </div>
                 <div class="kpi-card">
                     <div class="kpi-icon warning">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
                         </svg>
                     </div>
                     <div class="kpi-value">{{ result.get('analysis', {}).get('recruiter_concerns', [])|length }}</div>
-                    <div class="kpi-label">Recruiter Concerns</div>
+                    <div class="kpi-label">Concerns</div>
                 </div>
                 <div class="kpi-card">
                     <div class="kpi-icon slate">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
                         </svg>
                     </div>
@@ -979,7 +978,7 @@
                 </div>
                 <div class="kpi-card">
                     <div class="kpi-icon success">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
                         </svg>
                     </div>
@@ -992,428 +991,388 @@
                         {% if result.get('summary') %}{% set sec_count = sec_count + 1 %}{% endif %}
                         {{ sec_count }}
                     </div>
-                    <div class="kpi-label">Sections Detected</div>
+                    <div class="kpi-label">Sections Built</div>
                 </div>
             </div>
 
-            <!-- ── RESUME CONTENT ── -->
-            <div class="section-divider">
-                <span class="section-divider-label">Resume Content</span>
-                <div class="section-divider-line"></div>
+            <!-- Mobile View Switcher Tab Bar -->
+            <div class="mobile-pane-toggle" id="mobilePaneToggle">
+                <button type="button" class="mobile-toggle-btn active" onclick="switchMobilePane('resume')">Resume Preview</button>
+                <button type="button" class="mobile-toggle-btn" onclick="switchMobilePane('audit')">Audit Insights</button>
             </div>
 
-            <!-- Personal Info -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon blue">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                        </svg>
+            <!-- DUAL-PANE SPLIT WORKSPACE -->
+            <div class="dashboard-split">
+                
+                <!-- LEFT PANE: Resume Preview -->
+                <div class="resume-preview-panel active" id="resumePreviewPanel">
+                    <div class="resume-preview-title">
+                        Parsed Resume Draft
+                        <span class="resume-preview-badge">Visual Mockup</span>
                     </div>
-                    <span class="card-title">Personal Information</span>
-                </div>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-label">Name</div>
-                        <div class="info-value">{{ result.get('personal_info', {}).get('name', 'N/A') }}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Email</div>
-                        <div class="info-value">{{ result.get('personal_info', {}).get('email', 'N/A') }}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Phone</div>
-                        <div class="info-value">{{ result.get('personal_info', {}).get('phone', 'N/A') }}</div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Professional Summary -->
-            {% if result.get('summary') %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon slate">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/>
-                            <line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="9" y2="18"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Professional Summary</span>
-                </div>
-                <p class="feedback-text">{{ result.summary }}</p>
-            </div>
-            {% endif %}
-
-            <!-- Skills -->
-            {% if result.get('skills') %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon blue">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Skills</span>
-                    <span class="card-count">{{ result.skills|length }}</span>
-                </div>
-                <div class="skills-wrap">
-                    {% for skill in result.skills %}
-                    <span class="skill-pill">{{ skill }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Experience -->
-            {% if result.get('experience') %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon blue">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Experience</span>
-                    <span class="card-count">{{ result.experience|length }}</span>
-                </div>
-                <div class="timeline">
-                    {% for exp in result.experience %}
-                    {% if exp.get('role') or exp.get('company') %}
-                    <div class="timeline-item">
-                        <div class="timeline-left">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-line"></div>
+                    <div class="resume-doc">
+                        <!-- Header -->
+                        <div class="resume-header">
+                            <h3 class="resume-name">{{ result.get('personal_info', {}).get('name', 'Name Not Detected') }}</h3>
+                            <div class="resume-contact">
+                                {% if result.get('personal_info', {}).get('email') %}
+                                <span>{{ result.personal_info.email }}</span>
+                                {% endif %}
+                                {% if result.get('personal_info', {}).get('phone') %}
+                                <span>{{ result.personal_info.phone }}</span>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="timeline-content">
-                            <div class="timeline-role">{{ exp.get('role', '') }}</div>
-                            <div class="timeline-company">{{ exp.get('company', '') }}</div>
-                            {% if exp.get('duration') %}
-                            <div class="timeline-duration">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                                </svg>
-                                {{ exp.get('duration', '') }}
+
+                        <!-- Professional Summary -->
+                        {% if result.get('summary') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Summary</h4>
+                            <p class="resume-summary">{{ result.summary }}</p>
+                        </div>
+                        {% endif %}
+
+                        <!-- Skills -->
+                        {% if result.get('skills') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Skills</h4>
+                            <div class="resume-skills-grid">
+                                {% for skill in result.skills %}
+                                <span class="resume-skill-pill">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Experience -->
+                        {% if result.get('experience') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Experience</h4>
+                            {% for exp in result.experience %}
+                            {% if exp.get('role') or exp.get('company') %}
+                            <div class="resume-timeline-item">
+                                <div class="resume-timeline-header">
+                                    <span class="resume-timeline-role">{{ exp.get('role', '') }}</span>
+                                    {% if exp.get('duration') %}
+                                    <span class="resume-timeline-date">{{ exp.duration }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="resume-timeline-company">{{ exp.get('company', '') }}</div>
+                                {% if exp.get('description') %}
+                                <div class="resume-timeline-desc">{{ exp.description }}</div>
+                                {% endif %}
                             </div>
                             {% endif %}
-                            {% if exp.get('description') %}
-                            <p class="timeline-desc">{{ exp.get('description', '') }}</p>
-                            {% endif %}
+                            {% endfor %}
                         </div>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
+                        {% endif %}
 
-            <!-- Projects -->
-            {% if result.get('projects') %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon slate">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Projects</span>
-                    <span class="card-count">{{ result.projects|length }}</span>
-                </div>
-                <div class="projects-grid">
-                    {% for proj in result.projects %}
-                    {% if proj.get('title') %}
-                    <div class="project-card">
-                        <div class="project-title">{{ proj.get('title', '') }}</div>
-                        <p class="project-desc">{{ proj.get('description', '') }}</p>
-                        {% if proj.get('technologies') %}
-                        <div class="tech-tags">
-                            {% for tech in proj.technologies %}
-                            <span class="tech-tag">{{ tech }}</span>
+                        <!-- Projects -->
+                        {% if result.get('projects') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Projects</h4>
+                            {% for proj in result.projects %}
+                            {% if proj.get('title') %}
+                            <div class="resume-project-item">
+                                <div class="resume-timeline-header">
+                                    <span class="resume-project-title">{{ proj.title }}</span>
+                                </div>
+                                <p class="resume-project-desc">{{ proj.get('description', '') }}</p>
+                                {% if proj.get('technologies') %}
+                                <div class="resume-project-tech">
+                                    {% for tech in proj.technologies %}
+                                    <span class="resume-project-tag">{{ tech }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Education -->
+                        {% if result.get('education') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Education</h4>
+                            {% for edu in result.education %}
+                            {% if edu.get('degree') or edu.get('institution') %}
+                            <div class="resume-timeline-item">
+                                <div class="resume-timeline-header">
+                                    <span class="resume-timeline-role">{{ edu.get('degree', '') }}</span>
+                                    {% if edu.get('year') %}
+                                    <span class="resume-timeline-date">{{ edu.year }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="resume-timeline-company">{{ edu.get('institution', '') }}</div>
+                            </div>
+                            {% endif %}
                             {% endfor %}
                         </div>
                         {% endif %}
                     </div>
-                    {% endif %}
-                    {% endfor %}
                 </div>
-            </div>
-            {% endif %}
 
-            <!-- Education -->
-            {% if result.get('education') %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon blue">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                        </svg>
+                <!-- RIGHT PANE: AI Audit Dashboard -->
+                <div class="ai-audit-panel" id="aiAuditPanel">
+                    
+                    <!-- Tab Navigation -->
+                    <div class="tab-bar">
+                        <button type="button" class="tab-btn active" onclick="switchTab('audit-tab', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                            Audit &amp; Grammar
+                        </button>
+                        <button type="button" class="tab-btn" onclick="switchTab('ats-tab', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+                                <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+                                <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                            </svg>
+                            ATS &amp; Gaps
+                        </button>
+                        <button type="button" class="tab-btn" onclick="switchTab('recruiter-tab', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            Recruiter Review
+                        </button>
                     </div>
-                    <span class="card-title">Education</span>
-                </div>
-                <div class="timeline">
-                    {% for edu in result.education %}
-                    {% if edu.get('degree') or edu.get('institution') %}
-                    <div class="timeline-item">
-                        <div class="timeline-left">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-line"></div>
-                        </div>
-                        <div class="timeline-content">
-                            <div class="timeline-role">{{ edu.get('degree', '') }}</div>
-                            <div class="timeline-company">{{ edu.get('institution', '') }}</div>
-                            {% if edu.get('year') %}
-                            <div class="timeline-duration">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+
+                    <!-- TAB 1: Audit & Grammar -->
+                    <div id="audit-tab" class="tab-content active">
+                        <!-- Grammar Spelling Card -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon red">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Grammar &amp; Spelling Audit</span>
+                                {% if result.get('analysis', {}).get('grammar_and_spelling_mistakes') %}
+                                <span class="card-count">{{ result.analysis.grammar_and_spelling_mistakes|length }}</span>
+                                {% endif %}
+                            </div>
+
+                            {% set ns = namespace(found=false) %}
+                            {% if result.get('analysis', {}).get('grammar_and_spelling_mistakes') %}
+                                {% for m in result.analysis.grammar_and_spelling_mistakes %}
+                                {% set original = m.get('bullet_point_with_error') or m.get('mistake') %}
+                                {% set fix = m.get('stylish_correction') or m.get('correction') %}
+                                {% if original and original|string|trim != '' and original|string|trim|lower != 'none' %}
+                                {% set ns.found = true %}
+                                <div class="mistake-item">
+                                    <div class="mistake-original">
+                                        <div class="mistake-label">Original Wording</div>
+                                        {{ original }}
+                                    </div>
+                                    <div class="mistake-arrow">↓ Recommended Correction</div>
+                                    {% if fix %}
+                                    <div class="mistake-fix">
+                                        <div class="mistake-label">Suggested Fix</div>
+                                        {{ fix }}
+                                    </div>
+                                    {% endif %}
+                                    {% if m.get('explanation') %}
+                                    <div class="mistake-explanation">{{ m.explanation }}</div>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if not ns.found %}
+                            <div class="success-state">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
                                 </svg>
-                                {{ edu.get('year', '') }}
+                                Grammar check clean. No immediate spelling issues detected.
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Weak Bullets Card -->
+                        {% if result.get('analysis', {}).get('weak_bullet_points') %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon yellow">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+                                        <line x1="8" y1="18" x2="21" y2="18"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Impact Audit (Weak Bullet Points)</span>
+                                <span class="card-count">{{ result.analysis.weak_bullet_points|length }}</span>
+                            </div>
+                            {% for item in result.analysis.weak_bullet_points %}
+                            <div class="bullet-item">
+                                <div class="bullet-original">
+                                    <div class="mistake-label" style="color:#B45309;">Before</div>
+                                    {{ item.original_text }}
+                                </div>
+                                <div class="bullet-improved">
+                                    <div class="mistake-label" style="color:#047857;">Suggested (Action-Oriented)</div>
+                                    {{ item.improved_version }}
+                                </div>
+                                {% if item.reason %}
+                                <div class="bullet-reason">{{ item.reason }}</div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- TAB 2: ATS & Gaps -->
+                    <div id="ats-tab" class="tab-content">
+                        <!-- Missing Information -->
+                        {% if result.get('analysis', {}).get('missing_information') %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon slate">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Missing Core Information</span>
+                                <span class="card-count">{{ result.analysis.missing_information|length }}</span>
+                            </div>
+                            <div class="checklist">
+                                {% for item in result.analysis.missing_information %}
+                                <div class="checklist-item">
+                                    <div class="checklist-box"></div>
+                                    {{ item }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Content Improvements (Alternative rewrites) -->
+                        {% if result.get('analysis', {}).get('content_improvements') %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon blue">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Content &amp; Wording Improvements</span>
+                                <span class="card-count">{{ result.analysis.content_improvements|length }}</span>
+                            </div>
+                            {% for item in result.analysis.content_improvements %}
+                            <div class="mistake-item">
+                                <div class="improvement-item">
+                                    <div class="improvement-before">
+                                        <div class="mistake-label">Before</div>
+                                        {{ item.original_text }}
+                                    </div>
+                                    <div class="improvement-after">
+                                        <div class="mistake-label">ATS Optimized Rewrite</div>
+                                        {{ item.improved_text }}
+                                    </div>
+                                </div>
+                                {% if item.reason %}
+                                <div class="improvement-reason">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                                    </svg>
+                                    {{ item.reason }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Tips to Stand Out -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon green">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">How to Stand Out</span>
+                            </div>
+                            {% set ns2 = namespace(found=false) %}
+                            {% if result.get('analysis', {}).get('improvements_to_stand_out') %}
+                            <div class="tip-list">
+                                {% for tip in result.analysis.improvements_to_stand_out %}
+                                {% if tip and tip|string|trim != '' and 'Improvement tip' not in tip %}
+                                {% set ns2.found = true %}
+                                <div class="tip-item">
+                                    <div class="tip-number">{{ loop.index }}</div>
+                                    {{ tip }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if not ns2.found %}
+                            <div class="success-state">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                Your resume draft has strong competitive indicators.
                             </div>
                             {% endif %}
                         </div>
                     </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
 
-            <!-- ── ISSUES ── -->
-            <div class="section-divider">
-                <span class="section-divider-label">Issues Found</span>
-                <div class="section-divider-line"></div>
-            </div>
-
-            <!-- Grammar & Spelling -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon red">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Grammar &amp; Spelling</span>
-                    {% if result.get('analysis', {}).get('grammar_and_spelling_mistakes') %}
-                    <span class="card-count">{{ result.analysis.grammar_and_spelling_mistakes|length }}</span>
-                    {% endif %}
-                </div>
-
-                {% set ns = namespace(found=false) %}
-                {% if result.get('analysis', {}).get('grammar_and_spelling_mistakes') %}
-                    {% for m in result.analysis.grammar_and_spelling_mistakes %}
-                    {% set original = m.get('bullet_point_with_error') or m.get('mistake') %}
-                    {% set fix = m.get('stylish_correction') or m.get('correction') %}
-                    {% if original and original|string|trim != '' and original|string|trim|lower != 'none' %}
-                    {% set ns.found = true %}
-                    <div class="mistake-item">
-                        <div class="mistake-original">
-                            <div class="mistake-label">Original</div>
-                            {{ original }}
-                        </div>
-                        <div class="mistake-arrow">↓ Suggested fix</div>
-                        {% if fix %}
-                        <div class="mistake-fix">
-                            <div class="mistake-label">Correction</div>
-                            {{ fix }}
+                    <!-- TAB 3: Recruiter Review -->
+                    <div id="recruiter-tab" class="tab-content">
+                        <!-- Recruiter Concerns -->
+                        {% if result.get('analysis', {}).get('recruiter_concerns') %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon yellow">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Red Flags &amp; Recruiter Concerns</span>
+                                <span class="card-count">{{ result.analysis.recruiter_concerns|length }}</span>
+                            </div>
+                            {% for concern in result.analysis.recruiter_concerns %}
+                            <div class="concern-item">
+                                <svg class="concern-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                                <span class="concern-text">{{ concern }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
                         {% endif %}
-                        {% if m.get('explanation') %}
-                        <div class="mistake-explanation">{{ m.explanation }}</div>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                {% endif %}
 
-                {% if not ns.found %}
-                <div class="success-state">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-                    </svg>
-                    No grammar or spelling issues found — your resume looks sharp!
+                        <!-- Formatting & Structure Feedback -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon slate">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Formatting &amp; Layout Advice</span>
+                            </div>
+                            {% set feedback = result.get('analysis', {}).get('formatting_and_structure_feedback', '') %}
+                            {% if feedback and feedback|trim != '' %}
+                            <p class="feedback-text">{{ feedback }}</p>
+                            {% else %}
+                            <p class="feedback-text">Formatting and overall structural elements appear clean and readable.</p>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-                {% endif %}
-            </div>
 
-            <!-- Weak Bullet Points -->
-            {% if result.get('analysis', {}).get('weak_bullet_points') %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon red">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-                            <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
-                            <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Weak Bullet Points</span>
-                    <span class="card-count">{{ result.analysis.weak_bullet_points|length }}</span>
-                </div>
-                {% for item in result.analysis.weak_bullet_points %}
-                <div class="bullet-item">
-                    <div class="bullet-original">
-                        <div class="mistake-label" style="color:#991B1B;">Original</div>
-                        {{ item.original_text }}
-                    </div>
-                    <div class="bullet-improved">
-                        <div class="mistake-label" style="color:#166534;">Improved</div>
-                        {{ item.improved_version }}
-                    </div>
-                    {% if item.reason %}
-                    <div class="bullet-reason">{{ item.reason }}</div>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            <!-- Missing Information -->
-            {% if result.get('analysis', {}).get('missing_information') %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon slate">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Missing Information</span>
-                    <span class="card-count">{{ result.analysis.missing_information|length }}</span>
-                </div>
-                <div class="checklist">
-                    {% for item in result.analysis.missing_information %}
-                    <div class="checklist-item">
-                        <div class="checklist-box"></div>
-                        {{ item }}
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- ── IMPROVEMENTS ── -->
-            <div class="section-divider">
-                <span class="section-divider-label">Improvements</span>
-                <div class="section-divider-line"></div>
-            </div>
-
-            <!-- Content Improvements -->
-            {% if result.get('analysis', {}).get('content_improvements') %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon blue">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Content Improvements</span>
-                    <span class="card-count">{{ result.analysis.content_improvements|length }}</span>
-                </div>
-                {% for item in result.analysis.content_improvements %}
-                <div class="improvement-item">
-                    <div class="improvement-before">
-                        <div class="improve-label">Before</div>
-                        {{ item.original_text }}
-                    </div>
-                    <div class="improvement-after">
-                        <div class="improve-label">After</div>
-                        {{ item.improved_text }}
-                    </div>
-                    {% if item.reason %}
-                    <div class="improvement-reason">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; margin-right:4px; vertical-align:middle;">
-                            <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
-                        </svg>
-                        {{ item.reason }}
-                    </div>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            <!-- How to Stand Out -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon success">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">How to Stand Out</span>
-                </div>
-                {% set ns2 = namespace(found=false) %}
-                {% if result.get('analysis', {}).get('improvements_to_stand_out') %}
-                <div class="tip-list">
-                    {% for tip in result.analysis.improvements_to_stand_out %}
-                    {% if tip and tip|string|trim != '' and 'Improvement tip' not in tip %}
-                    {% set ns2.found = true %}
-                    <div class="tip-item">
-                        <div class="tip-number">{{ loop.index }}</div>
-                        {{ tip }}
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-                {% endif %}
-                {% if not ns2.found %}
-                <div class="success-state">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-                    </svg>
-                    Your resume already demonstrates excellent structural impact.
-                </div>
-                {% endif %}
-            </div>
-
-            <!-- Formatting Feedback -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon slate">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                            <line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Formatting Feedback</span>
-                </div>
-                {% set feedback = result.get('analysis', {}).get('formatting_and_structure_feedback', '') %}
-                {% if feedback and feedback|trim != '' %}
-                <p class="feedback-text">{{ feedback }}</p>
-                {% else %}
-                <p class="feedback-text">Your resume structure looks well-organized overall.</p>
-                {% endif %}
-            </div>
-
-            <!-- ── RECRUITER FEEDBACK ── -->
-            <div class="section-divider">
-                <span class="section-divider-label">Recruiter Feedback</span>
-                <div class="section-divider-line"></div>
-            </div>
-
-            <!-- Recruiter Concerns -->
-            {% if result.get('analysis', {}).get('recruiter_concerns') %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon yellow">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-                        </svg>
-                    </div>
-                    <span class="card-title">Recruiter Concerns</span>
-                    <span class="card-count">{{ result.analysis.recruiter_concerns|length }}</span>
-                </div>
-                {% for concern in result.analysis.recruiter_concerns %}
-                <div class="concern-item">
-                    <svg class="concern-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-                    </svg>
-                    <span class="concern-text">{{ concern }}</span>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-        </div><!-- end results-wrapper -->
+            </div><!-- end split container -->
+        </div><!-- end results wrapper -->
         {% endif %}
 
     </form>
@@ -1463,6 +1422,49 @@
         analyzeBtn.disabled = true;
         analyzeBtnText.textContent = 'Analyzing…';
         analyzeSpinner.style.display = 'block';
+    });
+
+    // Tab switching logic for AI review panel
+    function switchTab(tabId, button) {
+        // Hide all tab panes
+        const contentPanes = document.querySelectorAll('.ai-audit-panel .tab-content');
+        contentPanes.forEach(pane => pane.classList.remove('active'));
+
+        // Deactivate all tab buttons
+        const tabBtns = document.querySelectorAll('.ai-audit-panel .tab-btn');
+        tabBtns.forEach(btn => btn.classList.remove('active'));
+
+        // Activate selected tab pane & button
+        document.getElementById(tabId).classList.add('active');
+        button.classList.add('active');
+    }
+
+    // Responsive tab switching between resume preview and audit panel on mobile
+    function switchMobilePane(paneType) {
+        const resumePanel = document.getElementById('resumePreviewPanel');
+        const auditPanel = document.getElementById('aiAuditPanel');
+        const toggleButtons = document.querySelectorAll('#mobilePaneToggle .mobile-toggle-btn');
+        
+        // Remove active class from buttons
+        toggleButtons.forEach(btn => btn.classList.remove('active'));
+
+        if (paneType === 'resume') {
+            resumePanel.classList.add('active');
+            auditPanel.classList.remove('active');
+            toggleButtons[0].classList.add('active');
+        } else {
+            resumePanel.classList.remove('active');
+            auditPanel.classList.add('active');
+            toggleButtons[1].classList.add('active');
+        }
+    }
+
+    // Auto-scroll to results if they are present after analysis loads
+    window.addEventListener('DOMContentLoaded', () => {
+        const resultsSec = document.getElementById('resultsSection');
+        if (resultsSec) {
+            resultsSec.scrollIntoView({ behavior: 'smooth' });
+        }
     });
 </script>
 
