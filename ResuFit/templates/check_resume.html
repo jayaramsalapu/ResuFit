@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Intelligence Report | Resufit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #F8FAFC;
+            --card: #FFFFFF;
+            --primary: #2563EB;
+            --primary-light: #EFF6FF;
+            --primary-hover: #1D4ED8;
+            --success: #10B981;
+            --success-light: #ECFDF5;
+            --warning: #F59E0B;
+            --warning-light: #FFFBEB;
+            --danger: #EF4444;
+            --danger-light: #FEF2F2;
+            --text: #0F172A;
+            --text-secondary: #475569;
+            --border: #E2E8F0;
+            --border-hover: #CBD5E1;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── NAVBAR ─────────────────────────────────────────── */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+            height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 40px;
+            background: rgba(248, 250, 252, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            display: flex; align-items: center; gap: 8px;
+            text-decoration: none; color: var(--text);
+            font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em;
+        }
+
+        .nav-logo-icon {
+            width: 30px; height: 30px; border-radius: 8px;
+            background: var(--primary);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .nav-links {
+            display: flex; align-items: center; gap: 4px;
+            position: absolute; left: 50%; transform: translateX(-50%);
+        }
+
+        .nav-link {
+            text-decoration: none; color: var(--text-secondary);
+            font-size: 0.875rem; font-weight: 500;
+            padding: 6px 14px; border-radius: var(--radius-sm);
+            transition: all 0.15s ease;
+        }
+
+        .nav-link:hover { color: var(--text); background: rgba(0,0,0,0.04); }
+        .nav-link.active { color: var(--primary); background: var(--primary-light); font-weight: 600; }
+
+        .nav-right { display: flex; align-items: center; gap: 12px; }
+
+        .nav-user {
+            display: flex; align-items: center; gap: 8px;
+            padding: 5px 12px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            background: var(--card);
+        }
+
+        .nav-avatar {
+            width: 24px; height: 24px; border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 0.7rem; font-weight: 700;
+        }
+
+        .nav-name { font-size: 0.825rem; font-weight: 600; color: var(--text); }
+
+        .btn-logout {
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--card);
+            color: var(--text-secondary);
+            font-size: 0.825rem; font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .btn-logout:hover {
+            border-color: var(--border-hover);
+            color: var(--text);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ─── MAIN LAYOUT ────────────────────────────────────── */
+        .page-wrapper {
+            max-width: 1280px; margin: 0 auto;
+            padding: 104px 24px 80px;
+        }
+
+        /* ─── HERO ───────────────────────────────────────────── */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeSlideUp 0.5s ease both;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 12px 4px 6px;
+            background: var(--primary-light);
+            border: 1px solid rgba(37,99,235,0.2);
+            border-radius: 100px;
+            color: var(--primary);
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .hero-eyebrow-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text);
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto 20px;
+        }
+
+        .hero-badges {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+        }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 5px 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.78rem; font-weight: 500; color: var(--text-secondary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .badge svg { color: var(--primary); }
+
+        /* ─── UPLOAD CARD (SaaS style) ───────────────────────── */
+        .upload-card {
+            background: var(--card);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow-sm);
+            animation: fadeSlideUp 0.5s 0.1s ease both;
+            position: relative;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .upload-card:hover {
+            border-color: var(--primary);
+            background: #FBFCFE;
+            box-shadow: var(--shadow-md), 0 0 0 4px rgba(37,99,235,0.04);
+            transform: translateY(-2px);
+        }
+
+        .upload-card.dragover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+        }
+
+        .upload-icon-wrap {
+            width: 64px; height: 64px;
+            margin: 0 auto 16px;
+            background: var(--primary-light);
+            border-radius: var(--radius-lg);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary);
+            transition: all 0.25s ease;
+        }
+
+        .upload-card:hover .upload-icon-wrap {
+            background: var(--primary);
+            color: white;
+        }
+
+        .upload-title {
+            font-size: 1.15rem; font-weight: 700; color: var(--text);
+            margin-bottom: 6px; letter-spacing: -0.02em;
+        }
+
+        .upload-desc {
+            color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 24px;
+        }
+
+        input[type="file"] { display: none; }
+
+        .btn-upload {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text); font-size: 0.875rem; font-weight: 600;
+            cursor: pointer; transition: all 0.15s ease;
+        }
+
+        .btn-upload:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .file-preview {
+            display: none;
+            margin: 20px auto 0;
+            max-width: 380px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            align-items: center; gap: 12px;
+            font-size: 0.875rem; font-weight: 500; color: var(--text);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .file-preview.active { display: flex; }
+
+        .file-preview-icon {
+            width: 32px; height: 32px; border-radius: var(--radius-sm);
+            background: #FFEBEB;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--danger); flex-shrink: 0;
+        }
+
+        .file-preview-name { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .file-preview-check { color: var(--success); flex-shrink: 0; }
+
+        .btn-analyze {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 12px 28px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem; font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+            margin-top: 20px;
+        }
+
+        .btn-analyze:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-analyze:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        /* ─── RESULTS DASHBOARD ──────────────────────────────── */
+        .results-wrapper {
+            margin-top: 48px;
+            animation: fadeSlideUp 0.5s ease both;
+        }
+
+        .results-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .results-title {
+            font-size: 1.35rem; font-weight: 800;
+            letter-spacing: -0.03em; color: var(--text);
+        }
+
+        .results-title span { color: var(--text-secondary); font-weight: 400; font-size: 0.95rem; }
+
+        /* KPI OVERVIEW GRID */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .kpi-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .kpi-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+        .kpi-icon {
+            width: 32px; height: 32px; border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 10px; font-size: 0.9rem;
+        }
+
+        .kpi-icon.danger { background: var(--danger-light); color: var(--danger); }
+        .kpi-icon.warning { background: var(--warning-light); color: var(--warning); }
+        .kpi-icon.primary { background: var(--primary-light); color: var(--primary); }
+        .kpi-icon.success { background: var(--success-light); color: var(--success); }
+        .kpi-icon.slate { background: #F1F5F9; color: #475569; }
+
+        .kpi-value {
+            font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em;
+            color: var(--text); line-height: 1; margin-bottom: 4px;
+        }
+
+        .kpi-label {
+            font-size: 0.725rem; font-weight: 600; color: var(--text-secondary);
+            text-transform: uppercase; letter-spacing: 0.04em;
+        }
+
+        /* ─── DUAL-PANE SPLIT VIEW ───────────────────────────── */
+        .dashboard-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* RESUME PREVIEW PANEL */
+        .resume-preview-panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 32px;
+            position: sticky;
+            top: 88px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .resume-preview-title {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--primary); margin-bottom: 20px;
+            padding-bottom: 8px; border-bottom: 2px solid var(--primary-light);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .resume-preview-badge {
+            background: var(--primary-light); color: var(--primary);
+            padding: 2px 8px; border-radius: 100px; font-size: 0.65rem; font-weight: 700;
+        }
+
+        /* Resume formatting styling */
+        .resume-doc {
+            font-size: 0.85rem; color: #334155;
+        }
+
+        .resume-header {
+            text-align: center; margin-bottom: 20px;
+        }
+
+        .resume-name {
+            font-size: 1.4rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; margin-bottom: 4px;
+        }
+
+        .resume-contact {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 0.75rem; color: var(--text-secondary);
+        }
+
+        .resume-contact span { display: inline-flex; align-items: center; gap: 4px; }
+        .resume-contact span:not(:last-child)::after { content: "•"; margin-left: 8px; color: var(--border); }
+
+        .resume-section {
+            margin-top: 20px;
+        }
+
+        .resume-section-title {
+            font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: var(--text);
+            padding-bottom: 4px; border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .resume-summary { font-style: italic; line-height: 1.55; }
+
+        .resume-skills-grid {
+            display: flex; flex-wrap: wrap; gap: 6px;
+        }
+
+        .resume-skill-pill {
+            padding: 3px 8px; background: #F1F5F9; border-radius: 4px; font-size: 0.75rem; color: #334155; font-weight: 500;
+        }
+
+        .resume-timeline-item {
+            margin-bottom: 12px;
+        }
+
+        .resume-timeline-header {
+            display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; color: var(--text);
+        }
+
+        .resume-timeline-role { font-weight: 700; color: var(--text); }
+        .resume-timeline-company { color: var(--primary); font-size: 0.8rem; }
+        .resume-timeline-date { font-size: 0.75rem; color: var(--text-secondary); font-weight: 400; }
+        .resume-timeline-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; white-space: pre-line; line-height: 1.5; }
+
+        .resume-project-item {
+            margin-bottom: 12px;
+        }
+
+        .resume-project-title { font-weight: 700; color: var(--text); }
+        .resume-project-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px; }
+        .resume-project-tech { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+        .resume-project-tag { font-size: 0.65rem; background: var(--primary-light); color: var(--primary); padding: 1px 6px; border-radius: 3px; font-weight: 600; }
+
+        /* AI AUDIT PANEL (RIGHT COLUMN) */
+        .ai-audit-panel {
+            display: flex; flex-direction: column; gap: 16px;
+        }
+
+        /* SaaS Tab Bar */
+        .tab-bar {
+            display: flex; background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius-md); padding: 4px; box-shadow: var(--shadow-sm);
+        }
+
+        .tab-btn {
+            flex: 1; border: none; background: transparent; padding: 10px;
+            font-family: var(--font); font-size: 0.825rem; font-weight: 600;
+            color: var(--text-secondary); border-radius: var(--radius-sm);
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary-light); color: var(--primary);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-icon {
+            width: 32px; height: 32px; border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card-icon.blue { background: var(--primary-light); color: var(--primary); }
+        .card-icon.green { background: var(--success-light); color: var(--success); }
+        .card-icon.yellow { background: var(--warning-light); color: var(--warning); }
+        .card-icon.red { background: var(--danger-light); color: var(--danger); }
+        .card-icon.slate { background: #F1F5F9; color: #475569; }
+
+        .card-title {
+            font-size: 0.95rem; font-weight: 700; color: var(--text);
+            letter-spacing: -0.01em;
+        }
+
+        .card-count {
+            margin-left: auto;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 2px 8px;
+            font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);
+        }
+
+        /* Grammar Mistakes */
+        .mistake-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .mistake-item:last-child { margin-bottom: 0; }
+
+        .mistake-label {
+            font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.06em; margin-bottom: 4px; opacity: 0.75;
+        }
+
+        .mistake-original {
+            background: var(--danger-light);
+            border: 1px solid rgba(239,68,68,0.15);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            font-size: 0.8rem; color: #991B1B;
+            margin-bottom: 8px; line-height: 1.5;
+        }
+
+        .mistake-arrow {
+            text-align: center; color: var(--text-secondary);
+            font-size: 0.75rem; margin: 4px 0; font-weight: 600;
+        }
+
+        .mistake-fix {
+            background: var(--success-light);
+            border: 1px solid rgba(16,185,129,0.15);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            font-size: 0.8rem; color: #065F46;
+            margin-bottom: 8px; line-height: 1.5;
+        }
+
+        .mistake-explanation {
+            font-size: 0.78rem; color: var(--text-secondary);
+            padding-top: 8px; border-top: 1px solid var(--border);
+            line-height: 1.5; margin-top: 4px;
+        }
+
+        /* Content Improvements */
+        .improvement-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .improvement-item:last-child { margin-bottom: 0; }
+
+        .improvement-before, .improvement-after {
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            font-size: 0.8rem; line-height: 1.5;
+        }
+
+        .improvement-before {
+            background: var(--danger-light);
+            border: 1px solid rgba(239,68,68,0.1);
+            color: #991B1B;
+        }
+
+        .improvement-after {
+            background: var(--success-light);
+            border: 1px solid rgba(16,185,129,0.1);
+            color: #065F46;
+        }
+
+        .improvement-reason {
+            grid-column: 1/-1;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;
+            display: flex; gap: 6px; align-items: start;
+        }
+
+        .improvement-reason svg { flex-shrink: 0; margin-top: 2px; color: var(--primary); }
+
+        /* Weak Bullets */
+        .bullet-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .bullet-item:last-child { margin-bottom: 0; }
+
+        .bullet-original {
+            padding: 8px 12px;
+            background: rgba(239,68,68,0.04);
+            border-left: 3px solid var(--danger);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.8rem; color: var(--text);
+            margin-bottom: 8px; line-height: 1.5;
+        }
+
+        .bullet-improved {
+            padding: 8px 12px;
+            background: rgba(16,185,129,0.04);
+            border-left: 3px solid var(--success);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.8rem; color: var(--text);
+            margin-bottom: 8px; line-height: 1.5;
+        }
+
+        .bullet-reason {
+            font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;
+        }
+
+        /* Checklist Gaps */
+        .checklist { display: flex; flex-direction: column; gap: 8px; }
+
+        .checklist-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.825rem; color: var(--text-secondary);
+        }
+
+        .checklist-box {
+            width: 16px; height: 16px; border-radius: 4px;
+            border: 2px solid var(--border-hover);
+            background: white;
+            flex-shrink: 0;
+        }
+
+        /* Success state */
+        .success-state {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 16px;
+            background: var(--success-light);
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: var(--radius-md);
+            color: #065F46;
+            font-size: 0.825rem; font-weight: 500;
+        }
+
+        /* Stand Out tips */
+        .tip-list { display: flex; flex-direction: column; gap: 8px; }
+
+        .tip-item {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.825rem; color: var(--text-secondary); line-height: 1.5;
+        }
+
+        .tip-number {
+            width: 20px; height: 20px; border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.7rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 1px;
+        }
+
+        /* Recruiter concerns */
+        .concern-item {
+            display: flex; gap: 12px; align-items: flex-start;
+            padding: 14px 16px;
+            background: var(--warning-light);
+            border: 1px solid rgba(245,158,11,0.2);
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+        }
+
+        .concern-item:last-child { margin-bottom: 0; }
+        .concern-icon { color: var(--warning); flex-shrink: 0; margin-top: 2px; }
+        .concern-text { font-size: 0.825rem; color: #92400E; line-height: 1.5; }
+
+        .feedback-text {
+            font-size: 0.825rem; color: var(--text-secondary); line-height: 1.6;
+        }
+
+        /* MOBILE VIEW TOGGLE SWITCHER */
+        .mobile-pane-toggle {
+            display: none;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mobile-toggle-btn {
+            flex: 1; border: none; background: transparent; padding: 10px;
+            font-family: var(--font); font-size: 0.875rem; font-weight: 600;
+            color: var(--text-secondary); border-radius: 8px;
+            cursor: pointer; text-align: center;
+            transition: all 0.15s ease;
+        }
+
+        .mobile-toggle-btn.active {
+            background: var(--primary); color: white;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 16px; height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────── */
+        @media (max-width: 992px) {
+            .kpi-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 0 20px; }
+            .nav-links { display: none; }
+            .page-wrapper { padding: 88px 16px 60px; }
+            .hero h1 { font-size: 2rem; }
+            .upload-card { padding: 24px; }
+            
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .results-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .nav-user .nav-name { display: none; }
+
+            /* Switch split pane to toggled mobile stack */
+            .mobile-pane-toggle { display: flex; }
+            .dashboard-split { grid-template-columns: 1fr; }
+            
+            .resume-preview-panel {
+                display: none; /* hidden by default on mobile unless active */
+                max-height: none;
+                position: static;
+                padding: 20px;
+            }
+            .resume-preview-panel.active { display: block; }
+            
+            .ai-audit-panel {
+                display: none;
+            }
+            .ai-audit-panel.active { display: flex; }
+
+            .improvement-item { grid-template-columns: 1fr; }
+            .improvement-reason { grid-column: 1; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-badges { gap: 6px; }
+            .badge { font-size: 0.72rem; padding: 4px 10px; }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══════════════════════════════════════════════ -->
+<nav class="navbar">
+    <a href="/dashboard" class="nav-logo">
+        <div class="nav-logo-icon">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                <polyline points="14 2 14 8 20 8" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                <line x1="16" y1="13" x2="8" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <line x1="16" y1="17" x2="8" y2="17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <polyline points="10 9 9 9 8 9" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </div>
+        Resufit
+    </a>
+
+    <div class="nav-links">
+        <a href="/dashboard" class="nav-link">Dashboard</a>
+        <a href="/builder" class="nav-link">Resume Builder</a>
+        <a href="/check-resume" class="nav-link active">Resume Checker</a>
+    </div>
+
+    <div class="nav-right">
+        <div class="nav-user">
+            <div class="nav-avatar">{{ name[0]|upper if name else 'U' }}</div>
+            <span class="nav-name">{{ name }}</span>
+        </div>
+        <a href="/logout" class="btn-logout">Log out</a>
+    </div>
+</nav>
+
+<!-- ═══ MAIN ══════════════════════════════════════════════════ -->
+<div class="page-wrapper">
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-eyebrow">
+            <span class="hero-eyebrow-dot"></span>
+            AI-Powered Analysis
+        </div>
+        <h1>Resume Checker &amp; Auditor</h1>
+        <p class="hero-sub" style="font-size: 0.95rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 16px;">
+            Audit your resume structure, grammatical syntax, and ATS score against recruiter metrics.
+        </p>
+        
+        <div class="hero-badges">
+            <span class="badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                ATS Match Check
+            </span>
+            <span class="badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Grammar Editor
+            </span>
+            <span class="badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Bullet Quality Audit
+            </span>
+        </div>
+    </div>
+
+    <!-- Upload Form -->
+    <form action="/analyze_resume" method="POST" enctype="multipart/form-data" id="resumeForm">
+
+        <div class="upload-card" id="uploadCard">
+            <div class="upload-icon-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+            </div>
+            <p class="upload-title">Drop your resume here to audit</p>
+            <p class="upload-desc">Supports PDF, DOC, DOCX — Max 10MB</p>
+
+            <input type="file" id="fileInput" name="resume" accept=".pdf,.doc,.docx" required>
+
+            <label for="fileInput" class="btn-upload" id="uploadBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                Choose Resume File
+            </label>
+
+            <!-- Legible active preview card -->
+            <div class="file-preview" id="filePreview">
+                <div class="file-preview-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                </div>
+                <span class="file-preview-name" id="filePreviewName">resume.pdf</span>
+                <svg class="file-preview-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+
+            <br>
+            <button type="submit" class="btn-analyze" id="analyzeBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <span id="analyzeBtnText">Start AI Audit</span>
+                <div class="spinner" id="analyzeSpinner"></div>
+            </button>
+        </div>
+
+        <!-- ═══ RESULTS SECTION ═══════════════════════════════ -->
+        {% if result %}
+        <div class="results-wrapper" id="resultsSection">
+
+            <!-- Results Header -->
+            <div class="results-header">
+                <div>
+                    <h2 class="results-title">AI Analysis Complete <span>— audit workspace active</span></h2>
+                </div>
+            </div>
+
+            <!-- KPI Overview Dashboard -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon danger">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-value">{{ result.get('analysis', {}).get('grammar_and_spelling_mistakes', [])|length }}</div>
+                    <div class="kpi-label">Grammar Issues</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-value">{{ result.get('analysis', {}).get('content_improvements', [])|length }}</div>
+                    <div class="kpi-label">Improvements</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon warning">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-value">{{ result.get('analysis', {}).get('recruiter_concerns', [])|length }}</div>
+                    <div class="kpi-label">Concerns</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon slate">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-value">{{ result.get('analysis', {}).get('missing_information', [])|length }}</div>
+                    <div class="kpi-label">Missing Items</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon success">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-value">
+                        {% set sec_count = 0 %}
+                        {% if result.get('skills') %}{% set sec_count = sec_count + 1 %}{% endif %}
+                        {% if result.get('experience') %}{% set sec_count = sec_count + 1 %}{% endif %}
+                        {% if result.get('projects') %}{% set sec_count = sec_count + 1 %}{% endif %}
+                        {% if result.get('education') %}{% set sec_count = sec_count + 1 %}{% endif %}
+                        {% if result.get('summary') %}{% set sec_count = sec_count + 1 %}{% endif %}
+                        {{ sec_count }}
+                    </div>
+                    <div class="kpi-label">Sections Built</div>
+                </div>
+            </div>
+
+            <!-- Mobile View Switcher Tab Bar -->
+            <div class="mobile-pane-toggle" id="mobilePaneToggle">
+                <button type="button" class="mobile-toggle-btn active" onclick="switchMobilePane('resume')">Resume Preview</button>
+                <button type="button" class="mobile-toggle-btn" onclick="switchMobilePane('audit')">Audit Insights</button>
+            </div>
+
+            <!-- DUAL-PANE SPLIT WORKSPACE -->
+            <div class="dashboard-split">
+                
+                <!-- LEFT PANE: Resume Preview -->
+                <div class="resume-preview-panel active" id="resumePreviewPanel">
+                    <div class="resume-preview-title">
+                        Parsed Resume Draft
+                        <span class="resume-preview-badge">Visual Mockup</span>
+                    </div>
+
+                    <div class="resume-doc">
+                        <!-- Header -->
+                        <div class="resume-header">
+                            <h3 class="resume-name">{{ result.get('personal_info', {}).get('name', 'Name Not Detected') }}</h3>
+                            <div class="resume-contact">
+                                {% if result.get('personal_info', {}).get('email') %}
+                                <span>{{ result.personal_info.email }}</span>
+                                {% endif %}
+                                {% if result.get('personal_info', {}).get('phone') %}
+                                <span>{{ result.personal_info.phone }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Professional Summary -->
+                        {% if result.get('summary') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Summary</h4>
+                            <p class="resume-summary">{{ result.summary }}</p>
+                        </div>
+                        {% endif %}
+
+                        <!-- Skills -->
+                        {% if result.get('skills') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Skills</h4>
+                            <div class="resume-skills-grid">
+                                {% for skill in result.skills %}
+                                <span class="resume-skill-pill">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Experience -->
+                        {% if result.get('experience') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Experience</h4>
+                            {% for exp in result.experience %}
+                            {% if exp.get('role') or exp.get('company') %}
+                            <div class="resume-timeline-item">
+                                <div class="resume-timeline-header">
+                                    <span class="resume-timeline-role">{{ exp.get('role', '') }}</span>
+                                    {% if exp.get('duration') %}
+                                    <span class="resume-timeline-date">{{ exp.duration }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="resume-timeline-company">{{ exp.get('company', '') }}</div>
+                                {% if exp.get('description') %}
+                                <div class="resume-timeline-desc">{{ exp.description }}</div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Projects -->
+                        {% if result.get('projects') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Projects</h4>
+                            {% for proj in result.projects %}
+                            {% if proj.get('title') %}
+                            <div class="resume-project-item">
+                                <div class="resume-timeline-header">
+                                    <span class="resume-project-title">{{ proj.title }}</span>
+                                </div>
+                                <p class="resume-project-desc">{{ proj.get('description', '') }}</p>
+                                {% if proj.get('technologies') %}
+                                <div class="resume-project-tech">
+                                    {% for tech in proj.technologies %}
+                                    <span class="resume-project-tag">{{ tech }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Education -->
+                        {% if result.get('education') %}
+                        <div class="resume-section">
+                            <h4 class="resume-section-title">Education</h4>
+                            {% for edu in result.education %}
+                            {% if edu.get('degree') or edu.get('institution') %}
+                            <div class="resume-timeline-item">
+                                <div class="resume-timeline-header">
+                                    <span class="resume-timeline-role">{{ edu.get('degree', '') }}</span>
+                                    {% if edu.get('year') %}
+                                    <span class="resume-timeline-date">{{ edu.year }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="resume-timeline-company">{{ edu.get('institution', '') }}</div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- RIGHT PANE: AI Audit Dashboard -->
+                <div class="ai-audit-panel" id="aiAuditPanel">
+                    
+                    <!-- Tab Navigation -->
+                    <div class="tab-bar">
+                        <button type="button" class="tab-btn active" onclick="switchTab('audit-tab', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                            Audit &amp; Grammar
+                        </button>
+                        <button type="button" class="tab-btn" onclick="switchTab('ats-tab', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+                                <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+                                <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                            </svg>
+                            ATS &amp; Gaps
+                        </button>
+                        <button type="button" class="tab-btn" onclick="switchTab('recruiter-tab', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            Recruiter Review
+                        </button>
+                    </div>
+
+                    <!-- TAB 1: Audit & Grammar -->
+                    <div id="audit-tab" class="tab-content active">
+                        <!-- Grammar Spelling Card -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon red">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Grammar &amp; Spelling Audit</span>
+                                {% if result.get('analysis', {}).get('grammar_and_spelling_mistakes') %}
+                                <span class="card-count">{{ result.analysis.grammar_and_spelling_mistakes|length }}</span>
+                                {% endif %}
+                            </div>
+
+                            {% set ns = namespace(found=false) %}
+                            {% if result.get('analysis', {}).get('grammar_and_spelling_mistakes') %}
+                                {% for m in result.analysis.grammar_and_spelling_mistakes %}
+                                {% set original = m.get('bullet_point_with_error') or m.get('mistake') %}
+                                {% set fix = m.get('stylish_correction') or m.get('correction') %}
+                                {% if original and original|string|trim != '' and original|string|trim|lower != 'none' %}
+                                {% set ns.found = true %}
+                                <div class="mistake-item">
+                                    <div class="mistake-original">
+                                        <div class="mistake-label">Original Wording</div>
+                                        {{ original }}
+                                    </div>
+                                    <div class="mistake-arrow">↓ Recommended Correction</div>
+                                    {% if fix %}
+                                    <div class="mistake-fix">
+                                        <div class="mistake-label">Suggested Fix</div>
+                                        {{ fix }}
+                                    </div>
+                                    {% endif %}
+                                    {% if m.get('explanation') %}
+                                    <div class="mistake-explanation">{{ m.explanation }}</div>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if not ns.found %}
+                            <div class="success-state">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                Grammar check clean. No immediate spelling issues detected.
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Weak Bullets Card -->
+                        {% if result.get('analysis', {}).get('weak_bullet_points') %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon yellow">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+                                        <line x1="8" y1="18" x2="21" y2="18"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Impact Audit (Weak Bullet Points)</span>
+                                <span class="card-count">{{ result.analysis.weak_bullet_points|length }}</span>
+                            </div>
+                            {% for item in result.analysis.weak_bullet_points %}
+                            <div class="bullet-item">
+                                <div class="bullet-original">
+                                    <div class="mistake-label" style="color:#B45309;">Before</div>
+                                    {{ item.original_text }}
+                                </div>
+                                <div class="bullet-improved">
+                                    <div class="mistake-label" style="color:#047857;">Suggested (Action-Oriented)</div>
+                                    {{ item.improved_version }}
+                                </div>
+                                {% if item.reason %}
+                                <div class="bullet-reason">{{ item.reason }}</div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- TAB 2: ATS & Gaps -->
+                    <div id="ats-tab" class="tab-content">
+                        <!-- Missing Information -->
+                        {% if result.get('analysis', {}).get('missing_information') %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon slate">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Missing Core Information</span>
+                                <span class="card-count">{{ result.analysis.missing_information|length }}</span>
+                            </div>
+                            <div class="checklist">
+                                {% for item in result.analysis.missing_information %}
+                                <div class="checklist-item">
+                                    <div class="checklist-box"></div>
+                                    {{ item }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Content Improvements (Alternative rewrites) -->
+                        {% if result.get('analysis', {}).get('content_improvements') %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon blue">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Content &amp; Wording Improvements</span>
+                                <span class="card-count">{{ result.analysis.content_improvements|length }}</span>
+                            </div>
+                            {% for item in result.analysis.content_improvements %}
+                            <div class="mistake-item">
+                                <div class="improvement-item">
+                                    <div class="improvement-before">
+                                        <div class="mistake-label">Before</div>
+                                        {{ item.original_text }}
+                                    </div>
+                                    <div class="improvement-after">
+                                        <div class="mistake-label">ATS Optimized Rewrite</div>
+                                        {{ item.improved_text }}
+                                    </div>
+                                </div>
+                                {% if item.reason %}
+                                <div class="improvement-reason">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                                    </svg>
+                                    {{ item.reason }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Tips to Stand Out -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon green">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">How to Stand Out</span>
+                            </div>
+                            {% set ns2 = namespace(found=false) %}
+                            {% if result.get('analysis', {}).get('improvements_to_stand_out') %}
+                            <div class="tip-list">
+                                {% for tip in result.analysis.improvements_to_stand_out %}
+                                {% if tip and tip|string|trim != '' and 'Improvement tip' not in tip %}
+                                {% set ns2.found = true %}
+                                <div class="tip-item">
+                                    <div class="tip-number">{{ loop.index }}</div>
+                                    {{ tip }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if not ns2.found %}
+                            <div class="success-state">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                Your resume draft has strong competitive indicators.
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: Recruiter Review -->
+                    <div id="recruiter-tab" class="tab-content">
+                        <!-- Recruiter Concerns -->
+                        {% if result.get('analysis', {}).get('recruiter_concerns') %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon yellow">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Red Flags &amp; Recruiter Concerns</span>
+                                <span class="card-count">{{ result.analysis.recruiter_concerns|length }}</span>
+                            </div>
+                            {% for concern in result.analysis.recruiter_concerns %}
+                            <div class="concern-item">
+                                <svg class="concern-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                                <span class="concern-text">{{ concern }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Formatting & Structure Feedback -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-icon slate">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+                                    </svg>
+                                </div>
+                                <span class="card-title">Formatting &amp; Layout Advice</span>
+                            </div>
+                            {% set feedback = result.get('analysis', {}).get('formatting_and_structure_feedback', '') %}
+                            {% if feedback and feedback|trim != '' %}
+                            <p class="feedback-text">{{ feedback }}</p>
+                            {% else %}
+                            <p class="feedback-text">Formatting and overall structural elements appear clean and readable.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end split container -->
+        </div><!-- end results wrapper -->
+        {% endif %}
+
+    </form>
+
+</div><!-- end page-wrapper -->
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const filePreview = document.getElementById('filePreview');
+    const filePreviewName = document.getElementById('filePreviewName');
+    const uploadCard = document.getElementById('uploadCard');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const analyzeBtnText = document.getElementById('analyzeBtnText');
+    const analyzeSpinner = document.getElementById('analyzeSpinner');
+
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            const file = this.files[0];
+            filePreviewName.textContent = file.name;
+            filePreview.classList.add('active');
+        }
+    });
+
+    // Drag & drop
+    uploadCard.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadCard.classList.add('dragover');
+    });
+
+    uploadCard.addEventListener('dragleave', () => {
+        uploadCard.classList.remove('dragover');
+    });
+
+    uploadCard.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadCard.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            filePreviewName.textContent = files[0].name;
+            filePreview.classList.add('active');
+        }
+    });
+
+    document.getElementById('resumeForm').addEventListener('submit', function() {
+        if (fileInput.files.length === 0) return;
+        analyzeBtn.disabled = true;
+        analyzeBtnText.textContent = 'Analyzing…';
+        analyzeSpinner.style.display = 'block';
+    });
+
+    // Tab switching logic for AI review panel
+    function switchTab(tabId, button) {
+        // Hide all tab panes
+        const contentPanes = document.querySelectorAll('.ai-audit-panel .tab-content');
+        contentPanes.forEach(pane => pane.classList.remove('active'));
+
+        // Deactivate all tab buttons
+        const tabBtns = document.querySelectorAll('.ai-audit-panel .tab-btn');
+        tabBtns.forEach(btn => btn.classList.remove('active'));
+
+        // Activate selected tab pane & button
+        document.getElementById(tabId).classList.add('active');
+        button.classList.add('active');
+    }
+
+    // Responsive tab switching between resume preview and audit panel on mobile
+    function switchMobilePane(paneType) {
+        const resumePanel = document.getElementById('resumePreviewPanel');
+        const auditPanel = document.getElementById('aiAuditPanel');
+        const toggleButtons = document.querySelectorAll('#mobilePaneToggle .mobile-toggle-btn');
+        
+        // Remove active class from buttons
+        toggleButtons.forEach(btn => btn.classList.remove('active'));
+
+        if (paneType === 'resume') {
+            resumePanel.classList.add('active');
+            auditPanel.classList.remove('active');
+            toggleButtons[0].classList.add('active');
+        } else {
+            resumePanel.classList.remove('active');
+            auditPanel.classList.add('active');
+            toggleButtons[1].classList.add('active');
+        }
+    }
+
+    // Auto-scroll to results if they are present after analysis loads
+    window.addEventListener('DOMContentLoaded', () => {
+        const resultsSec = document.getElementById('resultsSection');
+        if (resultsSec) {
+            resultsSec.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
+
+</body>
+</html>

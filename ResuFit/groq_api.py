@@ -1,0 +1,738 @@
+import os
+import json
+import re
+import ast
+from groq import Groq
+from dotenv import load_dotenv
+
+load_dotenv()
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+
+# ---------------------------
+# RESUME ANALYSIS (ATS MODE)
+# ---------------------------
+def analyze_resume_with_groq(resume_text):
+    prompt = f"""
+ROLE:
+You are an elite executive recruiter, hiring manager, HR reviewer, resume writer, English language editor, and resume optimization expert.
+
+TASK:
+Perform a COMPLETE resume review.
+
+Review the resume from:
+
+1. Recruiter perspective
+2. Hiring manager perspective
+3. Resume writer perspective
+4. Grammar editor perspective
+5. ATS compatibility perspective
+
+PROCESS (internal, do not output):
+
+1. Extract structured resume data.
+2. Review every section line-by-line.
+3. Identify ALL grammar, spelling, wording, and formatting issues.
+4. Identify weak resume content.
+5. Identify missing achievements and missing impact.
+6. Improve weak descriptions.
+7. Return ALL issues found.
+
+IMPORTANT:
+
+* Review every sentence.
+* Review every bullet point.
+* Review every section.
+* Do NOT stop after finding a few issues.
+* Return every genuine issue found.
+* If no issue exists, do not invent one.
+* Be extremely strict.
+
+RESUME:
+{resume_text}
+
+OUTPUT FORMAT (STRICT JSON ONLY):
+{{
+"personal_info": {{
+"name": "",
+"email": "",
+"phone": "",
+"linkedin": "",
+"github": "",
+"portfolio": ""
+}},
+
+"summary": "",
+
+"skills": [],
+
+"experience": [
+{{
+"role": "",
+"company": "",
+"duration": "",
+"description": ""
+}}
+],
+
+"projects": [
+{{
+"title": "",
+"description": "",
+"technologies": []
+}}
+],
+
+"education": [
+{{
+"degree": "",
+"institution": "",
+"year": ""
+}}
+],
+
+"certifications": [],
+
+"analysis": {{
+"grammar_and_spelling_mistakes": [
+{{
+"mistake": "",
+"correction": "",
+"explanation": ""
+}}
+],
+
+```
+"content_improvements": [
+  {{
+    "original_text": "",
+    "improved_text": "",
+    "reason": ""
+  }}
+],
+
+"improvements_to_stand_out": [],
+
+"formatting_and_structure_feedback": "",
+
+"missing_information": [],
+
+"recruiter_concerns": []
+```
+
+}}
+}}
+
+STRICT OUTPUT RULES:
+
+* Output MUST be valid JSON.
+* Output ONLY JSON.
+* No markdown.
+* No code blocks.
+* No comments.
+* No explanations outside JSON.
+* Do NOT change keys.
+* Preserve extracted resume data.
+* Use "" for missing values.
+* Use [] for empty arrays.
+
+grammar_and_spelling_mistakes:
+
+* Extract exact text containing the issue.
+* Provide corrected version.
+* Explain the issue briefly.
+
+content_improvements:
+
+* Rewrite weak content professionally.
+* Improve clarity.
+* Improve readability.
+* Improve impact.
+* Use strong action verbs.
+* Make content recruiter-friendly.
+
+Experience descriptions:
+
+* Must be concise.
+* Must be professional.
+* Must be achievement-focused where possible.
+
+Return ALL issues found throughout the resume.
+"""
+
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.2
+    )
+
+    content = response.choices[0].message.content.strip()
+
+    try:
+        return json.loads(content)
+    except:
+        match = re.search(r'\{[\s\S]*\}', content)
+        if match:
+            try:
+                return json.loads(match.group())
+            except:
+                return {}
+    return {}
+
+
+# ---------------------------
+# JD MATCH ANALYSIS
+# ---------------------------
+def analyze_jd_with_groq(resume_text, jd_text):
+    prompt = f"""
+ROLE:
+You are an advanced ATS system and professional recruiter.
+
+TASK:
+Compare the resume against the job description and provide a strict evaluation.
+
+PROCESS (internal, do not output):
+1. Extract candidate details
+2. Extract resume skills
+3. Extract required JD skills
+4. Compare and classify skills
+5. Evaluate experience relevance
+6. Evaluate projects
+7. Identify gaps
+8. Generate improvements
+
+MATCH SCORING WEIGHT:
+- Skills match: 40%
+- Experience relevance: 30%
+- Projects relevance: 15%
+- Education + certifications: 15%
+
+JOB DESCRIPTION:
+{jd_text}
+
+RESUME:
+{resume_text}
+
+OUTPUT FORMAT (STRICT JSON ONLY):
+{{
+"candidate": {{
+"name": "",
+"email": "",
+"phone": "",
+"linkedin": "",
+"github": ""
+}},
+"skills": {{
+"matched": [],
+"missing": [],
+"irrelevant": [],
+"suggestions": []
+}},
+"experience": {{
+"relevance": "",
+"issues": [],
+"improved_points": []
+}},
+"projects": {{
+"relevance": "",
+"issues": [],
+"suggestions": []
+}},
+"education": {{
+"details": "",
+"suggestions": []
+}},
+"certifications": {{
+"existing": [],
+"recommended": []
+}},
+"grammar": {{
+"mistakes": [],
+"improvements": []
+}},
+"structure": {{
+"issues": [],
+"suggestions": []
+}},
+"match_analysis": {{
+"percentage": "",
+"reason": ""
+}},
+"final_suggestions": []
+}}
+
+STRICT OUTPUT RULES:
+- Output MUST be valid JSON
+- No markdown, no explanations
+- Do NOT change keys
+- All fields must exist
+
+QUALITY RULES:
+- Skills:
+  - Extract required skills from JD FIRST
+  - Then compare
+- Experience improved_points:
+  - Start with strong action verb
+  - Include measurable impact (numbers, %, scale)
+  - 1–2 lines max
+- Grammar:
+  - Show incorrect sentence + corrected version
+- match_analysis:
+  - percentage must reflect weighted scoring
+  - reason must clearly justify score
+- final_suggestions:
+  - Provide 5–8 high-impact improvements
+"""
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.2
+    )
+
+    content = response.choices[0].message.content.strip()
+
+    try:
+        return json.loads(content)
+    except:
+        match = re.search(r'\{[\s\S]*\}', content)
+        if match:
+            try:
+                return json.loads(match.group())
+            except:
+                return {}
+    return {}
+
+# ==========================
+# AI POLISH
+# ==========================
+
+def optimize_text_with_groq(text, text_type="general"):
+    prompt = f"""
+You are a senior resume writer with 15+ years of recruiting experience.
+
+TASK:
+Rewrite the content professionally.
+
+Rules:
+
+ATS optimized
+Professional
+Grammar perfect
+Strong action verbs
+Concise
+Impact focused
+Keep same meaning
+Do not invent information
+Use recruiter-friendly language
+Use modern resume style
+
+If TYPE is "summary":
+- 3 to 5 lines maximum
+- Professional paragraph
+- ATS optimized
+- Include JD keywords naturally
+- No bullet points
+- No first-person language
+- Strong value proposition
+
+If TYPE is "experience":
+EXPERIENCE RULES:
+- MUST return bullet points
+- Each bullet starts with •
+- 3 to 6 bullets per role
+- Every bullet begins with a strong action verb
+Examples:
+• Developed scalable REST APIs serving 100K+ users.
+• Automated deployment workflows reducing release time by 60%.
+• Optimized PostgreSQL queries improving response times by 35%.
+
+DO NOT RETURN PARAGRAPHS.
+DO NOT MERGE BULLETS INTO ONE PARAGRAPH.
+
+If TYPE is "projects":
+PROJECT RULES:
+- MUST return bullet points
+- Each bullet starts with •
+- 2 to 5 bullets per project
+- Mention technologies naturally
+- Mention measurable outcomes if available
+Example:
+• Built a resume optimization platform using Flask and PostgreSQL.
+• Implemented AI-powered ATS scoring using Groq LLM APIs.
+• Reduced resume processing time by 40% through query optimization.
+
+DO NOT RETURN PARAGRAPHS.
+
+TEXT TYPE:
+{text_type}
+
+TEXT:
+{text}
+
+OUTPUT:
+Return ONLY the rewritten text.
+No explanations.
+No markdown.
+"""
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.4
+    )
+
+    optimized = response.choices[0].message.content.strip()
+
+    if text_type.lower() in ["experience", "projects"]:
+
+        # If AI returned paragraph instead of bullets
+        if "•" not in optimized:
+
+            sentences = [
+                s.strip()
+                for s in re.split(r'[.\n]+', optimized)
+                if s.strip()
+            ]
+
+            optimized = "\n".join(
+                [f"• {sentence}" for sentence in sentences]
+            )
+
+    return optimized
+
+
+# ==========================
+# RESUME TAILORING
+# ==========================
+
+def tailor_resume_with_groq(resume_data, job_desc):
+
+  def force_bullets(text):
+
+    if not text:
+        return ""
+
+    # Handle list returned by AI
+    if isinstance(text, list):
+
+        bullets = []
+
+        for item in text:
+
+            item = str(item).strip()
+
+            if not item:
+                continue
+
+            item = item.lstrip("•*- ")
+
+            bullets.append(f"• {item}")
+
+        return "\n".join(bullets)
+
+    # Convert to string
+    text = str(text).strip()
+
+    # Remove accidental list formatting
+    if text.startswith("[") and text.endswith("]"):
+
+        try:
+            import ast
+
+            parsed = ast.literal_eval(text)
+
+            if isinstance(parsed, list):
+
+                bullets = []
+
+                for item in parsed:
+
+                    item = str(item).strip()
+
+                    if not item:
+                        continue
+
+                    item = item.lstrip("•*- ")
+
+                    bullets.append(f"• {item}")
+
+                return "\n".join(bullets)
+
+        except:
+            pass
+
+    # Already multiline bullets
+    if "\n" in text:
+
+        bullets = []
+
+        for line in text.split("\n"):
+
+            line = line.strip()
+
+            if not line:
+                continue
+
+            line = line.lstrip("•*- ")
+
+            bullets.append(f"• {line}")
+
+        return "\n".join(bullets)
+
+    # Convert paragraph into bullets
+    sentences = [
+        s.strip()
+        for s in re.split(r'[.\n]+', text)
+        if s.strip()
+    ]
+
+    return "\n".join(
+        [f"• {sentence}" for sentence in sentences]
+    )
+
+
+
+  prompt = f"""
+
+  ROLE:
+  You are a world-class resume strategist, ATS optimization expert, FAANG recruiter, and hiring manager.
+
+  GOAL:
+  Transform the candidate's resume to maximize ATS score and recruiter appeal for the target job description.
+
+  STRICT RULES:
+
+  1. NEVER invent:
+
+  * Experience
+  * Companies
+  * Projects
+  * Skills
+  * Certifications
+  * Technologies
+  * Achievements
+
+  2. ONLY improve existing content.
+
+  3. Preserve factual accuracy.
+
+  4. Rewrite content using strong action verbs.
+
+  5. Quantify achievements whenever possible.
+
+  6. Integrate relevant job-description keywords naturally.
+
+  7. Prioritize ATS optimization.
+
+  8. Remove weak phrases:
+
+  * Responsible for
+  * Worked on
+  * Helped with
+  * Participated in
+  * Involved in
+
+  Replace with:
+
+  * Developed
+  * Engineered
+  * Built
+  * Designed
+  * Implemented
+  * Automated
+  * Led
+  * Optimized
+  * Improved
+  * Reduced
+  * Increased
+  * Delivered
+
+  SUMMARY RULES:
+
+  * 3 to 5 lines
+  * ATS optimized
+  * Recruiter friendly
+  * Keyword rich
+  * Professional paragraph
+  * NO bullet points
+
+  EXPERIENCE RULES:
+
+  * description MUST contain bullet points
+  * Every bullet starts with •
+  * 3 to 6 bullets per role
+  * Use strong action verbs
+  * Show measurable impact
+  * No paragraphs
+  * No numbering
+
+  PROJECT RULES:
+
+  * description MUST contain bullet points
+  * Every bullet starts with •
+  * 2 to 5 bullets per project
+  * Highlight technologies
+  * Highlight business value
+  * Highlight performance or scale
+  * No paragraphs
+  * No numbering
+
+  SKILLS RULES:
+
+  * Keep existing skills
+  * Add JD keywords ONLY if supported by resume
+  * Do not hallucinate skills
+
+  ATS OPTIMIZATION:
+
+  * Extract top ATS keywords from Job Description
+  * Distribute naturally across:
+
+    * Summary
+    * Experience
+    * Projects
+    * Skills
+
+  JSON STRUCTURE RULE:
+  The output JSON structure MUST remain identical to the input JSON.
+
+  JOB DESCRIPTION:
+
+  {job_desc}
+
+  ORIGINAL RESUME JSON:
+
+  {json.dumps(resume_data, indent=2)}
+
+  RETURN:
+  ONLY VALID JSON.
+  NO MARKDOWN.
+  NO EXPLANATIONS.
+  NO NOTES.
+  """
+
+
+  response = client.chat.completions.create(
+   model="openai/gpt-oss-120b",
+    messages=[
+      {
+        "role": "user",
+        "content": prompt
+      }
+      ],
+      temperature=0.3
+    )
+
+  content = response.choices[0].message.content.strip()
+
+  try:
+      tailored = json.loads(content)
+
+  except:
+      match = re.search(r'\{[\s\S]*\}', content)
+
+      if match:
+        try:
+          tailored = json.loads(match.group())
+        except:
+          return resume_data
+      else:
+          return resume_data
+
+     
+  # Force bullets in Experience
+  for exp in tailored.get("experience", []):
+
+      if exp.get("description"):
+          exp["description"] = force_bullets(
+              exp["description"]
+          )
+
+  # Force bullets in Projects
+  for project in tailored.get("projects", []):
+
+      if project.get("description"):
+          project["description"] = force_bullets(
+              project["description"]
+          )
+
+  return tailored
+
+
+
+
+# ==========================
+# KEYWORD ANALYSIS
+# ==========================
+
+def analyze_keywords_with_groq(resume_data, job_desc):
+
+    prompt = f"""
+You are an ATS keyword analyzer.
+
+JOB DESCRIPTION:
+{job_desc}
+
+RESUME:
+{json.dumps(resume_data)}
+
+TASK:
+
+1. Extract top 30 ATS keywords from the JD.
+
+2. Compare against the resume.
+
+3. Ignore filler words.
+
+4. Match:
+
+   * Skills
+   * Technologies
+   * Frameworks
+   * Methodologies
+   * Certifications
+   * Soft skills
+
+OUTPUT FORMAT:
+
+{{
+"matched":[],
+"missing":[]
+}}
+
+RULES:
+
+* matched = keywords found in resume
+* missing = important JD keywords absent from resume
+* no duplicates
+* no explanations
+* return valid JSON only
+
+"""
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.2
+    )
+
+    content = response.choices[0].message.content.strip()
+
+    try:
+        return json.loads(content)
+    except:
+        match = re.search(r'\{[\s\S]*\}', content)
+        if match:
+            return json.loads(match.group())
+
+    return {
+        "matched": [],
+        "missing": []
+    }

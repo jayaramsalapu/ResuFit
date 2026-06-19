@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare with JD | Resufit</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* NotebookLM Base Theme Variables */
+            --bg: #F0F4F9;
+            --surface: #F0F4F9;
+            --surface-variant: #E3E3E3;
+            --text-primary: #1F1F1F;
+            --text-secondary: #444746;
+            --primary: #0B57D0;
+            --primary-container: #D3E3FD;
+            --on-primary-container: #041E49;
+            --ai-gradient: linear-gradient(90deg, #4285f4 0%, #9b72cb 50%, #d96570 100%);
+            --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+
+            /* Legacy component-specific variables */
+            --bg-alt: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text: #1F1F1F;
+            --text-muted: #444746;
+            --primary-hover: #0842A0;
+            --card-border: #E3E3E3;
+            --gradient-start: #4285f4;
+            --gradient-mid: #9b72cb;
+            --gradient-end: #d96570;
+            --accent-green: #188038;
+            --accent-red: #D93025;
+            --font-body: var(--font-family);
+            --font-heading: var(--font-family);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.02);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: var(--font-body); 
+            line-height: 1.5; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; letter-spacing: -0.03em; }
+        
+        .gradient-text { 
+            background: linear-gradient(110deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%); 
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            display: inline-block; 
+        }
+
+        /* ─── NAVBAR ─────────────────────────────────────────── */
+        .navbar { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 16px 48px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; 
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); 
+            border-bottom: 1px solid var(--card-border); 
+        }
+        
+        .logo { 
+            font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; 
+            color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; 
+            transition: color 0.3s ease; 
+        }
+        .logo:hover { color: var(--primary); }
+
+        .nav-right { display: flex; align-items: center; gap: 24px; }
+        .user-email { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+
+        .btn-nav, .btn-logout { 
+            background: var(--bg-alt); border: 1px solid var(--card-border); color: var(--text); 
+            padding: 8px 18px; border-radius: 10px; text-decoration: none; 
+            font-size: 0.85rem; font-weight: 600; transition: all 0.2s ease; 
+        }
+        .btn-nav { background: transparent; border-color: transparent; }
+        .btn-nav:hover, .btn-logout:hover { background: var(--bg-alt); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+
+        /* ─── MAIN CONTAINER ─────────────────────────────────── */
+        .main-container { 
+            max-width: 1280px; margin: 0 auto; 
+            padding: 104px 24px 80px; position: relative; z-index: 10; 
+        }
+
+        .header-section { text-align: center; margin-bottom: 36px; }
+        .header-section h1 { font-size: 2.25rem; margin-bottom: 8px; }
+        .header-section p { font-size: 1rem; color: var(--text-muted); }
+
+        /* ─── WORKSPACE SPLIT GRID ───────────────────────────── */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 440px 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* LEFT COLUMN: Input form card */
+        .inputs-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 88px;
+        }
+
+        .step-title {
+            font-size: 0.95rem; font-weight: 700; color: var(--text-primary);
+            margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+        }
+
+        .step-number {
+            width: 20px; height: 20px; border-radius: 50%;
+            background: var(--primary-container); color: var(--on-primary-container);
+            font-size: 0.75rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Upload Dropzone styling */
+        .upload-box { 
+            border: 2px dashed rgba(11, 87, 208, 0.25); 
+            border-radius: 16px; padding: 24px; text-align: center; 
+            transition: all 0.25s ease; cursor: pointer; margin-bottom: 20px; 
+            background: rgba(11, 87, 208, 0.01);
+            position: relative;
+        }
+        .upload-box:hover, .upload-box.dragover { 
+            border-color: var(--primary); 
+            background: rgba(11, 87, 208, 0.04); 
+        }
+
+        .btn-upload { 
+            background: white; color: var(--text-primary); 
+            border: 1px solid var(--card-border); padding: 8px 18px; 
+            border-radius: 8px; font-weight: 600; font-size: 0.85rem;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; 
+            transition: all 0.2s ease; 
+        }
+        .upload-box:hover .btn-upload { 
+            background: var(--primary); border-color: var(--primary); color: white; 
+        }
+
+        /* File Selected Legible Card */
+        .file-selected-card {
+            display: flex; align-items: center; gap: 12px;
+            background: var(--bg); border: 1px solid var(--card-border);
+            border-radius: 10px; padding: 10px 12px; text-align: left;
+        }
+        
+        .file-selected-icon {
+            width: 32px; height: 32px; border-radius: 6px;
+            background: var(--primary-container); color: var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .file-selected-details {
+            flex: 1; min-width: 0;
+        }
+
+        .file-selected-name {
+            font-size: 0.8rem; font-weight: 700; color: var(--text-primary);
+            display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+
+        .file-selected-size {
+            font-size: 0.7rem; color: var(--text-secondary);
+        }
+
+        .btn-remove-file {
+            background: transparent; border: none; font-size: 1rem; color: var(--text-secondary);
+            cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; width: 24px; height: 24px; transition: background 0.15s;
+        }
+        .btn-remove-file:hover {
+            background: rgba(0,0,0,0.06); color: var(--accent-red);
+        }
+
+        /* Job description textarea */
+        .jd-textarea { 
+            width: 100%; height: 160px; background: white; 
+            border: 1px solid var(--card-border); border-radius: 12px; 
+            padding: 12px; color: var(--text); font-family: var(--font-body); 
+            font-size: 0.9rem; resize: none; outline: none; 
+            transition: border-color 0.2s; margin-bottom: 20px; 
+        }
+        .jd-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.1); }
+
+        /* Submit analyze button */
+        .btn-analyze { 
+            background: linear-gradient(110deg, var(--gradient-start) 0%, var(--gradient-mid) 100%); 
+            color: white; border: none; padding: 12px 24px; border-radius: 12px; 
+            font-weight: 700; font-size: 0.95rem; cursor: pointer; width: 100%; 
+            transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(155, 114, 203, 0.25);
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-analyze:hover { 
+            transform: translateY(-1px); 
+            box-shadow: 0 6px 16px rgba(155, 114, 203, 0.35); 
+        }
+        .btn-analyze:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        /* Loader spinner */
+        .spinner {
+            width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white; border-radius: 50%;
+            animation: spin 0.7s linear infinite; display: none;
+        }
+
+        /* RIGHT COLUMN: Results container */
+        .results-container { 
+            display: flex; flex-direction: column; gap: 24px;
+            animation: fadeUp 0.6s ease forwards; 
+        }
+
+        /* EMPTY STATE (Initial state before analysis) */
+        .empty-state-card {
+            background: var(--card-bg);
+            border: 1px dashed var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 60px 40px;
+            text-align: center;
+            color: var(--text-muted);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .empty-state-icon {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: var(--primary-container); color: var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px; font-size: 1.5rem;
+        }
+
+        /* ─── SCORES & OVERVIEW ──────────────────────────────── */
+        .result-header-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        /* Radial Progress Score Dial */
+        .score-circle-wrapper {
+            position: relative;
+            width: 110px; height: 110px;
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .score-circle-svg {
+            width: 100%; height: 100%;
+        }
+
+        .score-circle-bg { stroke: #F0F4F9; }
+        .score-circle-fill {
+            transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .score-circle-text {
+            position: absolute;
+            font-size: 1.45rem; font-weight: 800; color: var(--text-primary);
+            letter-spacing: -0.04em;
+        }
+
+        .score-details {
+            flex: 1;
+        }
+
+        .score-badge-row {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+        }
+
+        .score-category-badge {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            padding: 3px 8px; border-radius: 100px;
+            letter-spacing: 0.05em;
+        }
+        .score-category-badge.high { background: #E6F4EA; color: var(--accent-green); }
+        .score-category-badge.mid { background: #FEF3C7; color: #D97706; }
+        .score-category-badge.low { background: #FCE8E6; color: var(--accent-red); }
+
+        .score-description {
+            font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55;
+        }
+
+        /* Candidate info micro cards */
+        .candidate-meta-row {
+            display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;
+        }
+
+        .candidate-meta-badge {
+            background: var(--bg); border: 1px solid var(--card-border);
+            border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; color: var(--text-muted);
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+
+        /* ─── TABS & PAGES ───────────────────────────────────── */
+        .tab-bar {
+            display: flex; background: white; border: 1px solid var(--card-border);
+            border-radius: 14px; padding: 4px; box-shadow: var(--shadow-sm);
+        }
+
+        .tab-btn {
+            flex: 1; border: none; background: transparent; padding: 10px;
+            font-family: var(--font-body); font-size: 0.825rem; font-weight: 600;
+            color: var(--text-secondary); border-radius: 10px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .tab-btn:hover { color: var(--text-primary); }
+        .tab-btn.active {
+            background: var(--primary-container); color: var(--on-primary-container);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+        /* RESULT DETAIL CARDS */
+        .result-card { 
+            background: var(--card-bg); border: 1px solid var(--card-border); 
+            border-radius: var(--radius-md); padding: 24px; margin-bottom: 20px; 
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .result-card h3 { font-size: 1.1rem; margin-bottom: 16px; color: var(--text); padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+        .result-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; color: var(--text-primary); }
+
+        /* Skills Pill Layouts */
+        .pills-container {
+            display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;
+        }
+
+        .pill { 
+            padding: 5px 12px; border-radius: 100px; font-size: 0.78rem; font-weight: 500; 
+            display: inline-flex; align-items: center; transition: all 0.15s ease;
+        }
+        .pill.match { background: #E6F4EA; color: var(--accent-green); border: 1px solid rgba(24,128,56,0.15); }
+        .pill.missing { background: #FCE8E6; color: var(--accent-red); border: 1px solid rgba(217,48,37,0.15); }
+        .pill.irrelevant { background: var(--bg); color: var(--text-secondary); border: 1px dashed var(--card-border); }
+
+        .styled-list { list-style: none; padding: 0; margin: 0; }
+        .styled-list li { margin-bottom: 10px; color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; padding-left: 20px; position: relative; }
+        .styled-list li::before { content: "•"; color: var(--primary); position: absolute; left: 0; font-size: 1.4rem; line-height: 1; top: -3px; }
+        .styled-list.bullet-green li::before { color: var(--accent-green); }
+        .styled-list.bullet-red li::before { color: var(--accent-red); }
+
+        /* Blueprint Checklist items */
+        .blueprint-list { display: flex; flex-direction: column; gap: 8px; }
+        .blueprint-item {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 10px 14px; background: var(--bg); border: 1px solid var(--card-border);
+            border-radius: 8px; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.45;
+        }
+        .blueprint-checkbox {
+            width: 16px; height: 16px; border-radius: 4px; border: 2px solid var(--primary);
+            background: white; flex-shrink: 0; margin-top: 2px;
+        }
+
+        /* Mobile inputs/report pane toggle bar */
+        .mobile-pane-toggle {
+            display: none; background: white; border: 1px solid var(--card-border);
+            border-radius: 12px; padding: 4px; margin-bottom: 20px; box-shadow: var(--shadow-sm);
+        }
+        .mobile-toggle-btn {
+            flex: 1; border: none; background: transparent; padding: 10px;
+            font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+            color: var(--text-secondary); border-radius: 8px;
+            cursor: pointer; text-align: center; transition: all 0.15s ease;
+        }
+        .mobile-toggle-btn.active { background: var(--primary); color: white; }
+
+        /* Animations */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .workspace-grid { grid-template-columns: 1fr; }
+            .inputs-card { position: static; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 12px 20px; flex-direction: column; gap: 10px; position: absolute; }
+            .nav-right { width: 100%; justify-content: center; flex-wrap: wrap; gap: 12px; }
+            .main-container { padding-top: 140px; }
+            .header-section h1 { font-size: 1.75rem; }
+            
+            /* Responsive switcher layout */
+            .mobile-pane-toggle.active { display: flex; }
+            
+            .inputs-card { display: block; }
+            .inputs-card.hidden-mobile { display: none; }
+            
+            .results-container { display: none; }
+            .results-container.active-mobile { display: flex; }
+
+            .result-header-card { flex-direction: column; text-align: center; gap: 16px; }
+            .score-circle-wrapper { margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="/dashboard" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--primary)">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+            Resufit
+        </a>
+        <div class="nav-right">
+            <a href="/dashboard" class="btn-nav">Dashboard</a>
+            <span class="user-email">{{ name }}</span>
+            <a href="/logout" class="btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Workspace -->
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1>Compare with <span class="gradient-text">JD</span></h1>
+            <p>Paste a job description and audit your resume match percentage, skill gaps, and experience alignment.</p>
+        </div>
+
+        <!-- Mobile toggle switcher (visible when results loaded) -->
+        <div class="mobile-pane-toggle {% if result %}active{% endif %}" id="mobileWorkspaceToggle">
+            <button type="button" class="mobile-toggle-btn active" onclick="switchMobileWorkspace('inputs')">Configuration</button>
+            <button type="button" class="mobile-toggle-btn" onclick="switchMobileWorkspace('report')">Match Report</button>
+        </div>
+
+        <div class="workspace-grid">
+            
+            <!-- LEFT PANEL: Inputs Card -->
+            <div class="inputs-card" id="inputsCard">
+                <form action="/analyze_jd" method="POST" enctype="multipart/form-data" id="jdForm">
+                    
+                    <div class="step-title">
+                        <span class="step-number">1</span>
+                        Upload Your Resume
+                    </div>
+
+                    <div class="upload-box" onclick="triggerFilePicker()">
+                        <input type="file" id="fileInput" name="resume" required style="display:none">
+                        
+                        <!-- Default prompt state -->
+                        <div id="uploadBoxDefault" style="display: block;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" style="margin-bottom:8px; opacity:0.8;">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <br>
+                            <div class="btn-upload">Select Resume (PDF/DOCX)</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">PDF or Word files up to 10MB</div>
+                        </div>
+
+                        <!-- Legible selected filename state (No white text on white bg) -->
+                        <div id="uploadBoxSelected" style="display: none;">
+                            <div class="file-selected-card">
+                                <div class="file-selected-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                                    </svg>
+                                </div>
+                                <div class="file-selected-details">
+                                    <span class="file-selected-name" id="selectedFilename">resume.pdf</span>
+                                    <span class="file-selected-size" id="selectedFileSize">1.2 MB</span>
+                                </div>
+                                <button type="button" class="btn-remove-file" onclick="clearFileSelection(event)">✕</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-title" style="margin-top: 24px;">
+                        <span class="step-number">2</span>
+                        Paste Job Description
+                    </div>
+                    <textarea class="jd-textarea" name="jd_text" placeholder="Paste the target job description text here to run alignment analysis..." required>{{ jd_text if jd_text else '' }}</textarea>
+
+                    <button type="submit" class="btn-analyze" id="analyzeBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                        <span id="analyzeBtnText">Analyze JD Alignment</span>
+                        <div class="spinner" id="analyzeSpinner"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- RIGHT PANEL: Report details -->
+            <div class="right-pane-wrapper">
+                
+                {% if not result %}
+                <!-- Empty State Card -->
+                <div class="empty-state-card">
+                    <div class="empty-state-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                    </div>
+                    <h3>No Report Generated</h3>
+                    <p style="margin-top: 8px; font-size: 0.9rem;">Upload your resume and paste the Job Description on the left, then click analyze to audit match alignment.</p>
+                </div>
+                {% else %}
+                
+                <!-- Report Workspace (Displays when result exists) -->
+                <div class="results-container {% if result %}active-mobile{% endif %}" id="reportPane">
+                    
+                    <!-- Dashboard Dial Score card -->
+                    <div class="result-header-card">
+                        <div class="score-circle-wrapper">
+                            <svg class="score-circle-svg" width="110" height="110" viewBox="0 0 110 110">
+                                <circle class="score-circle-bg" cx="55" cy="55" r="46" fill="none" stroke="#F0F4F9" stroke-width="9" />
+                                <circle class="score-circle-fill" cx="55" cy="55" r="46" fill="none" stroke="url(#scoreGrad)" stroke-width="9"
+                                        stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" transform="rotate(-90 55 55)" />
+                                <defs>
+                                    <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#4285f4" />
+                                        <stop offset="50%" stop-color="#9b72cb" />
+                                        <stop offset="100%" stop-color="#d96570" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="score-circle-text" id="scoreText">0%</div>
+                        </div>
+
+                        <div class="score-details">
+                            <div class="score-badge-row">
+                                <h2 style="font-size: 1.25rem; letter-spacing:-0.02em;">Job Match Score</h2>
+                                {% set score = result.get('match_analysis', {}).get('percentage', 0)|int %}
+                                {% if score >= 80 %}
+                                <span class="score-category-badge high">High Alignment</span>
+                                {% elif score >= 50 %}
+                                <span class="score-category-badge mid">Moderate Fit</span>
+                                {% else %}
+                                <span class="score-category-badge low">Gaps Found</span>
+                                {% endif %}
+                            </div>
+                            <p class="score-description">{{ result.get('match_analysis', {}).get('reason', '') }}</p>
+                            
+                            <!-- Metadata badge row -->
+                            <div class="candidate-meta-row">
+                                {% if result.get('candidate', {}).get('name') %}
+                                <span class="candidate-meta-badge">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    {{ result.candidate.name }}
+                                </span>
+                                {% endif %}
+                                {% if result.get('candidate', {}).get('email') %}
+                                <span class="candidate-meta-badge">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                    {{ result.candidate.email }}
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs Navigation Bar -->
+                    <div class="tab-bar">
+                        <button type="button" class="tab-btn active" onclick="switchReportTab('skills-tab', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                            Skills Gap Audit
+                        </button>
+                        <button type="button" class="tab-btn" onclick="switchReportTab('relevance-tab', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                            </svg>
+                            Relevance Review
+                        </button>
+                        <button type="button" class="tab-btn" onclick="switchReportTab('structure-tab', this)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+                            </svg>
+                            Blueprint Checklist
+                        </button>
+                    </div>
+
+                    <!-- TAB 1: Skills Gap -->
+                    <div id="skills-tab" class="tab-content active">
+                        <div class="result-card">
+                            <h3>Required Skills Mapping</h3>
+
+                            <h4>Matched Skills</h4>
+                            <div class="pills-container">
+                                {% for skill in result.get('skills', {}).get('matched', []) %}
+                                <span class="pill match">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
+                                    {{ skill }}
+                                </span>
+                                {% endfor %}
+                                {% if not result.get('skills', {}).get('matched') %}
+                                <p style="color:var(--text-muted); font-size:0.85rem; padding: 4px 0;">No matched skills detected.</p>
+                                {% endif %}
+                            </div>
+
+                            <h4>Missing Crucial Skills</h4>
+                            <div class="pills-container">
+                                {% for skill in result.get('skills', {}).get('missing', []) %}
+                                <span class="pill missing">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-right:4px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                    {{ skill }}
+                                </span>
+                                {% endfor %}
+                                {% if not result.get('skills', {}).get('missing') %}
+                                <p style="color:var(--accent-green); font-size:0.85rem; padding: 4px 0; font-weight: 600;">No missing crucial skills!</p>
+                                {% endif %}
+                            </div>
+
+                            <h4>Other Irrelevant Resume Skills</h4>
+                            <div class="pills-container" style="margin-bottom: 24px;">
+                                {% for skill in result.get('skills', {}).get('irrelevant', []) %}
+                                <span class="pill irrelevant">{{ skill }}</span>
+                                {% endfor %}
+                                {% if not result.get('skills', {}).get('irrelevant') %}
+                                <p style="color:var(--text-muted); font-size:0.85rem; padding: 4px 0;">None tracked.</p>
+                                {% endif %}
+                            </div>
+
+                            <h4 style="border-top: 1px solid var(--card-border); padding-top: 16px; margin-top: 16px;">Skills Strategy Suggestions</h4>
+                            <ul class="styled-list">
+                                {% for skill in result.get('skills', {}).get('suggestions', []) %}
+                                <li>{{ skill }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Relevance Review -->
+                    <div id="relevance-tab" class="tab-content">
+                        <!-- Experience Card -->
+                        <div class="result-card">
+                            <h3>Experience Evaluation</h3>
+                            <p style="color:var(--text-secondary); margin-bottom:16px; font-size:0.875rem;">
+                                <strong>Relevance Index:</strong> {{ result.get('experience', {}).get('relevance', 'N/A') }}
+                            </p>
+                            
+                            {% if result.get('experience', {}).get('issues') %}
+                            <h4>Identified Alignment Issues</h4>
+                            <ul class="styled-list bullet-red" style="margin-bottom:20px;">
+                                {% for issue in result.experience.issues %}
+                                <li>{{ issue }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                            {% if result.get('experience', {}).get('improved_points') %}
+                            <h4 style="color: var(--accent-green);">Recommended Action-Oriented Bullets</h4>
+                            <ul class="styled-list bullet-green">
+                                {% for pt in result.experience.improved_points %}
+                                <li style="color: #065F46;">{{ pt }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+
+                        <!-- Projects Card -->
+                        <div class="result-card">
+                            <h3>Projects Alignment</h3>
+                            <p style="color:var(--text-secondary); margin-bottom:16px; font-size:0.875rem;">
+                                <strong>Relevance Index:</strong> {{ result.get('projects', {}).get('relevance', 'N/A') }}
+                            </p>
+                            
+                            {% if result.get('projects', {}).get('issues') %}
+                            <h4>Identified Gaps</h4>
+                            <ul class="styled-list bullet-red" style="margin-bottom:20px;">
+                                {% for issue in result.projects.issues %}
+                                <li>{{ issue }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                            {% if result.get('projects', {}).get('suggestions') %}
+                            <h4>Tailoring Suggestions</h4>
+                            <ul class="styled-list">
+                                {% for pt in result.projects.suggestions %}
+                                <li>{{ pt }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: Blueprint Checklist -->
+                    <div id="structure-tab" class="tab-content">
+                        <!-- Education & Certifications -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                            <div class="result-card" style="margin-bottom: 0;">
+                                <h3>Education Alignment</h3>
+                                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:12px;">{{ result.get('education', {}).get('details', 'N/A') }}</p>
+                                {% if result.get('education', {}).get('suggestions') %}
+                                <ul class="styled-list">
+                                    {% for pt in result.education.suggestions %}
+                                    <li>{{ pt }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+
+                            <div class="result-card" style="margin-bottom: 0;">
+                                <h3>Certifications Review</h3>
+                                <h4 style="font-size:0.8rem; margin-bottom: 4px;">Existing Certifications:</h4>
+                                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:16px;">
+                                    {{ result.get('certifications', {}).get('existing', []) | join(', ') if result.get('certifications', {}).get('existing') else 'None listed' }}
+                                </p>
+                                <h4 style="font-size:0.8rem; margin-bottom: 6px;">Recommended to Add:</h4>
+                                <ul class="styled-list">
+                                    {% for cert in result.get('certifications', {}).get('recommended', []) %}
+                                    <li>{{ cert }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Grammar details -->
+                        <div class="result-card">
+                            <h3>Grammar &amp; Structure Match</h3>
+                            {% if result.get('grammar', {}).get('mistakes') %}
+                            <h4 style="color: var(--accent-red);">Grammatical Mistakes Found</h4>
+                            <ul class="styled-list bullet-red" style="margin-bottom:20px;">
+                                {% for pt in result.grammar.mistakes %}
+                                <li style="color:#B91C1C;">{{ pt }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            
+                            {% if result.get('grammar', {}).get('improvements') %}
+                            <h4 style="color: var(--accent-green);">Suggested Corrected Sentences</h4>
+                            <ul class="styled-list bullet-green" style="margin-bottom:20px;">
+                                {% for pt in result.grammar.improvements %}
+                                <li style="color:#047857;">{{ pt }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            
+                            {% if result.get('structure', {}).get('issues') %}
+                            <h4>Structural Gaps</h4>
+                            <ul class="styled-list bullet-red" style="margin-bottom:20px;">
+                                {% for pt in result.structure.issues %}
+                                <li>{{ pt }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                            {% if result.get('structure', {}).get('suggestions') %}
+                            <h4>Structural Recommendations</h4>
+                            <ul class="styled-list">
+                                {% for pt in result.structure.suggestions %}
+                                <li>{{ pt }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+
+                        <!-- Blueprint Card -->
+                        <div class="result-card">
+                            <h3>Tailoring Blueprint Tasks</h3>
+                            <div class="blueprint-list">
+                                {% for rec in result.get('final_suggestions', []) %}
+                                <div class="blueprint-item">
+                                    <div class="blueprint-checkbox"></div>
+                                    {{ rec }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadBoxDefault = document.getElementById('uploadBoxDefault');
+        const uploadBoxSelected = document.getElementById('uploadBoxSelected');
+        const selectedFilename = document.getElementById('selectedFilename');
+        const selectedFileSize = document.getElementById('selectedFileSize');
+
+        function triggerFilePicker() {
+            // Only trigger if no file is selected to allow removal click
+            if (fileInput.files.length === 0) {
+                fileInput.click();
+            }
+        }
+
+        // Handle file select
+        fileInput.addEventListener('change', function (e) {
+            updateFileDisplay();
+        });
+
+        function updateFileDisplay() {
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                selectedFilename.textContent = file.name;
+                selectedFileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+                
+                uploadBoxDefault.style.display = 'none';
+                uploadBoxSelected.style.display = 'block';
+                document.querySelector('.upload-box').style.borderColor = '#188038';
+            }
+        }
+
+        function clearFileSelection(event) {
+            event.stopPropagation(); // prevent opening file dialog
+            fileInput.value = '';
+            
+            uploadBoxDefault.style.display = 'block';
+            uploadBoxSelected.style.display = 'none';
+            document.querySelector('.upload-box').style.borderColor = 'rgba(11, 87, 208, 0.25)';
+        }
+
+        // Drag and drop compatibility
+        const uploadBox = document.querySelector('.upload-box');
+        uploadBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadBox.classList.add('dragover');
+        });
+        uploadBox.addEventListener('dragleave', () => {
+            uploadBox.classList.remove('dragover');
+        });
+        uploadBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadBox.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                updateFileDisplay();
+            }
+        });
+
+        // Form Submit Loading State
+        document.getElementById('jdForm').addEventListener('submit', function (e) {
+            if (fileInput.files.length === 0) return;
+            const btn = document.getElementById('analyzeBtn');
+            const btnText = document.getElementById('analyzeBtnText');
+            const spinner = document.getElementById('analyzeSpinner');
+            
+            btn.disabled = true;
+            btnText.textContent = 'Comparing Resume & JD…';
+            spinner.style.display = 'block';
+        });
+
+        // Switch Report Tabs
+        function switchReportTab(tabId, button) {
+            const contentPanes = document.querySelectorAll('.results-container .tab-content');
+            contentPanes.forEach(pane => pane.classList.remove('active'));
+
+            const tabBtns = document.querySelectorAll('.tab-bar .tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            button.classList.add('active');
+        }
+
+        // Switch workspace panels on mobile
+        function switchMobileWorkspace(paneType) {
+            const inputsCard = document.getElementById('inputsCard');
+            const reportPane = document.getElementById('reportPane');
+            const toggleButtons = document.querySelectorAll('#mobileWorkspaceToggle .mobile-toggle-btn');
+            
+            toggleButtons.forEach(btn => btn.classList.remove('active'));
+
+            if (paneType === 'inputs') {
+                inputsCard.classList.remove('hidden-mobile');
+                if (reportPane) reportPane.classList.remove('active-mobile');
+                toggleButtons[0].classList.add('active');
+            } else {
+                inputsCard.classList.add('hidden-mobile');
+                if (reportPane) reportPane.classList.add('active-mobile');
+                toggleButtons[1].classList.add('active');
+            }
+        }
+
+        // Radial progress dial animation on DOM load
+        window.addEventListener('DOMContentLoaded', () => {
+            const percentageText = document.getElementById('scoreText');
+            const circleFill = document.querySelector('.score-circle-fill');
+            const scoreVal = parseInt("{{ result.get('match_analysis', {}).get('percentage', 0) if result else 0 }}") || 0;
+            
+            if (circleFill && percentageText) {
+                const circumference = 289; // 2 * PI * 46
+                
+                // Animate dial fill stroke dash offset
+                const offset = circumference - (scoreVal / 100) * circumference;
+                circleFill.style.strokeDashoffset = offset;
+                
+                // Animate text counter value
+                let start = 0;
+                const duration = 1000; // ms
+                const startTime = performance.now();
+                
+                function count(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // ease out quad
+                    const easeProgress = progress * (2 - progress);
+                    const current = Math.round(start + easeProgress * (scoreVal - start));
+                    percentageText.textContent = current + '%';
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(count);
+                    }
+                }
+                requestAnimationFrame(count);
+            }
+            
+            // Auto scroll to results if present
+            const reportPane = document.getElementById('reportPane');
+            if (reportPane) {
+                reportPane.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>

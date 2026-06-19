@@ -344,9 +344,6 @@ def analyze_resume():
     email = session.get('email', '')
     name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'User'
 
-    if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return jsonify(result)
-
     return render_template('check_resume.html', name=name, result=result)
 
 @app.route('/jd_analysis')
@@ -375,14 +372,10 @@ def analyze_jd():
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
     resume_text = extract_text(filepath)
-    os.remove(filepath)
     result = analyze_jd_with_groq(resume_text, jd_text)
     
     email = session.get('email', '')
     name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'User'
-
-    if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return jsonify(result)
 
     return render_template('jd_analysis.html', name=name, result=result, jd_text=jd_text)
 

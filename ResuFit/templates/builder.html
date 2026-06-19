@@ -11,18 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Embedded view overrides */
-        body.embedded {
-            height: 100vh !important;
-            min-height: 100vh !important;
-        }
-        body.embedded .navbar {
-            display: none !important;
-        }
-        body.embedded .builder-container {
-            margin-top: 0 !important;
-            height: 100vh !important;
-        }
         :root {
             --primary: linear-gradient(
     90deg,
@@ -2459,11 +2447,6 @@
     function clearKeywordsChecklist() {
         const box = document.getElementById('keywords-checklist-box');
         if (box) box.style.display = 'none';
-    }
-
-    // Detect if embedded in an iframe or loaded with embed query
-    if (window.self !== window.top || new URLSearchParams(window.location.search).get('embed') === 'true') {
-        document.body.classList.add('embedded');
     }
 </script>
 </body>
