@@ -976,14 +976,77 @@
         @media (max-width: 600px) {
             .content-body {
                 padding: 20px 16px;
+                padding-bottom: calc(20px + var(--bottom-nav-h));
             }
             .kpi-row {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* ============ RESPONSIVE ENHANCEMENT LAYER ============ */
+        :root { --bottom-nav-h: 64px; }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.45);
+            z-index: 199;
+        }
+        .sidebar-overlay.active { display: block; }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                z-index: 200;
+                box-shadow: 0 0 40px rgba(0,0,0,.15);
+            }
+            .content-body { padding-bottom: calc(32px + var(--bottom-nav-h)); }
+        }
+
+        .bottom-nav { display: none; }
+        @media (max-width: 768px) {
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                left: 0; right: 0; bottom: 0;
+                height: var(--bottom-nav-h);
+                background: #FFFFFF;
+                border-top: 1px solid var(--border);
+                z-index: 150;
+                padding-bottom: env(safe-area-inset-bottom, 0);
+            }
+            .bottom-nav-item {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                color: var(--text-secondary);
+                font-size: 0.68rem;
+                font-weight: 600;
+                background: none;
+                border: none;
+                cursor: pointer;
+                min-height: 48px;
+            }
+            .bottom-nav-item i { font-size: 1.1rem; }
+            .bottom-nav-item.active { color: var(--primary); }
+        }
+
+        @media (max-width: 480px) {
+            .section-title-wrap h1 { font-size: 1.15rem; }
+            .top-header { padding: 14px 16px; }
+            .welcome-hero h2 { font-size: 1.5rem; }
+            .kpi-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .content-body { padding: 16px; padding-bottom: calc(16px + var(--bottom-nav-h)); }
+            .btn, button, .form-control, input, select, textarea { min-height: 48px; font-size: 16px; }
+        }
     </style>
 </head>
 <body>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMobileSidebar()"></div>
 
     <!-- ─── SIDEBAR ─── -->
     <nav class="sidebar" id="sidebar">
@@ -1444,12 +1507,46 @@
         </main>
     </div>
 
+    <!-- ─── MOBILE BOTTOM NAV ─── -->
+    <nav class="bottom-nav" id="bottomNav">
+        <button class="bottom-nav-item active" data-tab="overview" onclick="activateTabFromBottomNav('overview', this)">
+            <i class="fa-solid fa-house"></i><span>Home</span>
+        </button>
+        <button class="bottom-nav-item" data-tab="builder" onclick="activateTabFromBottomNav('builder', this)">
+            <i class="fa-solid fa-wand-magic-sparkles"></i><span>Builder</span>
+        </button>
+        <button class="bottom-nav-item" data-tab="check-resume" onclick="activateTabFromBottomNav('check-resume', this)">
+            <i class="fa-solid fa-clipboard-check"></i><span>ATS</span>
+        </button>
+        <button class="bottom-nav-item" data-tab="jd-analysis" onclick="activateTabFromBottomNav('jd-analysis', this)">
+            <i class="fa-solid fa-chart-line"></i><span>Analysis</span>
+        </button>
+        <button class="bottom-nav-item" onclick="toggleMobileSidebar()">
+            <i class="fa-solid fa-user"></i><span>Profile</span>
+        </button>
+    </nav>
+
     <!-- Scripts -->
     <script>
         // Toggle mobile sidebar view
         function toggleMobileSidebar() {
             const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
             sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Sync bottom nav with sidebar tab switching
+        function activateTabFromBottomNav(tabId, el) {
+            const menuItemMap = {
+                'overview': 0, 'check-resume': 1, 'jd-analysis': 2, 'builder': 3
+            };
+            const sidebarItems = document.querySelectorAll('.sidebar-menu .menu-item');
+            const idx = menuItemMap[tabId];
+            if (sidebarItems[idx]) activateTab(tabId, sidebarItems[idx]);
+            document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
         }
 
         // Handle clicking active tab
@@ -1474,6 +1571,9 @@
 
             // Close mobile sidebar if open
             document.getElementById('sidebar').classList.remove('active');
+            const ov = document.getElementById('sidebarOverlay');
+            if (ov) ov.classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         // Toggle dropzone highlight

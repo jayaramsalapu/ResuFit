@@ -814,6 +814,31 @@
             .badge { font-size: 0.72rem; padding: 4px 10px; }
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
         }
+
+        /* ============ RESPONSIVE ENHANCEMENT LAYER ============ */
+        :root { --bottom-nav-h: 64px; }
+        .bottom-nav { display: none; }
+        @media (max-width: 768px) {
+            body { padding-bottom: var(--bottom-nav-h); }
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                left: 0; right: 0; bottom: 0;
+                height: var(--bottom-nav-h);
+                background: #FFFFFF;
+                border-top: 1px solid var(--card-border, #E3E3E3);
+                z-index: 150;
+                padding-bottom: env(safe-area-inset-bottom, 0);
+            }
+            .bottom-nav-item {
+                flex: 1; display: flex; flex-direction: column; align-items: center;
+                justify-content: center; gap: 4px; color: var(--text-muted, #444746);
+                font-size: 0.68rem; font-weight: 600; text-decoration: none; min-height: 48px;
+            }
+            .bottom-nav-item i { font-size: 1.1rem; }
+            .bottom-nav-item.active { color: var(--primary); }
+            .form-control, input, select, textarea, button, .btn { min-height: 48px; font-size: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -1468,5 +1493,12 @@
     });
 </script>
 
+    <nav class="bottom-nav">
+        <a href="/dashboard" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="/builder" class="bottom-nav-item"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Builder</span></a>
+        <a href="/check-resume" class="bottom-nav-item active"><i class="fa-solid fa-clipboard-check"></i><span>ATS</span></a>
+        <a href="/jd_analysis" class="bottom-nav-item"><i class="fa-solid fa-chart-line"></i><span>Analysis</span></a>
+        <a href="/dashboard" class="bottom-nav-item"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </nav>
 </body>
 </html>

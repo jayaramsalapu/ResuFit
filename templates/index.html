@@ -76,6 +76,48 @@ content="https://resufit.com/preview.png">
 
 
 
+  <style>
+    /* ============ RESPONSIVE ENHANCEMENT LAYER (overrides static/style.css) ============ */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    img, svg, video { max-width: 100%; }
+
+    @media (max-width: 1024px) {
+      .nav-center { display: none; }
+      h1 { font-size: clamp(2rem, 5vw, 3rem); }
+      h2 { font-size: clamp(1.6rem, 4vw, 2.25rem); }
+      .workflow-container, .comparison-wrapper, .before-after-container,
+      .builder-container, .jd-container, .modern-grid, .resume-preview-container {
+        grid-template-columns: 1fr !important;
+        flex-direction: column !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-right { display: none; }
+      .mobile-menu-btn { display: flex !important; }
+      .hero { padding: 100px 20px 40px; text-align: center; }
+      h1 { font-size: clamp(1.75rem, 7vw, 2.25rem); }
+      h2 { font-size: clamp(1.4rem, 5vw, 1.75rem); }
+      h3 { font-size: 1.15rem; }
+      section { padding: 48px 20px !important; }
+      .stat-card, .compare-card, .faq-item, .workflow-step {
+        width: 100% !important;
+      }
+      .compare-list, .analysis-list, .keyword-list, .skills-list {
+        grid-template-columns: 1fr !important;
+      }
+      a.nav-btn, a.nav-login, button, .btn { min-height: 48px; }
+    }
+
+    @media (max-width: 480px) {
+      .navbar { padding: 14px 20px; }
+      .logo span { font-size: 1.05rem; }
+      .hero { padding: 90px 16px 32px; }
+      section { padding: 36px 16px !important; }
+      .faq-question { font-size: 0.95rem; }
+      .step-number { width: 36px; height: 36px; }
+    }
+  </style>
 </head>
 
 <body>

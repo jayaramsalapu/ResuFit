@@ -1050,6 +1050,16 @@
             border: 1px solid #fde68a;
         }
 
+        /* ─── MOBILE-ONLY UI: hidden by default, shown only under 767px media query ─── */
+        .mobile-topbar,
+        .mobile-progress-wrap,
+        .mobile-bottom-bar,
+        .mobile-preview-modal-bar,
+        .mobile-menu-sheet,
+        .ai-tools-dropdown-wrap {
+            display: none;
+        }
+
         /* ─── MOBILE VIEW BAR ─── */
         .mobile-view-bar {
             display: none;
@@ -1099,7 +1109,9 @@
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
-            .navbar, .editor-panel, .preview-toolbar, .zoom-controls, .mobile-view-bar { display: none !important; }
+            .navbar, .editor-panel, .preview-toolbar, .zoom-controls, .mobile-view-bar,
+            .mobile-topbar, .mobile-progress-wrap, .mobile-bottom-bar, .mobile-preview-modal-bar,
+            .mobile-menu-sheet { display: none !important; }
             .builder-container {
                 margin: 0 !important; padding: 0 !important; border: none !important;
                 height: auto !important; min-height: 297mm !important;
@@ -1135,35 +1147,545 @@
         }
 
         /* ─── RESPONSIVE ─── */
-        @media (max-width: 1024px) {
+        /* NOTE: Desktop (1024px+) styles above this point are UNCHANGED.
+           Everything below is scoped to tablet (768–1024px) and mobile (<768px) only. */
+
+        /* ═══════════════════════════════════════════════════════════
+           TABLET — 768px to 1024px
+           Reduce preview width, maintain split layout (editor | preview)
+           ═══════════════════════════════════════════════════════════ */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .nav-center { display: none; }
+            .builder-container { height: calc(100vh - var(--navbar-h)); }
+            .editor-panel { width: 58% !important; }
+            .preview-panel { width: 42% !important; }
+            .editor-content { padding: 22px 20px; }
+            .form-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MOBILE — below 768px
+           Full redesign: editor-only by default, fullscreen preview modal,
+           compact sticky header, progress bar, bottom action bar, accordions.
+           ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 767px) {
+
+            html { -webkit-text-size-adjust: 100%; }
+            body { overflow-x: hidden; }
+
+            /* Hide desktop/tablet chrome entirely on mobile */
+            .navbar, .mobile-view-bar, .stepper-header, .editor-footer { display: none !important; }
+
+            /* ── Compact sticky mobile top bar ── */
+            .mobile-topbar {
+                display: flex;
+                position: fixed;
+                top: 0; left: 0; right: 0;
+                height: 56px;
+                background: var(--surface);
+                border-bottom: 1px solid var(--border);
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 6px 0 4px;
+                z-index: 300;
+                gap: 4px;
+            }
+
+            .mobile-topbar-left {
+                display: flex;
+                align-items: center;
+                gap: 2px;
+                min-width: 0;
+                flex: 1;
+            }
+
+            .mobile-back-btn {
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                border: none;
+                color: var(--text-2);
+                font-size: 17px;
+                border-radius: var(--radius);
+                flex-shrink: 0;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+            .mobile-back-btn:active { background: var(--surface-3); }
+
+            .mobile-topbar-title {
+                font-family: 'Outfit', sans-serif;
+                font-weight: 600;
+                font-size: 15px;
+                color: var(--text-1);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                min-width: 0;
+            }
+
+            .mobile-preview-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                height: 48px;
+                padding: 0 14px;
+                background: var(--primary);
+                color: white;
+                border: none;
+                border-radius: var(--radius);
+                font-family: 'DM Sans', sans-serif;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+            .mobile-preview-btn:active { opacity: 0.85; }
+
+            .mobile-menu-btn {
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                border: none;
+                color: var(--text-2);
+                font-size: 17px;
+                border-radius: var(--radius);
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+            .mobile-menu-btn:active { background: var(--surface-3); }
+
+            /* ── Progress bar + step counter (replaces step pills) ── */
+            .mobile-progress-wrap {
+                display: flex;
+                flex-direction: column;
+                gap: 7px;
+                position: fixed;
+                top: 56px; left: 0; right: 0;
+                background: var(--surface);
+                border-bottom: 1px solid var(--border-soft);
+                padding: 10px 18px 12px;
+                z-index: 290;
+            }
+
+            .mobile-progress-toprow {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .mobile-step-counter {
+                font-size: 12.5px;
+                font-weight: 600;
+                color: var(--text-2);
+            }
+
+            .mobile-step-name {
+                font-size: 12.5px;
+                font-weight: 600;
+                color: var(--primary);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 55%;
+                text-align: right;
+            }
+
+            .mobile-progress-track {
+                width: 100%;
+                height: 6px;
+                background: var(--surface-3);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .mobile-progress-fill {
+                height: 100%;
+                background: var(--primary);
+                border-radius: 10px;
+                transition: width 0.25s ease;
+            }
+
+            /* ── Layout: editor-only by default; spacing for fixed bars ── */
             .builder-container {
                 flex-direction: column;
-                height: calc(100vh - var(--navbar-h));
+                height: auto;
+                min-height: calc(100vh - var(--navbar-h));
+                margin-top: 0;
                 position: relative;
+                overflow: visible;
             }
-            .editor-panel { width: 100% !important; height: 100% !important; display: flex; }
-            .preview-panel { width: 100% !important; height: 100% !important; display: none; }
-            .builder-container.show-preview .editor-panel { display: none !important; }
-            .builder-container.show-preview .preview-panel { display: flex !important; }
-            .mobile-view-bar { display: flex; }
-            .editor-content { padding: 20px 18px; padding-bottom: 90px; }
-            .preview-viewport { padding: 16px; padding-bottom: 90px; }
-            .template-gallery-grid { grid-template-columns: 1fr; }
-            .form-grid { grid-template-columns: 1fr; }
-            .form-group-full { grid-column: 1; }
-        }
 
-        @media (max-width: 768px) {
-            .navbar { padding: 0 16px; gap: 8px; }
-            .nav-center { display: none; }
-            .template-select-wrap { display: none; }
-            .nav-right .btn-ghost { display: none; }
-            .logo-text { display: none; }
-            .editor-footer { padding: 12px 18px; }
-        }
+            body:not(.embedded) .builder-container { padding-top: 98px; }
+            /* .mobile-topbar is not the .navbar — it remains the only nav affordance on
+               mobile even when embedded, so spacing stays consistent with non-embedded mode. */
+            body.embedded .builder-container { padding-top: 98px; }
 
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .nav-center { display: none; }
+            .editor-panel {
+                width: 100% !important;
+                height: auto !important;
+                display: flex !important;
+                border-right: none;
+                overflow: visible;
+            }
+
+            /* Preview panel becomes the fullscreen modal sheet — hidden until opened */
+            .preview-panel {
+                display: flex !important;
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                width: 100% !important;
+                height: 100% !important;
+                z-index: 1000;
+                background: #ECEEF5;
+                transform: translateY(100%);
+                transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+                border-radius: 0;
+            }
+
+            .builder-container.show-preview .preview-panel {
+                transform: translateY(0);
+            }
+
+            /* Preview modal handle + close button */
+            .mobile-preview-modal-bar {
+                display: flex;
+                flex-direction: column;
+                background: var(--surface);
+                border-bottom: 1px solid var(--border);
+                flex-shrink: 0;
+                touch-action: none;
+            }
+
+            .mobile-preview-handle {
+                display: flex;
+                justify-content: center;
+                padding: 9px 0 4px;
+            }
+
+            .mobile-preview-handle::before {
+                content: '';
+                width: 38px;
+                height: 4px;
+                background: var(--border);
+                border-radius: 4px;
+            }
+
+            .mobile-preview-modal-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 4px 8px 10px 18px;
+            }
+
+            .mobile-preview-modal-title {
+                font-family: 'Outfit', sans-serif;
+                font-weight: 600;
+                font-size: 15px;
+                color: var(--text-1);
+            }
+
+            .mobile-preview-close {
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--surface-3);
+                border: none;
+                border-radius: 50%;
+                color: var(--text-2);
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .mobile-preview-close:active { background: var(--border); }
+
+            .preview-toolbar { padding: 8px 14px; flex-wrap: wrap; gap: 8px; }
+            .preview-toolbar-label { display: none; }
+            .zoom-controls { width: 100%; justify-content: center; }
+            .toolbar-icon-btn { width: 44px; height: 44px; }
+
+            .preview-viewport {
+                padding: 14px;
+                padding-bottom: 40px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* ── Step content: single column, larger spacing ── */
+            .editor-content {
+                padding: 18px 16px 24px;
+                overflow: visible;
+            }
+
+            .step-title-section h2 { font-size: 21px; }
+            .step-title-section p { font-size: 13px; }
+
+            .wizard-step-content.active { gap: 22px; }
+
+            .form-grid { grid-template-columns: 1fr !important; gap: 16px; }
+            .form-group-full { grid-column: 1 !important; }
+            .form-group { gap: 8px; }
+            .form-group label { font-size: 13px; }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            input[type="date"],
+            select,
+            textarea {
+                min-height: 52px;
+                padding: 14px 14px;
+                font-size: 16px;
+                border-radius: var(--radius);
+            }
+
+            textarea { min-height: 130px; }
+
+            .form-group[style*="flex-direction:row"] {
+                min-height: 52px;
+            }
+
+            input[type="checkbox"] {
+                width: 22px;
+                height: 22px;
+            }
+
+            /* ── Accordion cards: bigger tap targets ── */
+            .accordion-header {
+                padding: 16px 14px;
+                min-height: 52px;
+            }
+
+            .accordion-main-title { font-size: 14px; }
+            .accordion-subtitle { font-size: 12px; }
+
+            .action-icon-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 13px;
+            }
+
+            .accordion-content { padding: 16px 14px 18px; gap: 16px; }
+
+            .add-item-btn {
+                min-height: 52px;
+                font-size: 14px;
+            }
+
+            /* ── AI Tools: single collapsed dropdown instead of inline buttons ── */
+            .btn-ai { display: none !important; }
+
+            .ai-tools-dropdown-wrap {
+                position: relative;
+                display: inline-block;
+                margin-left: auto;
+            }
+
+            .ai-tools-trigger {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                height: 40px;
+                padding: 0 14px;
+                background: var(--primary-light);
+                color: var(--primary);
+                border: 1px solid rgba(91,106,240,0.2);
+                border-radius: var(--radius);
+                font-family: 'DM Sans', sans-serif;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+            }
+            .ai-tools-trigger:active { background: rgba(118,129,232,0.18); }
+
+            .ai-tools-menu {
+                display: none;
+                position: absolute;
+                top: calc(100% + 6px);
+                right: 0;
+                min-width: 190px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-lg);
+                z-index: 50;
+                overflow: hidden;
+            }
+
+            .ai-tools-menu.open { display: block; }
+
+            .ai-tools-menu button {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                padding: 13px 14px;
+                background: none;
+                border: none;
+                border-bottom: 1px solid var(--border-soft);
+                font-family: 'DM Sans', sans-serif;
+                font-size: 13.5px;
+                font-weight: 500;
+                color: var(--text-2);
+                text-align: left;
+                cursor: pointer;
+            }
+            .ai-tools-menu button:last-child { border-bottom: none; }
+            .ai-tools-menu button:active { background: var(--surface-2); }
+            .ai-tools-menu button i { color: var(--primary); width: 14px; font-size: 12px; }
+
+            /* ── Fixed bottom action bar ── */
+            .mobile-bottom-bar {
+                display: flex;
+                position: fixed;
+                bottom: 0; left: 0; right: 0;
+                height: 60px;
+                background: var(--surface);
+                border-top: 1px solid var(--border);
+                align-items: stretch;
+                gap: 10px;
+                padding: 8px 14px;
+                z-index: 280;
+                box-shadow: 0 -4px 16px rgba(0,0,0,0.05);
+            }
+
+            .mobile-bottom-bar.hidden-bar { display: none; }
+
+            .mobile-bottom-bar button {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 7px;
+                min-height: 48px;
+                border-radius: var(--radius);
+                font-family: 'DM Sans', sans-serif;
+                font-size: 14.5px;
+                font-weight: 600;
+                cursor: pointer;
+                border: 1px solid transparent;
+            }
+
+            .mobile-btn-secondary {
+                background: var(--surface-2);
+                color: var(--text-2);
+                border-color: var(--border) !important;
+            }
+            .mobile-btn-secondary:active { background: var(--surface-3); }
+            .mobile-btn-secondary:disabled { opacity: 0.4; }
+
+            .mobile-btn-primary {
+                background: var(--primary);
+                color: white;
+            }
+            .mobile-btn-primary:active { opacity: 0.88; }
+
+            /* Space at bottom of editor content so the fixed bar never covers fields */
+            .editor-panel { padding-bottom: 76px; }
+
+            /* ── Template select / nav controls collapse into single menu ── */
+            .mobile-menu-sheet {
+                display: none;
+                position: fixed;
+                inset: 0;
+                z-index: 1100;
+            }
+            .mobile-menu-sheet.open { display: block; }
+
+            .mobile-menu-backdrop {
+                position: absolute;
+                inset: 0;
+                background: rgba(17,24,39,0.45);
+            }
+
+            .mobile-menu-panel {
+                position: absolute;
+                left: 0; right: 0; bottom: 0;
+                background: var(--surface);
+                border-radius: 18px 18px 0 0;
+                padding: 8px 0 calc(18px + env(safe-area-inset-bottom));
+                box-shadow: var(--shadow-lg);
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            .mobile-menu-handle {
+                display: flex;
+                justify-content: center;
+                padding: 10px 0 6px;
+            }
+            .mobile-menu-handle::before {
+                content: '';
+                width: 38px; height: 4px;
+                background: var(--border);
+                border-radius: 4px;
+            }
+
+            .mobile-menu-section-label {
+                padding: 12px 20px 8px;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                color: var(--text-4);
+            }
+
+            .mobile-menu-item {
+                display: flex;
+                align-items: center;
+                gap: 13px;
+                width: 100%;
+                min-height: 52px;
+                padding: 10px 20px;
+                background: none;
+                border: none;
+                font-family: 'DM Sans', sans-serif;
+                font-size: 14.5px;
+                font-weight: 500;
+                color: var(--text-1);
+                text-align: left;
+                cursor: pointer;
+            }
+            .mobile-menu-item:active { background: var(--surface-2); }
+            .mobile-menu-item i { width: 16px; color: var(--text-3); font-size: 14px; }
+
+            .mobile-menu-item.mobile-menu-template-select {
+                padding: 8px 20px 14px;
+            }
+            .mobile-menu-template-select select {
+                width: 100%;
+                min-height: 48px;
+                padding: 10px 14px;
+                font-size: 14px;
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+                background: var(--surface-2);
+            }
+
+            /* ── Ensure every remaining inline .btn (Step 8 customizer, JD tailoring, gallery, etc.)
+                 meets the 48px minimum touch target on mobile ── */
+            .btn { min-height: 48px; padding: 11px 16px; font-size: 14px; }
+            .btn-sm { min-height: 44px; }
+            .toolbar-icon-btn, .action-icon-btn { min-width: 40px; }
+            input[type="color"] { width: 48px !important; height: 44px !important; }
+            input[type="checkbox"] { min-width: 22px; }
+            .template-gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .customizer-section { padding: 16px; gap: 16px; }
+
+            /* Prevent any element from forcing horizontal scroll */
+            * { max-width: 100%; }
+            .form-grid, .customizer-section, .ats-checklist-card, .keyword-badge,
+            .template-gallery-grid, .certs-langs-grid { overflow-x: hidden; }
+
+            /* No horizontal scrolling anywhere on mobile */
+            .stepper-header, .nav-center { overflow-x: hidden !important; }
         }
     </style>
 </head>
@@ -1209,7 +1731,7 @@
     </div>
 </nav>
 
-<!-- MOBILE BOTTOM BAR -->
+<!-- MOBILE BOTTOM BAR (legacy edit/preview toggle — superseded by mobile-topbar/mobile-bottom-bar below on screens <768px) -->
 <div class="mobile-view-bar">
     <button class="mobile-view-btn active" id="mobile-btn-edit" onclick="setMobileView('edit')">
         <i class="fa-solid fa-pen-to-square"></i> Edit
@@ -1217,6 +1739,69 @@
     <button class="mobile-view-btn" id="mobile-btn-preview" onclick="setMobileView('preview')">
         <i class="fa-solid fa-eye"></i> Preview
     </button>
+</div>
+
+<!-- ═══════════ MOBILE-ONLY UI (<768px) ═══════════ -->
+
+<!-- Compact sticky mobile top bar: Back / Current Step / Preview -->
+<div class="mobile-topbar">
+    <div class="mobile-topbar-left">
+        <button class="mobile-back-btn" onclick="mobileGoBack()" title="Back" aria-label="Back">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <span class="mobile-topbar-title" id="mobile-topbar-title">Personal Details</span>
+    </div>
+    <button class="mobile-preview-btn" onclick="openMobilePreview()">
+        <i class="fa-solid fa-eye"></i> Preview
+    </button>
+    <button class="mobile-menu-btn" onclick="openMobileMenu()" title="More options" aria-label="More options">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </button>
+</div>
+
+<!-- Progress bar + step counter (replaces step pills, no horizontal scroll) -->
+<div class="mobile-progress-wrap">
+    <div class="mobile-progress-toprow">
+        <span class="mobile-step-counter" id="mobile-step-counter">Step 1 of 8</span>
+        <span class="mobile-step-name" id="mobile-step-name">Header</span>
+    </div>
+    <div class="mobile-progress-track">
+        <div class="mobile-progress-fill" id="mobile-progress-fill" style="width:12.5%;"></div>
+    </div>
+</div>
+
+<!-- Slide-up menu sheet: collapses template selector + navbar actions -->
+<div class="mobile-menu-sheet" id="mobile-menu-sheet">
+    <div class="mobile-menu-backdrop" onclick="closeMobileMenu()"></div>
+    <div class="mobile-menu-panel">
+        <div class="mobile-menu-handle"></div>
+        <div class="mobile-menu-section-label">Template</div>
+        <div class="mobile-menu-item mobile-menu-template-select">
+            <select id="mobile-template-switch" onchange="switchTemplate(parseInt(this.value)); document.getElementById('direct-template-switch').value = this.value;">
+                <option value="1">Modern Corporate</option>
+                <option value="2">Minimalist Executive</option>
+                <option value="3">Tech Specialist</option>
+                <option value="4">Creative Professional</option>
+                <option value="5">Academic / CV</option>
+                <option value="6">Bold Modernist</option>
+                <option value="7">Slate Clean &amp; Elegant</option>
+                <option value="8">Silicon Valley Technical</option>
+            </select>
+        </div>
+        <div class="mobile-menu-section-label">Actions</div>
+        <button class="mobile-menu-item" onclick="closeMobileMenu(); window.location.href='/dashboard';">
+            <i class="fa-solid fa-gauge"></i> Dashboard
+        </button>
+        <button class="mobile-menu-item" onclick="closeMobileMenu(); triggerImportJSON();">
+            <i class="fa-solid fa-file-import"></i> Import JSON
+        </button>
+        <button class="mobile-menu-item" onclick="closeMobileMenu(); exportJSON();">
+            <i class="fa-solid fa-file-export"></i> Export JSON
+        </button>
+        <button class="mobile-menu-item" onclick="closeMobileMenu(); printResume();">
+            <i class="fa-solid fa-download"></i> Save PDF
+        </button>
+    </div>
 </div>
 
 <!-- MAIN BUILDER -->
@@ -1298,6 +1883,14 @@
                         <button class="btn btn-ai" onclick="optimizeSummary()" id="btn-opt-summary">
                             <i class="fa-solid fa-wand-magic-sparkles"></i> AI Polish
                         </button>
+                        <div class="ai-tools-dropdown-wrap">
+                            <button class="ai-tools-trigger" onclick="toggleAiToolsMenu(this)" type="button">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> AI Tools <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+                            </button>
+                            <div class="ai-tools-menu">
+                                <button type="button" onclick="optimizeSummaryMobile(this)" id="btn-opt-summary-mobile"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Polish Summary</button>
+                            </div>
+                        </div>
                     </div>
                     <textarea id="summary_content" oninput="updateField('summary', this.value)" placeholder="Detail-oriented Software Engineer with 8+ years building scalable platforms..."></textarea>
                 </div>
@@ -1585,7 +2178,7 @@
 
         </div>
 
-        <!-- EDITOR FOOTER -->
+        <!-- EDITOR FOOTER (desktop/tablet) -->
         <div class="editor-footer">
             <button class="btn btn-ghost" onclick="prevStep()">
                 <i class="fa-solid fa-arrow-left"></i> Previous
@@ -1594,10 +2187,31 @@
                 Next <i class="fa-solid fa-arrow-right"></i>
             </button>
         </div>
+
+        <!-- MOBILE FIXED BOTTOM ACTION BAR: [Previous][Next] or [Save Draft][Next] -->
+        <div class="mobile-bottom-bar" id="mobile-bottom-bar">
+            <button class="mobile-btn-secondary" id="mobile-prev-btn" onclick="prevStep()">
+                <i class="fa-solid fa-arrow-left"></i> Previous
+            </button>
+            <button class="mobile-btn-primary" id="mobile-next-btn" onclick="nextStep()">
+                <span id="mobile-next-btn-text">Next</span> <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
     </div>
 
-    <!-- RIGHT: PREVIEW -->
+    <!-- RIGHT: PREVIEW (desktop split / mobile fullscreen modal) -->
     <div class="preview-panel">
+        <!-- Mobile-only modal handle + close bar -->
+        <div class="mobile-preview-modal-bar" id="mobile-preview-modal-bar">
+            <div class="mobile-preview-handle"></div>
+            <div class="mobile-preview-modal-header">
+                <span class="mobile-preview-modal-title"><i class="fa-solid fa-eye"></i>&nbsp; Resume Preview</span>
+                <button class="mobile-preview-close" onclick="closeMobilePreview()" aria-label="Close preview">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
         <div class="preview-toolbar">
             <div class="preview-toolbar-label">
                 <i class="fa-solid fa-eye"></i> Live A4 Preview
@@ -1750,6 +2364,9 @@
         renderPreview();
         handleZoomSlider(0.75);
         autoFitScale();
+        syncMobileStepUI();
+        const mobileTplSwitch = document.getElementById('mobile-template-switch');
+        if (mobileTplSwitch) mobileTplSwitch.value = String(currentTemplate);
     });
 
     function syncStateToForm() {
@@ -1768,6 +2385,9 @@
     function saveToCache() { localStorage.setItem('resufit_data', JSON.stringify(resumeData)); }
     function updateField(key, val) { resumeData[key] = val; saveToCache(); renderPreview(); updateATSChecklist(); }
 
+    const stepNames = ['Header', 'Summary', 'Experience', 'Projects', 'Education', 'Skills', 'Extra', 'Finish'];
+    const stepTitles = ['Personal Details', 'Professional Summary', 'Work History', 'Featured Projects', 'Education History', 'Technical Skills', 'Certifications & Languages', 'Ready to Finalize'];
+
     function jumpToStep(step) {
         if (step < 1 || step > totalSteps) return;
         document.getElementById('step-' + currentStep).classList.remove('active');
@@ -1782,10 +2402,108 @@
         }
         const nextBtn = document.getElementById('next-btn-text');
         nextBtn.innerHTML = currentStep === totalSteps ? 'Print / Finish <i class="fa-solid fa-wand-magic-sparkles"></i>' : 'Next <i class="fa-solid fa-arrow-right"></i>';
+        syncMobileStepUI();
+        const editorScroll = document.querySelector('.editor-content');
+        if (editorScroll) editorScroll.scrollTop = 0;
+        window.scrollTo({top: 0, behavior: 'instant' in window ? 'instant' : 'auto'});
     }
 
     function nextStep() { if (currentStep === totalSteps) printResume(); else jumpToStep(currentStep + 1); }
     function prevStep() { if (currentStep > 1) jumpToStep(currentStep - 1); }
+
+    /* ─── MOBILE UI SYNC ─── */
+    function syncMobileStepUI() {
+        const counter = document.getElementById('mobile-step-counter');
+        const stepNameEl = document.getElementById('mobile-step-name');
+        const topbarTitle = document.getElementById('mobile-topbar-title');
+        const fill = document.getElementById('mobile-progress-fill');
+        const mobileNextText = document.getElementById('mobile-next-btn-text');
+        const mobilePrevBtn = document.getElementById('mobile-prev-btn');
+        if (!counter) return; // mobile UI not present (shouldn't happen, but guard anyway)
+        counter.innerText = `Step ${currentStep} of ${totalSteps}`;
+        stepNameEl.innerText = stepNames[currentStep - 1];
+        topbarTitle.innerText = stepTitles[currentStep - 1];
+        fill.style.width = ((currentStep / totalSteps) * 100) + '%';
+        mobilePrevBtn.disabled = currentStep === 1;
+        mobileNextText.innerText = currentStep === totalSteps ? 'Save & Finish' : 'Next';
+    }
+
+    function mobileGoBack() {
+        if (currentStep > 1) { prevStep(); }
+        else { window.location.href = '/dashboard'; }
+    }
+
+    function openMobilePreview() {
+        document.querySelector('.builder-container').classList.add('show-preview');
+        document.body.style.overflow = 'hidden';
+        autoFit = true;
+        setTimeout(autoFitScale, 100);
+    }
+
+    function closeMobilePreview() {
+        document.querySelector('.builder-container').classList.remove('show-preview');
+        document.body.style.overflow = '';
+    }
+
+    /* Swipe-down-to-close for the mobile preview modal */
+    (function setupPreviewSwipeToClose() {
+        let startY = null;
+        let currentY = null;
+        let dragging = false;
+        document.addEventListener('DOMContentLoaded', () => {
+            const handleBar = document.getElementById('mobile-preview-modal-bar');
+            if (!handleBar) return;
+            const panel = document.querySelector('.preview-panel');
+            handleBar.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+                dragging = true;
+                panel.style.transition = 'none';
+            }, {passive: true});
+            handleBar.addEventListener('touchmove', (e) => {
+                if (!dragging) return;
+                currentY = e.touches[0].clientY;
+                const delta = Math.max(0, currentY - startY);
+                panel.style.transform = `translateY(${delta}px)`;
+            }, {passive: true});
+            handleBar.addEventListener('touchend', () => {
+                if (!dragging) return;
+                dragging = false;
+                panel.style.transition = '';
+                const delta = currentY && startY ? currentY - startY : 0;
+                if (delta > 120) {
+                    closeMobilePreview();
+                }
+                panel.style.transform = '';
+                startY = null; currentY = null;
+            });
+        });
+    })();
+
+    function openMobileMenu() {
+        document.getElementById('mobile-menu-sheet').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+        document.getElementById('mobile-menu-sheet').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    /* ─── AI TOOLS DROPDOWN (mobile) ─── */
+    function toggleAiToolsMenu(btn) {
+        const menu = btn.nextElementSibling;
+        const wasOpen = menu.classList.contains('open');
+        document.querySelectorAll('.ai-tools-menu.open').forEach(m => m.classList.remove('open'));
+        if (!wasOpen) menu.classList.add('open');
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.ai-tools-dropdown-wrap')) {
+            document.querySelectorAll('.ai-tools-menu.open').forEach(m => m.classList.remove('open'));
+        }
+    });
+
+
 
     function toggleAccordion(cardElement) {
         const container = cardElement.closest('.accordion-card');
@@ -1901,6 +2619,14 @@
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                                 <label style="margin-bottom:0;"><i class="fa-solid fa-pen-to-square"></i> Description &amp; Achievements</label>
                                 <button class="btn btn-ai" onclick="optimizeExp(${index})" id="btn-opt-exp-${index}"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Polish</button>
+                                <div class="ai-tools-dropdown-wrap">
+                                    <button class="ai-tools-trigger" onclick="toggleAiToolsMenu(this)" type="button">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Tools <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+                                    </button>
+                                    <div class="ai-tools-menu">
+                                        <button type="button" onclick="optimizeExpMobile(${index}, this)"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Polish Description</button>
+                                    </div>
+                                </div>
                             </div>
                             <textarea id="exp-desc-${index}" oninput="updateListItem('experience',${index},'description',this.value)" placeholder="• Engineered critical data APIs…">${item.description||''}</textarea>
                         </div>
@@ -1948,6 +2674,14 @@
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                                 <label style="margin-bottom:0;"><i class="fa-solid fa-pen-to-square"></i> Project Details</label>
                                 <button class="btn btn-ai" onclick="optimizeProj(${index})" id="btn-opt-proj-${index}"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Polish</button>
+                                <div class="ai-tools-dropdown-wrap">
+                                    <button class="ai-tools-trigger" onclick="toggleAiToolsMenu(this)" type="button">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Tools <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+                                    </button>
+                                    <div class="ai-tools-menu">
+                                        <button type="button" onclick="optimizeProjMobile(${index}, this)"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Polish Details</button>
+                                    </div>
+                                </div>
                             </div>
                             <textarea id="proj-desc-${index}" oninput="updateListItem('projects',${index},'description',this.value)" placeholder="• Assembled full stack system…">${item.description||''}</textarea>
                         </div>
@@ -2090,6 +2824,8 @@
         const gc = document.getElementById('tgc-' + index);
         if (gc) gc.classList.add('active');
         document.getElementById('direct-template-switch').value = index;
+        const mobileTplSwitch = document.getElementById('mobile-template-switch');
+        if (mobileTplSwitch) mobileTplSwitch.value = index;
         currentTemplate = index;
         const sheet = document.getElementById('preview-sheet');
         sheet.className = 'preview-sheet template-' + currentTemplate;
@@ -2268,6 +3004,44 @@
         const el = document.getElementById('proj-desc-' + index);
         if (!el || !el.value.trim()) { alert("Please write some project details first!"); return; }
         callOptimizeAPI(el.value, 'projects', 'btn-opt-proj-' + index, v => { el.value = v; updateListItem('projects', index, 'description', v); });
+    }
+
+    /* Mobile AI Tools dropdown wrappers: show loading state on the tapped button, then close the menu */
+    function withMobileAiLoading(triggerBtn, action) {
+        const menu = triggerBtn.closest('.ai-tools-menu');
+        const orig = triggerBtn.innerHTML;
+        triggerBtn.disabled = true;
+        triggerBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Polishing…';
+        const restore = () => { triggerBtn.disabled = false; triggerBtn.innerHTML = orig; if (menu) menu.classList.remove('open'); };
+        action();
+        // The underlying optimize functions manage their own async lifecycle on the hidden
+        // desktop button; poll briefly so the visible mobile button mirrors that state.
+        const poll = setInterval(() => {
+            const hidden = document.getElementById(triggerBtn.dataset.targetId);
+            if (hidden && !hidden.disabled) { clearInterval(poll); restore(); }
+        }, 150);
+        setTimeout(() => { clearInterval(poll); restore(); }, 15000);
+    }
+
+    function optimizeSummaryMobile(btn) {
+        const t = document.getElementById('summary_content').value;
+        if (!t.trim()) { alert("Please write some summary text first!"); return; }
+        btn.dataset.targetId = 'btn-opt-summary';
+        withMobileAiLoading(btn, () => optimizeSummary());
+    }
+
+    function optimizeExpMobile(index, btn) {
+        const el = document.getElementById('exp-desc-' + index);
+        if (!el || !el.value.trim()) { alert("Please write some job description points first!"); return; }
+        btn.dataset.targetId = 'btn-opt-exp-' + index;
+        withMobileAiLoading(btn, () => optimizeExp(index));
+    }
+
+    function optimizeProjMobile(index, btn) {
+        const el = document.getElementById('proj-desc-' + index);
+        if (!el || !el.value.trim()) { alert("Please write some project details first!"); return; }
+        btn.dataset.targetId = 'btn-opt-proj-' + index;
+        withMobileAiLoading(btn, () => optimizeProj(index));
     }
 
     /* ─── JSON ─── */
