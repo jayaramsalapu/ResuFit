@@ -522,6 +522,27 @@ def analyze_keywords():
             "error": str(e)
         }), 500
 
+# ==========================
+# PWA SUPPORT ROUTES
+# ==========================
+
+@app.route('/manifest.json')
+def serve_manifest():
+    response = make_response(app.send_static_file('manifest.json'))
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
+@app.route('/service-worker.js')
+def serve_service_worker():
+    response = make_response(app.send_static_file('service-worker.js'))
+    response.headers['Content-Type'] = 'application/javascript'
+    response.headers['Service-Worker-Allowed'] = '/'
+    return response
+
+@app.route('/offline.html')
+def serve_offline():
+    return render_template('offline.html')
+
 if __name__ == '__main__':
     create_table()
     app.run()

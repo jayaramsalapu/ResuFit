@@ -839,7 +839,22 @@
             .bottom-nav-item.active { color: var(--primary); }
             .form-control, input, select, textarea, button, .btn { min-height: 48px; font-size: 16px; }
         }
+
+        /* Hide bottom nav on print */
+        @media print {
+            .bottom-nav { display: none !important; }
+            body { padding-bottom: 0 !important; }
+        }
     </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ResuFit">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script src="/static/pwa.js" defer></script>
 </head>
 <body>
 

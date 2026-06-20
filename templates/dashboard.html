@@ -1005,6 +1005,7 @@
 
         .bottom-nav { display: none; }
         @media (max-width: 768px) {
+            .welcome-hero { display: none !important; }
             .bottom-nav {
                 display: flex;
                 position: fixed;
@@ -1042,7 +1043,55 @@
             .content-body { padding: 16px; padding-bottom: calc(16px + var(--bottom-nav-h)); }
             .btn, button, .form-control, input, select, textarea { min-height: 48px; font-size: 16px; }
         }
+
+        /* ─── PRINT OUT CLEANUP ─── */
+        @media print {
+            body, html {
+                margin: 0 !important;
+                padding: 0 !important;
+                height: 100% !important;
+                overflow: hidden !important;
+            }
+            .sidebar, .sidebar-overlay, .top-header, .bottom-nav {
+                display: none !important;
+            }
+            .main-panel {
+                margin-left: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+            .content-body {
+                padding: 0 !important;
+                height: 100% !important;
+            }
+            .tab-content {
+                display: none !important;
+            }
+            .tab-content.active {
+                display: block !important;
+                height: 100% !important;
+            }
+            .builder-wrapper {
+                height: 100% !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+            .builder-iframe {
+                height: 100% !important;
+                width: 100% !important;
+            }
+        }
     </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ResuFit">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script src="/static/pwa.js" defer></script>
 </head>
 <body>
 

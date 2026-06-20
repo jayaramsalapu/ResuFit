@@ -1687,7 +1687,90 @@
             /* No horizontal scrolling anywhere on mobile */
             .stepper-header, .nav-center { overflow-x: hidden !important; }
         }
+
+        /* ─── PRINT MEDIA QUERY ─── */
+        @media print {
+            body, html {
+                background: white !important;
+                color: black !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                height: auto !important;
+                min-height: 0 !important;
+                overflow: visible !important;
+            }
+            .navbar,
+            .mobile-view-bar,
+            .mobile-topbar,
+            .mobile-progress-wrap,
+            .mobile-menu-sheet,
+            .mobile-bottom-bar,
+            .editor-panel,
+            .preview-toolbar,
+            .mobile-preview-modal-bar {
+                display: none !important;
+            }
+            .builder-container {
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                height: auto !important;
+                min-height: 0 !important;
+                overflow: visible !important;
+            }
+            .preview-panel {
+                display: block !important;
+                position: static !important;
+                transform: none !important;
+                width: 100% !important;
+                height: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                overflow: visible !important;
+            }
+            .preview-viewport {
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: visible !important;
+                height: auto !important;
+                width: 100% !important;
+                background: white !important;
+            }
+            .preview-sheet-container {
+                transform: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                height: auto !important;
+                width: 100% !important;
+            }
+            .preview-sheet {
+                width: 100% !important;
+                min-height: 0 !important;
+                height: auto !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+                background-image: none !important;
+                page-break-inside: auto !important;
+                overflow: visible !important;
+            }
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+        }
     </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ResuFit">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script src="/static/pwa.js" defer></script>
 </head>
 <body>
 
@@ -3157,6 +3240,7 @@
         saveToCache();
         const current = document.getElementById('zoom-slider').value;
         handleZoomSlider(1.0);
+        window.focus(); // Force browser focus inside the iframe window
         window.print();
         setTimeout(() => handleZoomSlider(current), 100);
     }
