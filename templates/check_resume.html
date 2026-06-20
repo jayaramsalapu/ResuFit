@@ -61,7 +61,7 @@
         .nav-logo {
             display: flex; align-items: center; gap: 8px;
             text-decoration: none; color: var(--text);
-            font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em;
+            font-weight: 500; font-size: 1.1rem; letter-spacing: -0.02em;
         }
 
         .nav-logo-icon {
@@ -83,7 +83,7 @@
         }
 
         .nav-link:hover { color: var(--text); background: rgba(0,0,0,0.04); }
-        .nav-link.active { color: var(--primary); background: var(--primary-light); font-weight: 600; }
+        .nav-link.active { color: var(--primary); background: var(--primary-light); font-weight: 500; }
 
         .nav-right { display: flex; align-items: center; gap: 12px; }
 
@@ -102,7 +102,7 @@
             color: white; font-size: 0.7rem; font-weight: 700;
         }
 
-        .nav-name { font-size: 0.825rem; font-weight: 600; color: var(--text); }
+        .nav-name { font-size: 0.825rem; font-weight: 500; color: var(--text); }
 
         .btn-logout {
             padding: 6px 14px;
@@ -778,9 +778,9 @@
         }
 
         @media (max-width: 768px) {
-            .navbar { padding: 0 20px; }
+            .navbar { display: none !important; }
             .nav-links { display: none; }
-            .page-wrapper { padding: 88px 16px 60px; }
+            .page-wrapper { padding: 24px 16px 60px !important; }
             .hero h1 { font-size: 2rem; }
             .upload-card { padding: 24px; }
             
