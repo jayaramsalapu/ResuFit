@@ -7,7 +7,6 @@ import requests
 import os
 import re
 from dotenv import load_dotenv
-from flask_mail import Mail, Message
 import random
 from werkzeug.utils import secure_filename
 from PyPDF2 import PdfReader
@@ -21,12 +20,6 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.getenv("EMAIL_USER")
-app.config['MAIL_PASSWORD'] = os.getenv("EMAIL_PASS")
-mail = Mail(app)
 bcrypt = Bcrypt(app)
 
 otp_storage = {}
@@ -242,6 +235,37 @@ def google_callback():
     return redirect(url_for("dashboard"))
 
 
+def send_otp_email(to_email, otp):
+    api_key = os.getenv("BREVO_API_KEY") or os.getenv("BREVO_SMTP_KEY")
+    sender_email = os.getenv("BREVO_EMAIL")
+
+    if not api_key:
+        raise Exception("Brevo API key is missing. Please set BREVO_API_KEY in your environment.")
+    if not api_key.startswith("xkeysib-"):
+        raise Exception("Invalid API key format. Brevo v3 API keys must start with 'xkeysib-'.")
+
+    url = "https://api.brevo.com/v3/smtp/email"
+    headers = {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "api-key": api_key
+    }
+    payload = {
+        "sender": {"name": "ResuFit", "email": sender_email},
+        "to": [{"email": to_email}],
+        "subject": "Your OTP for Password Reset",
+        "htmlContent": f"<html><body><p>Your OTP for password reset is: <strong>{otp}</strong></p></body></html>"
+    }
+    try:
+        response = requests.post(url, json=payload, headers=headers)
+        if response.status_code in [200, 201, 202]:
+            return True
+        else:
+            raise Exception(f"Brevo API returned status code {response.status_code}: {response.text}")
+    except Exception as e:
+        raise Exception(f"Brevo API error: {str(e)}")
+
+
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
@@ -263,13 +287,10 @@ def forgot_password():
             otp = str(random.randint(1000, 9999))
             otp_storage[email] = otp
 
-            msg = Message(
-                'Your OTP for Password Reset',
-                sender=app.config['MAIL_USERNAME'],
-                recipients=[email]
-            )
-            msg.body = f"Your OTP is: {otp}"
-            mail.send(msg)
+            try:
+                send_otp_email(email, otp)
+            except Exception as e:
+                return render_template('forgot_password.html', step=1, error=f"Failed to send email: {str(e)}")
 
             return render_template('forgot_password.html', step=2, email=email)
 
