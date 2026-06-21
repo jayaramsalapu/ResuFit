@@ -780,39 +780,52 @@
         @media (max-width: 768px) {
             .navbar { display: none !important; }
             .nav-links { display: none; }
-            .page-wrapper { padding: 24px 16px 60px !important; }
-            .hero h1 { font-size: 2rem; }
-            .upload-card { padding: 24px; }
+            .page-wrapper { padding: 16px 12px 60px !important; }
+            .hero h1 { font-size: 1.5rem !important; }
+            .hero-sub { font-size: 0.85rem !important; }
+            .upload-card { padding: 16px !important; }
             
-            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 8px !important; }
+            .kpi-card { padding: 12px !important; }
+            .kpi-value { font-size: 1.5rem !important; }
+            .kpi-label { font-size: 0.75rem !important; }
             .results-header { flex-direction: column; align-items: flex-start; gap: 8px; }
             .nav-user .nav-name { display: none; }
 
-            /* Switch split pane to toggled mobile stack */
-            .mobile-pane-toggle { display: flex; }
+            /* Switch split pane to full report view on mobile */
+            .mobile-pane-toggle { display: none !important; }
             .dashboard-split { grid-template-columns: 1fr; }
             
             .resume-preview-panel {
-                display: none; /* hidden by default on mobile unless active */
-                max-height: none;
-                position: static;
-                padding: 20px;
+                display: none !important; /* completely hidden on mobile */
             }
-            .resume-preview-panel.active { display: block; }
+            .resume-preview-panel.active {
+                display: none !important;
+            }
             
             .ai-audit-panel {
-                display: none;
+                display: flex !important; /* always visible on mobile */
             }
-            .ai-audit-panel.active { display: flex; }
+            .ai-audit-panel.active {
+                display: flex !important;
+            }
 
-            .improvement-item { grid-template-columns: 1fr; }
+            .tab-btn { padding: 8px 12px !important; font-size: 0.8rem !important; }
+            .result-card { padding: 14px 16px !important; margin-bottom: 12px !important; }
+            .section-title { font-size: 1.1rem !important; }
+            .card-title { font-size: 1.05rem !important; }
+            .improvement-title { font-size: 0.9rem !important; }
+            .improvement-item { grid-template-columns: 1fr; padding: 12px !important; gap: 8px !important; }
             .improvement-reason { grid-column: 1; }
+            body, input, select, textarea, button, .btn { font-size: 14px !important; }
         }
 
         @media (max-width: 480px) {
-            .hero-badges { gap: 6px; }
-            .badge { font-size: 0.72rem; padding: 4px 10px; }
-            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-badges { gap: 4px !important; }
+            .badge { font-size: 0.68rem !important; padding: 3px 8px !important; }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 6px !important; }
+            .hero h1 { font-size: 1.3rem !important; }
+            .form-control, input, select, textarea, button, .btn { min-height: 44px; }
         }
 
         /* ============ RESPONSIVE ENHANCEMENT LAYER ============ */

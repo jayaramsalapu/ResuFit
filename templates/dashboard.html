@@ -1033,15 +1033,75 @@
             }
             .bottom-nav-item i { font-size: 1.1rem; }
             .bottom-nav-item.active { color: var(--primary); }
+
+            /* Hide parsed resume/details panel completely on mobile */
+            #tab-check-resume .preview-panel,
+            #tab-jd-analysis .preview-panel {
+                display: none !important;
+            }
+            .split-workspace {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+            #jdFinalSuggestionsMobileCard.mobile-only-card {
+                display: block !important;
+            }
+
+            /* Mobile Typography Overrides */
+            body, input, select, textarea, button, .btn {
+                font-size: 14px !important;
+            }
+            .section-title-wrap h1 {
+                font-size: 1.1rem !important;
+            }
+            .card-title {
+                font-size: 1.05rem !important;
+            }
+            .kpi-mini-val {
+                font-size: 1.25rem !important;
+            }
+            .kpi-mini-lbl {
+                font-size: 0.75rem !important;
+            }
+            .bullet-list li, .grammar-item, .grammar-reason {
+                font-size: 0.8rem !important;
+            }
+            .pill-item {
+                font-size: 0.75rem !important;
+                padding: 4px 10px !important;
+            }
+            .tab-pill-btn {
+                font-size: 0.75rem !important;
+                padding: 6px 12px !important;
+            }
+
+            /* Mobile Spacing Overrides */
+            .card {
+                padding: 14px 16px !important;
+                margin-bottom: 12px !important;
+            }
+            .content-body {
+                padding: 12px 14px !important;
+            }
+            .kpi-row {
+                gap: 10px !important;
+                margin-bottom: 16px !important;
+            }
+            .kpi-card-mini {
+                padding: 10px 12px !important;
+            }
+            .top-header {
+                padding: 10px 16px !important;
+            }
         }
 
         @media (max-width: 480px) {
-            .section-title-wrap h1 { font-size: 1.15rem; }
-            .top-header { padding: 14px 16px; }
-            .welcome-hero h2 { font-size: 1.5rem; }
-            .kpi-row { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .content-body { padding: 16px; padding-bottom: calc(16px + var(--bottom-nav-h)); }
-            .btn, button, .form-control, input, select, textarea { min-height: 48px; font-size: 16px; }
+            .section-title-wrap h1 { font-size: 1rem !important; }
+            .top-header { padding: 8px 12px !important; }
+            .welcome-hero h2 { font-size: 1.3rem !important; }
+            .kpi-row { grid-template-columns: 1fr 1fr; gap: 10px !important; }
+            .content-body { padding: 10px; padding-bottom: calc(10px + var(--bottom-nav-h)) !important; }
+            .btn, button, .form-control, input, select, textarea { min-height: 44px; font-size: 14px !important; }
         }
 
         /* ─── PRINT OUT CLEANUP ─── */
@@ -1529,6 +1589,12 @@
                                     <h3 class="card-title">Skills Optimization Suggestions</h3>
                                     <ul id="jdSkillsSuggestionsList" class="bullet-list">
                                         <!-- Dynamic items -->
+                                    </ul>
+                                </div>
+                                <div class="card mobile-only-card" id="jdFinalSuggestionsMobileCard" style="margin-top: 20px; display: none;">
+                                    <h3 class="card-title">Final Suggestions</h3>
+                                    <ul id="jdFinalSuggestionsListMobile" class="bullet-list">
+                                        <!-- dynamic items -->
                                     </ul>
                                 </div>
                             </div>
@@ -2069,10 +2135,15 @@
 
             // Render Final Suggestions
             const finalSuggestions = document.getElementById('jdFinalSuggestionsList');
+            const finalSuggestionsMobile = document.getElementById('jdFinalSuggestionsListMobile');
             if (data.final_suggestions && data.final_suggestions.length > 0) {
-                finalSuggestions.innerHTML = data.final_suggestions.map(s => `<li>${s}</li>`).join('');
+                const html = data.final_suggestions.map(s => `<li>${s}</li>`).join('');
+                if (finalSuggestions) finalSuggestions.innerHTML = html;
+                if (finalSuggestionsMobile) finalSuggestionsMobile.innerHTML = html;
             } else {
-                finalSuggestions.innerHTML = `<li style="list-style:none; color:var(--text-secondary)">No immediate suggestions generated.</li>`;
+                const html = `<li style="list-style:none; color:var(--text-secondary)">No immediate suggestions generated.</li>`;
+                if (finalSuggestions) finalSuggestions.innerHTML = html;
+                if (finalSuggestionsMobile) finalSuggestionsMobile.innerHTML = html;
             }
 
             // --- SKILLS TAB ---

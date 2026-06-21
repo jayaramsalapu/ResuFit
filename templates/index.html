@@ -95,27 +95,54 @@ content="https://resufit.com/preview.png">
     @media (max-width: 768px) {
       .nav-right { display: none; }
       .mobile-menu-btn { display: flex !important; }
-      .hero { padding: 100px 20px 40px; text-align: center; }
-      h1 { font-size: clamp(1.75rem, 7vw, 2.25rem); }
-      h2 { font-size: clamp(1.4rem, 5vw, 1.75rem); }
-      h3 { font-size: 1.15rem; }
-      section { padding: 48px 20px !important; }
-      .stat-card, .compare-card, .faq-item, .workflow-step {
+      .hero { padding: 80px 16px 20px !important; text-align: center; }
+      h1 { font-size: clamp(1.4rem, 6vw, 1.85rem) !important; }
+      h2 { font-size: clamp(1.15rem, 5vw, 1.4rem) !important; }
+      h3 { font-size: 1.05rem !important; }
+      p { font-size: 0.85rem !important; line-height: 1.45 !important; }
+      .hero p { font-size: 0.9rem !important; }
+      section { padding: 32px 16px !important; }
+      .stat-card, .compare-card, .faq-item, .workflow-step, .builder-card, .jd-analysis-card {
         width: 100% !important;
+        padding: 12px 14px !important;
+        margin-bottom: 8px !important;
+      }
+      .workflow-container, .builder-container, .jd-container, .comparison-wrapper, .before-after-container {
+        gap: 16px !important;
+        margin-top: 16px !important;
       }
       .compare-list, .analysis-list, .keyword-list, .skills-list {
         grid-template-columns: 1fr !important;
       }
-      a.nav-btn, a.nav-login, button, .btn { min-height: 48px; }
+      a.nav-btn, a.nav-login, button, .btn, .btn-primary {
+        min-height: 44px;
+        font-size: 0.85rem !important;
+        padding: 10px 18px !important;
+      }
+      .mobile-menu-btn {
+        padding: 6px !important;
+        font-size: 1.4rem !important;
+      }
+      .navbar { padding: 10px 16px !important; }
+      .animated-bg { display: none !important; }
+      .faq-container { gap: 10px !important; }
+      .faq-item { border-radius: 12px !important; }
+      .faq-question { padding: 14px 16px !important; font-size: 0.95rem !important; }
+      .faq-icon { width: 28px !important; height: 28px !important; font-size: 1.1rem !important; }
+      .faq-answer { padding: 0 16px !important; font-size: 0.825rem !important; line-height: 1.5 !important; }
+      .faq-item.active .faq-answer { padding: 0 16px 14px 16px !important; max-height: 400px !important; }
+      .resume-preview-section,
+      .before-after-section {
+        display: none !important;
+      }
     }
 
     @media (max-width: 480px) {
-      .navbar { padding: 14px 20px; }
-      .logo span { font-size: 1.05rem; }
-      .hero { padding: 90px 16px 32px; }
-      section { padding: 36px 16px !important; }
-      .faq-question { font-size: 0.95rem; }
-      .step-number { width: 36px; height: 36px; }
+      .navbar { padding: 8px 12px !important; }
+      .logo span { font-size: 0.95rem !important; }
+      .hero { padding: 75px 12px 16px !important; }
+      section { padding: 24px 12px !important; }
+      .step-number { width: 32px; height: 32px; font-size: 0.85rem !important; }
     }
   </style>
   <!-- PWA Settings -->
