@@ -7,7 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+try:
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+except Exception:
+    client = None
 
 
 # ---------------------------
@@ -618,7 +621,7 @@ def tailor_resume_with_groq(resume_data, job_desc):
 
 
   response = client.chat.completions.create(
-   model="openai/gpt-oss-120b",
+    model="llama-3.3-70b-versatile",
     messages=[
       {
         "role": "user",

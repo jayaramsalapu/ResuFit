@@ -13,11 +13,13 @@ from werkzeug.utils import secure_filename
 from PyPDF2 import PdfReader
 from docx import Document
 from groq_api import analyze_resume_with_groq, analyze_jd_with_groq ,  optimize_text_with_groq, tailor_resume_with_groq, analyze_keywords_with_groq
+from datetime import timedelta
 load_dotenv()
 
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
@@ -45,7 +47,8 @@ GOOGLE_CLIENT_CONFIG = {
     }
 }
 
-UPLOAD_FOLDER = 'uploads'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -54,7 +57,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # ---------------- DB ---------------- #
 
 def get_db():
-    conn = sqlite3.connect('database.db')
+    db_path = os.path.join(BASE_DIR, 'database.db')
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -146,6 +150,7 @@ def login():
         if user and user['password'] != 'google_auth' and bcrypt.check_password_hash(user['password'], password):
             session['user_id'] = user['id']
             session['email'] = user['email']
+            session.permanent = True
             return redirect(url_for('dashboard'))
 
         return render_template('login.html', error="Invalid email or password")
@@ -232,6 +237,7 @@ def google_callback():
     # Login user
     session["user_id"] = user["id"]
     session["email"] = user["email"]
+    session.permanent = True
 
     return redirect(url_for("dashboard"))
 
@@ -543,6 +549,6 @@ def serve_service_worker():
 def serve_offline():
     return render_template('offline.html')
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     create_table()
-    app.run()
+    app.run(host="0.0.0.0", port=5000, debug=True)

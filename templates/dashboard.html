@@ -1082,6 +1082,64 @@
                 width: 100% !important;
             }
         }
+
+        /* ─── SIDEBAR TOGGLE & DRAG GESTURE (DESKTOP) ─── */
+        .desktop-toggle-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        .desktop-toggle-btn:hover {
+            background-color: var(--bg);
+            color: var(--text-primary);
+        }
+        .sidebar-drag-handle {
+            position: absolute;
+            top: 0;
+            right: -4px;
+            width: 8px;
+            height: 100%;
+            cursor: col-resize;
+            z-index: 10;
+        }
+        .sidebar-drag-handle:hover, .sidebar-drag-handle.dragging {
+            background-color: var(--primary);
+            opacity: 0.3;
+        }
+        .sidebar-collapsed-hover-zone {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 100%;
+            z-index: 199;
+            cursor: w-resize;
+        }
+        @media (max-width: 900px) {
+            .desktop-toggle-btn, .sidebar-drag-handle, .sidebar-collapsed-hover-zone {
+                display: none !important;
+            }
+        }
+        @media (min-width: 901px) {
+            body.sidebar-collapsed .sidebar {
+                transform: translateX(-100%);
+            }
+            body.sidebar-collapsed .main-panel {
+                margin-left: 0;
+            }
+            body.sidebar-collapsed .sidebar-collapsed-hover-zone {
+                display: block;
+            }
+        }
     </style>
     <!-- PWA Settings -->
     <link rel="manifest" href="/manifest.json">
@@ -1127,7 +1185,9 @@
 
         <div class="sidebar-footer">
             <div class="user-info">
-                <div class="user-avatar" id="avatarLetter">${name ? name[0] : 'U'}</div>
+                <div class="user-avatar" id="avatarLetter">
+    {{ name[:1]|upper if name else 'U' }}
+</div>
                 <div class="user-details">
                     <div class="user-name">{{ name }}</div>
                     <div class="user-email">{{ email }}</div>
@@ -1138,6 +1198,7 @@
                 <span>Logout</span>
             </a>
         </div>
+        <div class="sidebar-drag-handle" id="sidebarDragHandle"></div>
     </nav>
 
     <!-- ─── MAIN CONTENT ─── -->
@@ -1152,7 +1213,10 @@
                 <span style="font-weight:500; font-size:1.15rem; font-family:var(--font-heading)">ResuFit</span>
             </div>
             
-            <div class="section-title-wrap">
+            <div class="section-title-wrap" style="display: flex; align-items: center; gap: 12px;">
+                <button type="button" class="desktop-toggle-btn" onclick="toggleDesktopSidebar()" title="Toggle Sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
                 <h1 id="headerTitle">Workspace Overview</h1>
             </div>
             
@@ -1170,7 +1234,7 @@
             <div id="tab-overview" class="tab-content active">
                 <div class="welcome-hero">
                     <h2>Welcome to your <span class="gradient-text">Workspace</span></h2>
-                    <p>Unlock elite interview responses, improve ATS scoring metrics, and rewrite your career description using advanced AI models.</p>
+                    <p>Unlock to improve ATS scoring metrics, and rewrite your career description using advanced AI models.</p>
                 </div>
 
                 <div class="overview-grid">
@@ -2138,6 +2202,75 @@
                 structSugs.innerHTML = `<li style="list-style:none; color:var(--text-secondary); font-style:italic;">None generated.</li>`;
             }
         }
+
+        // Toggle desktop sidebar state
+        function toggleDesktopSidebar() {
+            document.body.classList.toggle('sidebar-collapsed');
+            localStorage.setItem('sidebarCollapsed', document.body.classList.contains('sidebar-collapsed'));
+        }
+
+        // Restore sidebar state from localStorage on load (desktop only)
+        if (window.innerWidth > 900) {
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isCollapsed) {
+                document.body.classList.add('sidebar-collapsed');
+            }
+        }
+
+        // Drag handle setup (desktop only)
+        const dragHandle = document.getElementById('sidebarDragHandle');
+        const hoverZone = document.createElement('div');
+        hoverZone.className = 'sidebar-collapsed-hover-zone';
+        hoverZone.id = 'sidebarHoverZone';
+        document.body.appendChild(hoverZone);
+
+        let isDragging = false;
+        let startX = 0;
+
+        dragHandle.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            dragHandle.classList.add('dragging');
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+        });
+
+        hoverZone.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            document.body.style.cursor = 'w-resize';
+            document.body.style.userSelect = 'none';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const diffX = e.clientX - startX;
+            const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+            
+            if (!isCollapsed && diffX < -60) {
+                document.body.classList.add('sidebar-collapsed');
+                localStorage.setItem('sidebarCollapsed', 'true');
+                isDragging = false;
+                dragHandle.classList.remove('dragging');
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+            } else if (isCollapsed && diffX > 60) {
+                document.body.classList.remove('sidebar-collapsed');
+                localStorage.setItem('sidebarCollapsed', 'false');
+                isDragging = false;
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                dragHandle.classList.remove('dragging');
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+            }
+        });
     </script>
 </body>
 </html>
