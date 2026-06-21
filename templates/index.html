@@ -101,7 +101,7 @@ content="https://resufit.com/preview.png">
       h3 { font-size: 1.05rem !important; }
       p { font-size: 0.85rem !important; line-height: 1.45 !important; }
       .hero p { font-size: 0.9rem !important; }
-      section { padding: 32px 16px !important; }
+      section { padding: 60px 16px !important; }
       .stat-card, .compare-card, .faq-item, .workflow-step, .builder-card, .jd-analysis-card {
         width: 100% !important;
         padding: 12px 14px !important;
@@ -123,7 +123,18 @@ content="https://resufit.com/preview.png">
         padding: 6px !important;
         font-size: 1.4rem !important;
       }
-      .navbar { padding: 10px 16px !important; }
+      .navbar {
+        height: 70px !important;
+        padding: 0 20px !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      .logo, .logo span, .mobile-menu-btn {
+        font-weight: 700 !important;
+      }
+      body, p, span, li, .workflow-step p, .builder-card p, .jd-analysis-card p, .compare-card p, .faq-answer {
+        font-weight: 400 !important;
+      }
       .animated-bg { display: none !important; }
       .faq-container { gap: 10px !important; }
       .faq-item { border-radius: 12px !important; }
@@ -132,16 +143,17 @@ content="https://resufit.com/preview.png">
       .faq-answer { padding: 0 16px !important; font-size: 0.825rem !important; line-height: 1.5 !important; }
       .faq-item.active .faq-answer { padding: 0 16px 14px 16px !important; max-height: 400px !important; }
       .resume-preview-section,
-      .before-after-section {
+      .before-after-section,
+      .builder-right {
         display: none !important;
       }
     }
 
     @media (max-width: 480px) {
-      .navbar { padding: 8px 12px !important; }
+      .navbar { height: 68px !important; padding: 0 16px !important; }
       .logo span { font-size: 0.95rem !important; }
       .hero { padding: 75px 12px 16px !important; }
-      section { padding: 24px 12px !important; }
+      section { padding: 48px 12px !important; }
       .step-number { width: 32px; height: 32px; font-size: 0.85rem !important; }
     }
   </style>
