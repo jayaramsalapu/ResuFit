@@ -62,6 +62,199 @@
             --navbar-h: 64px;
         }
 
+        /* ─── DARK THEME OVERRIDES ─── */
+        body.dark-theme {
+            --surface: #1e1e24;
+            --surface-2: #121216;
+            --surface-3: #2a2a35;
+            --border: #2d2d3a;
+            --border-soft: #252530;
+            --text-1: #f3f4f6;
+            --text-2: #e5e7eb;
+            --text-3: #9ca3af;
+            --text-4: #6b7280;
+            --primary-light: #2d2a45;
+            color-scheme: dark;
+        }
+
+        body.dark-theme .navbar {
+            background: #1e1e24 !important;
+            border-bottom-color: #2d2d3a !important;
+        }
+
+        body.dark-theme .logo-text {
+            color: #f3f4f6 !important;
+        }
+
+        body.dark-theme .preview-panel {
+            background: #121216 !important;
+        }
+
+        body.dark-theme .preview-toolbar {
+            background: #1e1e24 !important;
+            border-bottom-color: #2d2d3a !important;
+        }
+
+        body.dark-theme .toolbar-icon-btn {
+            background: #121216 !important;
+            border-color: #2d2d3a !important;
+            color: #9ca3af !important;
+        }
+
+        body.dark-theme .toolbar-icon-btn:hover {
+            background: #2a2a35 !important;
+            color: #f3f4f6 !important;
+        }
+
+        body.dark-theme .step-pill {
+            background: #121216 !important;
+            border-color: #2d2d3a !important;
+        }
+
+        body.dark-theme .step-pill:hover {
+            background: #2d2a45 !important;
+            color: #8b5cf6 !important;
+        }
+
+        body.dark-theme .step-pill.active {
+            background: var(--primary) !important;
+            color: white !important;
+        }
+
+        body.dark-theme .accordion-header {
+            background: #121216 !important;
+        }
+
+        body.dark-theme .accordion-card:hover {
+            border-color: #3b3b4f !important;
+        }
+
+        body.dark-theme .action-icon-btn {
+            background: #1e1e24 !important;
+            border-color: #2d2d3a !important;
+            color: #9ca3af !important;
+        }
+
+        body.dark-theme .action-icon-btn:hover {
+            background: #2a2a35 !important;
+            color: #f3f4f6 !important;
+        }
+
+        body.dark-theme .mobile-topbar,
+        body.dark-theme .mobile-progress-wrap,
+        body.dark-theme .mobile-bottom-bar,
+        body.dark-theme .mobile-menu-panel,
+        body.dark-theme .mobile-preview-modal-bar {
+            background: #1e1e24 !important;
+            border-color: #2d2d3a !important;
+        }
+
+        body.dark-theme .mobile-menu-item {
+            color: #e5e7eb !important;
+        }
+
+        body.dark-theme .mobile-menu-item:hover {
+            background: #2a2a35 !important;
+        }
+
+        body.dark-theme .mobile-template-switch,
+        body.dark-theme #mobile-template-switch {
+            background: #121216 !important;
+            color: #e5e7eb !important;
+            border-color: #2d2d3a !important;
+        }
+
+        body.dark-theme .mobile-back-btn:active,
+        body.dark-theme .mobile-menu-btn:active {
+            background: #2a2a35 !important;
+        }
+
+        body.dark-theme .keywords-checklist-box {
+            border-top-color: #2d2d3a !important;
+        }
+
+        body.dark-theme #matched-keywords-container,
+        body.dark-theme #missing-keywords-container {
+            background: #121216 !important;
+            border-color: #2d2d3a !important;
+        }
+
+        /* ─── EDITOR HEADER ─── */
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .editor-header-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editor-header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-util {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text-2);
+            width: 34px;
+            height: 34px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 13px;
+        }
+
+        .btn-util:hover {
+            background: var(--surface-3);
+            color: var(--text-1);
+            border-color: #d1d5db;
+        }
+
+        .util-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+
+        body.dark-theme .editor-header {
+            background: #1e1e24 !important;
+            border-bottom-color: #2d2d3a !important;
+        }
+        body.dark-theme .btn-util {
+            background: #121216 !important;
+            border-color: #2d2d3a !important;
+            color: #e5e7eb !important;
+        }
+        body.dark-theme .btn-util:hover {
+            background: #2a2a35 !important;
+            border-color: #3b3b4f !important;
+            color: #f3f4f6 !important;
+        }
+        body.dark-theme .util-divider {
+            background: #2d2d3a !important;
+        }
+
+        @media (max-width: 767px) {
+            .editor-header { display: none !important; }
+        }
+
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         html { scroll-behavior: smooth; }
@@ -1418,6 +1611,12 @@
                 -webkit-overflow-scrolling: touch;
             }
 
+            .preview-sheet-container,
+            .preview-sheet,
+            .preview-sheet * {
+                max-width: none !important;
+            }
+
             /* ── Step content: single column, larger spacing ── */
             .editor-content {
                 padding: 18px 16px 24px;
@@ -1800,9 +1999,12 @@
 
     <div class="nav-right">
                 <a href="/dashboard" class="btn btn-ghost" style="background:white; color: black;">
-            </i> Dashboard
-        </a>
-        <button class="btn btn-ghost" style="background: var(--primary); color: white;" onclick="triggerImportJSON()">
+                    <i class="fa-solid fa-gauge"></i> Dashboard
+                </a>
+                <button class="btn btn-ghost btn-theme-toggle" onclick="toggleTheme()" style="background: transparent; border-color: var(--border); width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center; margin-right: 4px;" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="btn btn-ghost" style="background: var(--primary); color: white;" onclick="triggerImportJSON()">
             <i class="fa-solid fa-file-import"></i> Import
         </button>
         <button class="btn btn-ghost" style="background: var(--primary); color: white;" onclick="exportJSON()">
@@ -1877,6 +2079,9 @@
         <button class="mobile-menu-item" onclick="closeMobileMenu(); window.location.href='/dashboard';">
             <i class="fa-solid fa-gauge"></i> Dashboard
         </button>
+        <button class="mobile-menu-item" onclick="toggleTheme(); closeMobileMenu();">
+            <i class="fa-solid fa-circle-half-stroke"></i> Toggle Theme
+        </button>
         <button class="mobile-menu-item" onclick="closeMobileMenu(); triggerImportJSON();">
             <i class="fa-solid fa-file-import"></i> Import JSON
         </button>
@@ -1894,6 +2099,32 @@
 
     <!-- LEFT: FORM WIZARD -->
     <div class="editor-panel">
+
+        <!-- EDITOR HEADER (Utilities & Theme) -->
+        <div class="editor-header">
+            <div class="editor-header-left">
+                <span class="editor-header-title"><i class="fa-solid fa-pen-to-square"></i> Resume Editor</span>
+            </div>
+            <div class="editor-header-right">
+                <!-- Theme Switcher -->
+                <button class="btn-util btn-theme-toggle" onclick="toggleTheme()" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="util-divider"></div>
+                <!-- Import JSON button -->
+                <button class="btn btn-ghost btn-sm" style="background: var(--primary); color: white; border: none;" onclick="triggerImportJSON()" title="Import Resume Data (JSON)">
+                    <i class="fa-solid fa-file-import"></i> Import
+                </button>
+                <!-- Export JSON button -->
+                <button class="btn btn-ghost btn-sm" style="background: var(--primary); color: white; border: none;" onclick="exportJSON()" title="Export Resume Data (JSON)">
+                    <i class="fa-solid fa-file-export"></i> Export
+                </button>
+                <!-- Save PDF button -->
+                <button class="btn btn-success btn-sm" onclick="printResume()" title="Save as PDF">
+                    <i class="fa-solid fa-download"></i> Save PDF
+                </button>
+            </div>
+        </div>
 
         <!-- STEP BAR -->
         <div class="stepper-header">
@@ -2303,7 +2534,7 @@
             </div>
             <div class="zoom-controls">
                 <button class="toolbar-icon-btn" onclick="adjustZoom(-0.1)" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-                <input type="range" id="zoom-slider" class="zoom-slider" min="0.4" max="1.3" step="0.05" value="0.75"  oninput="handleZoomSlider(this.value)">
+                <input type="range" id="zoom-slider" class="zoom-slider" min="0.25" max="1.3" step="0.05" value="0.75"  oninput="handleZoomSlider(this.value)">
                 <button class="toolbar-icon-btn" onclick="adjustZoom(0.1)" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
                 <span class="zoom-val-text" id="zoom-val-text">75%</span>
                 <button class="toolbar-icon-btn" onclick="toggleAutoFit()" title="Fit to Screen" style="margin-left:4px;"><i class="fa-solid fa-expand"></i></button>
@@ -2430,6 +2661,7 @@
     };
 
     window.addEventListener('DOMContentLoaded', () => {
+        initTheme();
         const savedData = localStorage.getItem('resufit_data');
         if (savedData) { try { resumeData = JSON.parse(savedData); } catch(e) {} }
         migrateProjectDates(resumeData);
@@ -3162,6 +3394,38 @@
         event.target.value = '';
     }
 
+    /* ─── THEME ─── */
+    function toggleTheme() {
+        const body = document.body;
+        if (body.classList.contains('dark-theme')) {
+            body.classList.remove('dark-theme');
+            localStorage.setItem('resufit_theme', 'light');
+            updateThemeToggleButton(false);
+        } else {
+            body.classList.add('dark-theme');
+            localStorage.setItem('resufit_theme', 'dark');
+            updateThemeToggleButton(true);
+        }
+    }
+
+    function initTheme() {
+        const savedTheme = localStorage.getItem('resufit_theme');
+        const body = document.body;
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+            updateThemeToggleButton(true);
+        } else {
+            body.classList.remove('dark-theme');
+            updateThemeToggleButton(false);
+        }
+    }
+
+    function updateThemeToggleButton(isDark) {
+        document.querySelectorAll('.btn-theme-toggle i').forEach(icon => {
+            icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        });
+    }
+
     /* ─── ZOOM ─── */
     function handleZoomSlider(val) {
         const zoomVal = parseFloat(val);
@@ -3178,7 +3442,7 @@
 
     function adjustZoom(delta) {
         const slider = document.getElementById('zoom-slider');
-        const newVal = Math.min(Math.max(parseFloat(slider.value) + delta, 0.4), 1.3);
+        const newVal = Math.min(Math.max(parseFloat(slider.value) + delta, 0.25), 1.3);
         autoFit = false;
         handleZoomSlider(newVal);
     }
@@ -3192,7 +3456,7 @@
     function autoFitScale() {
         if (!autoFit) return;
         const vw = document.getElementById('preview-viewport').clientWidth;
-        const fitFactor = Math.min(Math.max((vw - 64) / 794, 0.4), 1.3);
+        const fitFactor = Math.min(Math.max((vw - 32) / 794, 0.25), 1.3);
         handleZoomSlider(fitFactor);
     }
 
