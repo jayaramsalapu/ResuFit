@@ -1257,10 +1257,11 @@
         </div>
 
         <div class="sidebar-footer">
+            {% if session.get('user_id') %}
             <div class="user-info">
                 <div class="user-avatar" id="avatarLetter">
-    {{ name[:1]|upper if name else 'U' }}
-</div>
+                    {{ name[:1]|upper if name else 'U' }}
+                </div>
                 <div class="user-details">
                     <div class="user-name">{{ name }}</div>
                     <div class="user-email">{{ email }}</div>
@@ -1270,6 +1271,12 @@
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span>Logout</span>
             </a>
+            {% else %}
+            <a href="/login" class="btn-logout" style="background-color: var(--primary); color: white; border-color: var(--primary);">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span>Sign In</span>
+            </a>
+            {% endif %}
         </div>
         <div class="sidebar-drag-handle" id="sidebarDragHandle"></div>
     </nav>

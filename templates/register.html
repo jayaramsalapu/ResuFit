@@ -416,7 +416,7 @@
                 </div>
                 {% endif %}
 
-                <form action="{{ url_for('register') }}" method="POST">
+                <form action="{{ url_for('register') }}{{ '?next=' + next if next else '' }}" method="POST">
                     <div class="form-group">
                         <label for="email">Email address</label>
                         <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com"
@@ -444,7 +444,7 @@
             <!-- Right Side (Alternative Login / Sign In Link) -->
             <div class="auth-right">
                 <h3 class="auth-right-title"><span class="gradient-text"> Sign Up</span></h3>
-                <button type="button" class="btn btn-outline" onclick="window.location.href='/google/login'">
+                <button type="button" class="btn btn-outline" onclick="window.location.href='/google/login{{ '?next=' + next if next else '' }}'">
                     <!-- Google SVG Icon -->
                     <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -463,7 +463,7 @@
                     Continue with Google
                 </button>
 
-                <p class="auth-footer">Already have an account?<br><a href="/login">Sign In Instead</a></p>
+                <p class="auth-footer">Already have an account?<br><a href="/login{{ '?next=' + next if next else '' }}">Sign In Instead</a></p>
             </div>
 
         </div>

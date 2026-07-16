@@ -72,6 +72,7 @@ content="https://resufit.com/preview.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
 
@@ -260,6 +261,40 @@ content="https://resufit.com/preview.png">
     <br>
     <br>
     <br>
+  </section>
+
+  <!-- Live Statistics Section -->
+  <section class="stats-section">
+      <div class="stats-container">
+          <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+              <div class="stat-info">
+                  <span class="stat-number">{{ stats.users_count }}</span>
+                  <span class="stat-label">Registered Accounts</span>
+              </div>
+          </div>
+          <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+              <div class="stat-info">
+                  <span class="stat-number">{{ stats.resumes_analyzed }}</span>
+                  <span class="stat-label">Resumes Analyzed</span>
+              </div>
+          </div>
+          <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-file-invoice"></i></div>
+              <div class="stat-info">
+                  <span class="stat-number">{{ stats.resumes_built }}</span>
+                  <span class="stat-label">Resumes Built</span>
+              </div>
+          </div>
+          <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-circle-down"></i></div>
+              <div class="stat-info">
+                  <span class="stat-number">{{ stats.resumes_downloaded }}</span>
+                  <span class="stat-label">Resumes Downloaded</span>
+              </div>
+          </div>
+      </div>
   </section>
 
 

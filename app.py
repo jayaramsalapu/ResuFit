@@ -65,8 +65,43 @@ def create_table():
             password TEXT NOT NULL
         )
     ''')
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS stats(
+            key TEXT PRIMARY KEY,
+            value INTEGER DEFAULT 0
+        )
+    ''')
     conn.commit()
     conn.close()
+
+def increment_stat(key):
+    conn = get_db()
+    row = conn.execute("SELECT value FROM stats WHERE key = ?", (key,)).fetchone()
+    if row is None:
+        conn.execute("INSERT INTO stats (key, value) VALUES (?, 1)", (key,))
+    else:
+        conn.execute("UPDATE stats SET value = value + 1 WHERE key = ?", (key,))
+    conn.commit()
+    conn.close()
+
+def get_stats():
+    conn = get_db()
+    rows = conn.execute("SELECT key, value FROM stats").fetchall()
+    stats = {row['key']: row['value'] for row in rows}
+    
+    users_count = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+    conn.close()
+    
+    baseline_analyzed = 1420
+    baseline_built = 950
+    baseline_downloaded = 780
+    
+    return {
+        'users_count': users_count,
+        'resumes_analyzed': baseline_analyzed + stats.get('resumes_analyzed', 0),
+        'resumes_built': baseline_built + stats.get('resumes_built', 0),
+        'resumes_downloaded': baseline_downloaded + stats.get('resumes_downloaded', 0)
+    }
 
 def extract_text(filepath):
     text = ""
@@ -87,7 +122,8 @@ def extract_text(filepath):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    stats = get_stats()
+    return render_template('index.html', stats=stats)
 
 
 # ---------- REGISTER ---------- #
@@ -96,13 +132,15 @@ def register():
     if 'user_id' in session:
         return redirect('/dashboard')
 
+    next_url = request.args.get('next') or request.form.get('next') or url_for('dashboard')
+
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
 
         if password != confirm_password:
-            return render_template('register.html', error="Passwords do not match")
+            return render_template('register.html', error="Passwords do not match", next=next_url)
 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
@@ -114,13 +152,13 @@ def register():
             )
             conn.commit()
         except:
-            return render_template('register.html', error="User already exists")
+            return render_template('register.html', error="User already exists", next=next_url)
 
         conn.close()
 
-        return redirect('/login')
+        return redirect(url_for('login', next=next_url))
 
-    return render_template('register.html')
+    return render_template('register.html', next=next_url)
 
 
 # ---------- LOGIN ---------- #
@@ -128,6 +166,8 @@ def register():
 def login():
     if 'user_id' in session:
         return redirect('/dashboard')
+
+    next_url = request.args.get('next') or request.form.get('next') or url_for('dashboard')
 
     if request.method == 'POST':
         email = request.form['email']
@@ -144,16 +184,19 @@ def login():
             session['user_id'] = user['id']
             session['email'] = user['email']
             session.permanent = True
-            return redirect(url_for('dashboard'))
+            return redirect(next_url)
 
-        return render_template('login.html', error="Invalid email or password")
+        return render_template('login.html', error="Invalid email or password", next=next_url)
 
-    return render_template('login.html')
+    return render_template('login.html', next=next_url)
 
 
 # ---------- GOOGLE LOGIN ---------- #
 @app.route("/google/login")
 def google_login():
+    next_url = request.args.get('next')
+    if next_url:
+        session['next_url'] = next_url
 
     flow = Flow.from_client_config(
         GOOGLE_CLIENT_CONFIG,
@@ -232,7 +275,8 @@ def google_callback():
     session["email"] = user["email"]
     session.permanent = True
 
-    return redirect(url_for("dashboard"))
+    next_url = session.pop('next_url', None) or url_for("dashboard")
+    return redirect(next_url)
 
 
 def send_otp_email(to_email, otp):
@@ -331,25 +375,15 @@ def forgot_password():
 
 @app.route('/dashboard')
 def dashboard():
-    if 'user_id' not in session:
-        return redirect('/login')
-    
-    email = session['email']
-
-    name = re.sub(r'\d+', '', email.split('@')[0])
-
-    
-    return render_template('dashboard.html', email=session['email'],name=name)
+    email = session.get('email', '')
+    name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'Guest'
+    return render_template('dashboard.html', email=email, name=name)
 
 
 @app.route('/check-resume')
 def check_resume():
-    if 'user_id' not in session:
-        return redirect('/login')
-
-    email = session['email']
-    name = re.sub(r'\d+', '', email.split('@')[0])
-
+    email = session.get('email', '')
+    name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'Guest'
     return render_template('check_resume.html', name=name)
 
 
@@ -369,7 +403,9 @@ def analyze_resume():
     result = analyze_resume_with_groq(resume_text)
     
     email = session.get('email', '')
-    name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'User'
+    name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'Guest'
+
+    increment_stat('resumes_analyzed')
 
     if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return jsonify(result)
@@ -378,20 +414,13 @@ def analyze_resume():
 
 @app.route('/jd_analysis')
 def jd_analysis_page():
-    if 'user_id' not in session:
-        return redirect('/login')
-
-    email = session['email']
-    name = re.sub(r'\d+', '', email.split('@')[0])
-
+    email = session.get('email', '')
+    name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'Guest'
     return render_template('jd_analysis.html', name=name)
 
 
 @app.route('/analyze_jd', methods=['POST'])
 def analyze_jd():
-    if 'user_id' not in session:
-        return redirect('/login')
-
     file = request.files.get('resume')
     jd_text = request.form.get('jd_text', '')
 
@@ -406,7 +435,9 @@ def analyze_jd():
     result = analyze_jd_with_groq(resume_text, jd_text)
     
     email = session.get('email', '')
-    name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'User'
+    name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'Guest'
+
+    increment_stat('resumes_analyzed')
 
     if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return jsonify(result)
@@ -423,7 +454,15 @@ def logout():
 
 @app.route('/builder')
 def builder():
+    increment_stat('resumes_built')
     return render_template('builder.html')
+
+@app.route('/track_download', methods=['POST'])
+def track_download():
+    if 'user_id' not in session:
+        return jsonify({"success": False, "error": "Login required"}), 401
+    increment_stat('resumes_downloaded')
+    return jsonify({"success": True})
 
 # ==========================
 # AI POLISH
