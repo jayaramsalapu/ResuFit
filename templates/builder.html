@@ -2647,7 +2647,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn" style="background: transparent; border: 1px solid var(--border); color: var(--text-2);" onclick="hideLoginModal()">Cancel</button>
-            <a href="/login?next=/builder" class="btn" style="background: linear-gradient(90deg, #8b5cf6, #3b82f6); color: white; border: none; text-decoration: none;">Log In</a>
+            <button onclick="redirectToLogin()" class="btn" style="background: linear-gradient(90deg, #8b5cf6, #3b82f6); color: white; border: none; cursor: pointer;">Log In</button>
         </div>
     </div>
 </div>
@@ -2661,6 +2661,10 @@
 
     function hideLoginModal() {
         document.getElementById('login-required-modal').style.display = 'none';
+    }
+
+    function redirectToLogin() {
+        window.top.location.href = '/login?next=' + encodeURIComponent(window.top.location.pathname);
     }
 
     let currentTemplate = typeof defaultTemplateIndex !== 'undefined' ? defaultTemplateIndex : 1;
@@ -3473,13 +3477,20 @@
         withMobileAiLoading(btn, () => optimizeProj(index));
     }
 
-    /* ─── JSON ─── */
-    function exportJSON() {
+    async function exportJSON() {
         if (!isLoggedIn) {
-            showLoginModal();
+            redirectToLogin();
             return;
         }
-        fetch('/track_download', { method: 'POST' }).catch(err => console.error(err));
+        try {
+            const response = await fetch('/track_download', { method: 'POST' });
+            if (response.status === 401 || response.status === 403) {
+                redirectToLogin();
+                return;
+            }
+        } catch (err) {
+            console.error(err);
+        }
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(resumeData, null, 2));
         const a = document.createElement('a');
         a.href = dataStr;
@@ -3619,12 +3630,20 @@
     }
 
     /* ─── PRINT ─── */
-    function printResume() {
+    async function printResume() {
         if (!isLoggedIn) {
-            showLoginModal();
+            redirectToLogin();
             return;
         }
-        fetch('/track_download', { method: 'POST' }).catch(err => console.error(err));
+        try {
+            const response = await fetch('/track_download', { method: 'POST' });
+            if (response.status === 401 || response.status === 403) {
+                redirectToLogin();
+                return;
+            }
+        } catch (err) {
+            console.error(err);
+        }
         saveToCache();
         const current = document.getElementById('zoom-slider').value;
         handleZoomSlider(1.0);
