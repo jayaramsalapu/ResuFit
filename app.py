@@ -11,7 +11,7 @@ import random
 from werkzeug.utils import secure_filename
 from PyPDF2 import PdfReader
 from docx import Document
-from groq_api import analyze_resume_with_groq, analyze_jd_with_groq ,  optimize_text_with_groq, tailor_resume_with_groq, analyze_keywords_with_groq
+from groq_api import analyze_resume_with_groq, analyze_jd_with_groq ,  optimize_text_with_groq, tailor_resume_with_groq, analyze_keywords_with_groq, parse_resume_to_json_with_groq
 from datetime import timedelta
 load_dotenv()
 
@@ -587,6 +587,27 @@ def analyze_keywords():
         return jsonify({
             "error": str(e)
         }), 500
+
+
+@app.route('/import_resume', methods=['POST'])
+def import_resume():
+    file = request.files.get('resume')
+    if not file or file.filename == '':
+        return jsonify({"error": "No file selected"}), 400
+
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    try:
+        file.save(filepath)
+        resume_text = extract_text(filepath)
+        parsed_data = parse_resume_to_json_with_groq(resume_text)
+        return jsonify(parsed_data)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if os.path.exists(filepath):
+            os.remove(filepath)
+
 
 # ==========================
 # PWA SUPPORT ROUTES

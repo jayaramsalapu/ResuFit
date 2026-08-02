@@ -149,6 +149,128 @@
             to { transform: scale(1); opacity: 1; }
         }
 
+        /* Custom Import Modal Options */
+        .import-card-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        .import-card-option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border: 2px solid var(--border-soft);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .import-card-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: transparent;
+            transition: background 0.25s;
+        }
+
+        .import-card-option:hover {
+            border-color: var(--primary);
+            background: var(--surface-2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+        }
+
+        .import-card-option:hover::before {
+            background: var(--primary);
+        }
+
+        .import-card-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .import-card-icon.json-color {
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+        }
+
+        .import-card-icon.resume-color {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .import-card-option:hover .import-card-icon.json-color {
+            background: #6366f1;
+            color: white;
+        }
+
+        .import-card-option:hover .import-card-icon.resume-color {
+            background: #10b981;
+            color: white;
+        }
+
+        .import-card-details {
+            flex: 1;
+        }
+
+        .import-card-title {
+            margin: 0 0 4px 0;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-1);
+        }
+
+        .import-card-desc {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-3);
+            line-height: 1.4;
+        }
+
+        /* Extraction loader steps */
+        @keyframes pulseAnim {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 0.3; }
+            100% { transform: scale(0.9); opacity: 0.8; }
+        }
+
+        .extraction-step.active {
+            color: var(--primary) !important;
+        }
+
+        .extraction-step.active .est-indicator {
+            border-color: var(--primary) !important;
+            background: rgba(99, 102, 241, 0.1) !important;
+            color: var(--primary) !important;
+        }
+
+        .extraction-step.completed {
+            color: #10B981 !important;
+        }
+
+        .extraction-step.completed .est-indicator {
+            border-color: #10B981 !important;
+            background: #10B981 !important;
+            color: white !important;
+        }
+
         /* ─── DARK THEME OVERRIDES ─── */
         body.dark-theme {
             --surface: #1e1e24;
@@ -2093,7 +2215,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-weight: 750;
+            font-weight: 700;
             color: #ffffff;
         }
 
@@ -2247,7 +2369,7 @@
 
         .template-11 .t11-section-title {
             font-size: 1.15em;
-            font-weight: 750;
+            font-weight: 700;
             color: var(--t11-heading);
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -2533,7 +2655,7 @@
 
         .template-12 .t12-sidebar-section-title {
             font-size: 1.1em;
-            font-weight: 750;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             border-bottom: 2px solid var(--t12-primary);
@@ -2692,7 +2814,7 @@
 
         .template-12 .t12-entry-title {
             font-size: 0.95em;
-            font-weight: 750;
+            font-weight: 700;
             color: var(--t12-heading);
             margin: 0;
         }
@@ -2705,7 +2827,7 @@
         .template-12 .t12-entry-meta {
             font-size: 0.85em;
             color: var(--t12-secondary);
-            font-weight: 650;
+            font-weight: 600;
             margin-bottom: 2px;
         }
 
@@ -2928,14 +3050,14 @@
 
         .template-13 .t13-timeline-title {
             font-size: 0.95em;
-            font-weight: 750;
+            font-weight: 700;
             color: var(--t13-heading);
             margin: 0;
         }
 
         .template-13 .t13-timeline-subtitle {
             font-size: 0.9em;
-            font-weight: 650;
+            font-weight: 600;
             color: var(--t13-primary);
             margin: 0;
         }
@@ -3089,7 +3211,7 @@
 
         .template-14 .t14-sidebar-subtitle {
             font-size: 0.95em;
-            font-weight: 650;
+            font-weight: 600;
             color: var(--t14-primary);
             text-transform: uppercase;
             text-align: center;
@@ -3186,7 +3308,7 @@
 
         .template-14 .t14-entry-title {
             font-size: 0.95em;
-            font-weight: 750;
+            font-weight: 700;
             color: var(--t14-heading);
             margin: 0;
         }
@@ -3201,7 +3323,7 @@
             display: flex;
             justify-content: space-between;
             font-size: 0.9em;
-            font-weight: 650;
+            font-weight: 600;
             color: var(--t14-primary);
         }
 
@@ -3366,7 +3488,7 @@
             background-color: var(--t15-primary);
             color: #ffffff;
             font-size: 0.9em;
-            font-weight: 750;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             padding: 8px 12px;
@@ -3452,14 +3574,14 @@
 
         .template-15 .t15-timeline-title {
             font-size: 1em;
-            font-weight: 750;
+            font-weight: 700;
             color: var(--t15-heading);
             margin: 0;
         }
 
         .template-15 .t15-timeline-subtitle {
             font-size: 0.95em;
-            font-weight: 650;
+            font-weight: 600;
             color: var(--t15-primary);
             margin: 0;
         }
@@ -4456,13 +4578,14 @@
                 <button class="btn btn-ghost btn-theme-toggle" onclick="toggleTheme()" style="background: transparent; border-color: var(--border); width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center; margin-right: 4px;" title="Toggle Light/Dark Theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <button class="btn btn-ghost" style="background: var(--primary); color: white;" onclick="triggerImportJSON()">
+                <button class="btn btn-ghost" style="background: var(--primary); color: white;" onclick="showImportModal()">
             <i class="fa-solid fa-file-import"></i> Import
         </button>
         <button class="btn btn-ghost" style="background: var(--primary); color: white;" onclick="exportJSON()">
             <i class="fa-solid fa-file-export"></i> Export
         </button>
         <input type="file" id="import-json-file" accept=".json" onchange="importJSON(event)" style="display:none;">
+        <input type="file" id="import-pdf-docx-file" accept=".pdf,.docx" onchange="importExistingResume(event)" style="display:none;">
 
         <button class="btn btn-success" style="background: var(--success); color: white;" onclick="printResume()">
             <i class="fa-solid fa-download"></i> Save PDF
@@ -4541,8 +4664,8 @@
         <button class="mobile-menu-item" onclick="toggleTheme(); closeMobileMenu();">
             <i class="fa-solid fa-circle-half-stroke"></i> Toggle Theme
         </button>
-        <button class="mobile-menu-item" onclick="closeMobileMenu(); triggerImportJSON();">
-            <i class="fa-solid fa-file-import"></i> Import JSON
+        <button class="mobile-menu-item" onclick="closeMobileMenu(); showImportModal();">
+            <i class="fa-solid fa-file-import"></i> Import Resume
         </button>
         <button class="mobile-menu-item" onclick="closeMobileMenu(); exportJSON();">
             <i class="fa-solid fa-file-export"></i> Export JSON
@@ -4571,7 +4694,7 @@
                 </button>
                 <div class="util-divider"></div>
                 <!-- Import JSON button -->
-                <button class="btn btn-ghost btn-sm" style="background: var(--primary); color: white; border: none;" onclick="triggerImportJSON()" title="Import Resume Data (JSON)">
+                <button class="btn btn-ghost btn-sm" style="background: var(--primary); color: white; border: none;" onclick="showImportModal()" title="Import Resume Data">
                     <i class="fa-solid fa-file-import"></i> Import
                 </button>
                 <!-- Export JSON button -->
@@ -5097,6 +5220,76 @@
         <div class="modal-footer">
             <button class="btn" style="background: transparent; border: 1px solid var(--border); color: var(--text-2);" onclick="hideLoginModal()">Cancel</button>
             <button onclick="redirectToLogin()" class="btn" style="background: linear-gradient(90deg, #8b5cf6, #3b82f6); color: white; border: none; cursor: pointer;">Log In</button>
+        </div>
+    </div>
+</div>
+
+<!-- Import Options Modal -->
+<div id="import-options-modal" class="modal-overlay" style="display: none; z-index: 10000;">
+    <div class="modal-card" style="max-width: 480px;">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-file-import"></i> Import Resume</h3>
+            <button class="modal-close-btn" onclick="hideImportModal()">&times;</button>
+        </div>
+        <div class="modal-body" style="padding: 20px 24px;">
+            <p style="margin: 0 0 16px 0; color: var(--text-2); font-size: 0.9em; line-height: 1.5;">Select how you would like to import your resume details. You can import from a previously exported JSON backup, or parse an existing PDF/Word resume to pre-fill the form fields.</p>
+            
+            <div class="import-card-options">
+                <div class="import-card-option" onclick="handleImportChoice('json')">
+                    <div class="import-card-icon json-color">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <div class="import-card-details">
+                        <h4 class="import-card-title">Upload Backup File</h4>
+                        <p class="import-card-desc">Restore form states from a previously saved <code>.json</code> file.</p>
+                    </div>
+                </div>
+                <div class="import-card-option" onclick="handleImportChoice('resume')">
+                    <div class="import-card-icon resume-color">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <div class="import-card-details">
+                        <h4 class="import-card-title">Extract PDF / Word</h4>
+                        <p class="import-card-desc">Upload a resume and let AI automatically parse and fill all the sections.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fullscreen Loading Spinner Overlay -->
+<div id="loading-spinner-overlay" class="modal-overlay" style="display: none; background: rgba(17, 24, 39, 0.85); flex-direction: column; justify-content: center; align-items: center; gap: 24px; z-index: 100001; padding: 24px;">
+    <div class="extraction-card" style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); width: 100%; max-width: 420px; padding: 32px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; animation: scaleInModal 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);">
+        <div class="extraction-anim-wrap" style="position: relative; width: 80px; height: 80px;">
+            <div class="pulse-ring" style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: rgba(16, 185, 129, 0.15); animation: pulseAnim 2s infinite ease-in-out; top: 0; left: 0;"></div>
+            <div class="pulse-circle" style="position: absolute; top: 10px; left: 10px; width: 60px; height: 60px; border-radius: 50%; background: #10B981; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
+                <i class="fa-solid fa-brain fa-bounce"></i>
+            </div>
+        </div>
+        
+        <div>
+            <h4 style="margin: 0 0 6px 0; font-size: 1.15rem; font-weight: 800; color: var(--text-1);">AI Resume Extraction</h4>
+            <p style="margin: 0; font-size: 0.85rem; color: var(--text-3);">Reading text and structuring layout fields.</p>
+        </div>
+
+        <div class="extraction-steps" style="width: 100%; display: flex; flex-direction: column; gap: 12px; text-align: left; padding: 8px 12px;">
+            <div class="extraction-step active" id="est-1" style="display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--text-3); font-weight: 500; transition: var(--transition);">
+                <span class="est-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; transition: var(--transition); flex-shrink: 0;"><i class="fa-solid fa-check" style="display:none;"></i>1</span>
+                <span class="est-label">Uploading Document</span>
+            </div>
+            <div class="extraction-step" id="est-2" style="display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--text-3); font-weight: 500; transition: var(--transition);">
+                <span class="est-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; transition: var(--transition); flex-shrink: 0;"><i class="fa-solid fa-check" style="display:none;"></i>2</span>
+                <span class="est-label">Extracting Text Characters</span>
+            </div>
+            <div class="extraction-step" id="est-3" style="display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--text-3); font-weight: 500; transition: var(--transition);">
+                <span class="est-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; transition: var(--transition); flex-shrink: 0;"><i class="fa-solid fa-check" style="display:none;"></i>3</span>
+                <span class="est-label">Structuring Data with AI (Groq LLM)</span>
+            </div>
+            <div class="extraction-step" id="est-4" style="display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--text-3); font-weight: 500; transition: var(--transition);">
+                <span class="est-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; transition: var(--transition); flex-shrink: 0;"><i class="fa-solid fa-check" style="display:none;"></i>4</span>
+                <span class="est-label">Syncing Wizard Fields</span>
+            </div>
         </div>
     </div>
 </div>
@@ -7429,7 +7622,134 @@
         document.body.appendChild(a); a.click(); a.remove();
     }
 
+    function showImportModal() {
+        document.getElementById('import-options-modal').style.display = 'flex';
+    }
+
+    function hideImportModal() {
+        document.getElementById('import-options-modal').style.display = 'none';
+    }
+
+    function handleImportChoice(choice) {
+        hideImportModal();
+        if (choice === 'json') {
+            triggerImportJSON();
+        } else if (choice === 'resume') {
+            document.getElementById('import-pdf-docx-file').click();
+        }
+    }
+
     function triggerImportJSON() { document.getElementById('import-json-file').click(); }
+
+    async function importExistingResume(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Reset step classes
+        ['est-1', 'est-2', 'est-3', 'est-4'].forEach(id => {
+            const step = document.getElementById(id);
+            if (step) {
+                step.className = 'extraction-step';
+                step.querySelector('.est-indicator').innerHTML = id.charAt(id.length - 1);
+            }
+        });
+
+        // Show spinner overlay
+        const spinner = document.getElementById('loading-spinner-overlay');
+        spinner.style.display = 'flex';
+
+        // Set Step 1 Active
+        const s1 = document.getElementById('est-1');
+        s1.className = 'extraction-step active';
+
+        // Simulate upload transition
+        await new Promise(r => setTimeout(r, 600));
+        s1.className = 'extraction-step completed';
+        s1.querySelector('.est-indicator').innerHTML = '<i class="fa-solid fa-check"></i>';
+
+        // Set Step 2 Active
+        const s2 = document.getElementById('est-2');
+        s2.className = 'extraction-step active';
+
+        const formData = new FormData();
+        formData.append('resume', file);
+
+        try {
+            // Trigger fetch
+            const fetchPromise = fetch('/import_resume', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Simulate character extraction phase
+            await new Promise(r => setTimeout(r, 1200));
+            s2.className = 'extraction-step completed';
+            s2.querySelector('.est-indicator').innerHTML = '<i class="fa-solid fa-check"></i>';
+
+            // Set Step 3 Active
+            const s3 = document.getElementById('est-3');
+            s3.className = 'extraction-step active';
+
+            const response = await fetchPromise;
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error || "Failed to parse resume");
+            }
+
+            const parsed = await response.json();
+            if (parsed && typeof parsed === 'object' && !parsed.error) {
+                s3.className = 'extraction-step completed';
+                s3.querySelector('.est-indicator').innerHTML = '<i class="fa-solid fa-check"></i>';
+
+                // Set Step 4 Active
+                const s4 = document.getElementById('est-4');
+                s4.className = 'extraction-step active';
+
+                resumeData = parsed;
+                // Enforce structure fields
+                if (!resumeData.profile_image) resumeData.profile_image = '';
+                if (!resumeData.experience) resumeData.experience = [];
+                if (!resumeData.projects) resumeData.projects = [];
+                if (!resumeData.education) resumeData.education = [];
+                if (!resumeData.skills) resumeData.skills = [];
+                if (!resumeData.certifications) resumeData.certifications = [];
+                if (!resumeData.languages) resumeData.languages = [];
+                if (!resumeData.achievements) resumeData.achievements = [];
+                
+                migrateProjectDates(resumeData);
+                saveToCache();
+                syncStateToForm();
+                
+                // Re-render UI list elements
+                renderExperienceList();
+                renderProjectList();
+                renderEducationList();
+                renderSkillsList();
+                renderCertificationList();
+                renderLanguageList();
+                renderAchievementList();
+                
+                renderPreview();
+                updateATSChecklist();
+
+                await new Promise(r => setTimeout(r, 800));
+                s4.className = 'extraction-step completed';
+                s4.querySelector('.est-indicator').innerHTML = '<i class="fa-solid fa-check"></i>';
+
+                await new Promise(r => setTimeout(r, 600));
+                alert("Resume successfully parsed and filled!");
+            } else {
+                throw new Error(parsed.error || "Empty response or raw formatting error");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("AI Resume Import Error: " + err.message + "\n\nPlease try again with a different format or JSON backup.");
+        } finally {
+            spinner.style.display = 'none';
+            event.target.value = '';
+        }
+    }
 
     function importJSON(event) {
         const file = event.target.files[0];

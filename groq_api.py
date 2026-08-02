@@ -739,3 +739,108 @@ RULES:
         "matched": [],
         "missing": []
     }
+
+
+def parse_resume_to_json_with_groq(resume_text):
+    prompt = f"""
+ROLE:
+You are an expert resume parsing system. Your task is to extract all information from the provided resume text and map it to the exact target JSON schema below.
+
+TARGET SCHEMA:
+{{
+  "first_name": "extracted first name or empty string",
+  "last_name": "extracted last name or empty string",
+  "job_title": "extracted target or current job title or empty string",
+  "email": "extracted email or empty string",
+  "phone": "extracted phone number or empty string",
+  "location": "extracted city, state/country or empty string",
+  "linkedin": "extracted LinkedIn URL or username or empty string",
+  "github": "extracted GitHub profile link or username or empty string",
+  "portfolio": "extracted portfolio URL or empty string",
+  "summary": "extracted profile summary or empty string",
+  "experience": [
+    {{
+      "company": "company name",
+      "role": "job title",
+      "location": "city, state",
+      "start_date": "YYYY-MM-DD format (use best estimate or empty string)",
+      "end_date": "YYYY-MM-DD format (use best estimate or empty string if current)",
+      "current": true/false (boolean, set to true if current role, false otherwise),
+      "description": "extracted responsibilities and achievements as bullet points starting with \u2022 or * (separated by newlines)"
+    }}
+  ],
+  "projects": [
+    {{
+      "name": "project name",
+      "role": "role in project (e.g. Lead Developer)",
+      "link": "project link or repository url or empty string",
+      "start_date": "YYYY-MM-DD format",
+      "end_date": "YYYY-MM-DD format",
+      "description": "project details as bullet points",
+      "technologies": "comma-separated list of technologies used (e.g. Python, Flask, Docker)"
+    }}
+  ],
+  "education": [
+    {{
+      "school": "institution name",
+      "degree": "degree name (e.g. Bachelor of Science)",
+      "field": "field of study (e.g. Computer Science)",
+      "start_date": "YYYY-MM-DD format",
+      "end_date": "YYYY-MM-DD format",
+      "gpa": "extracted GPA or percentage or empty string"
+    }}
+  ],
+  "skills": [
+    {{
+      "category": "category name (e.g. Languages, Tools)",
+      "list": "comma-separated list of skills in this category"
+    }}
+  ],
+  "certifications": [
+    {{
+      "name": "certification name",
+      "issuer": "issuing organization or empty string"
+    }}
+  ],
+  "languages": [
+    {{
+      "language": "language name",
+      "level": "proficiency level"
+    }}
+  ],
+  "achievements": [
+    {{
+      "title": "achievement detail"
+    }}
+  ]
+}}
+
+STRICT RULES:
+1. Return ONLY the JSON object. Do not include markdown code block syntax (like ```json ... ```) or any trailing explanations.
+2. If any field or section is not present in the resume, return empty string "" or empty array [] as defined by the schema.
+3. Convert all dates to YYYY-MM-DD format. If only a year is available, assume January 1st (e.g., "2020" -> "2020-01-01").
+4. Maintain clean formatting for experience and project description bullet points.
+
+RESUME TEXT:
+{resume_text}
+"""
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.1
+    )
+
+    content = response.choices[0].message.content.strip()
+
+    try:
+        return json.loads(content)
+    except Exception:
+        # Fallback if markdown block is present
+        match = re.search(r'\{[\s\S]*\}', content)
+        if match:
+            try:
+                return json.loads(match.group(0))
+            except:
+                pass
+        return {"error": "Could not parse JSON response from AI", "raw": content}
