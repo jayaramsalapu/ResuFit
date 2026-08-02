@@ -2300,9 +2300,9 @@
             localStorage.setItem('sidebarCollapsed', document.body.classList.contains('sidebar-collapsed'));
         }
 
-        // Restore sidebar state from localStorage on load (desktop only)
+        // Restore sidebar state from localStorage on load (desktop only), defaulting to collapsed
         if (window.innerWidth > 900) {
-            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') !== 'false';
             if (isCollapsed) {
                 document.body.classList.add('sidebar-collapsed');
             }

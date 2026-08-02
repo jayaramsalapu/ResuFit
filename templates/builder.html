@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=Fira+Code:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=Fira+Code:wght@400;500&family=Outfit:wght@400;500;600;700;800&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -1166,6 +1166,2364 @@
         .template-8 .tech-badge { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: 'Fira Code', monospace; font-size: 8pt; }
         .template-8 .certs-langs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 8.5pt; }
 
+        /* TEMPLATE 9: Cognizant Campus (Premium) */
+        .preview-sheet.template-9 {
+            --t9-sidebar-bg: #101827;
+            --t9-accent: var(--primary, #F4B400);
+            --t9-heading: #111827;
+            --t9-body: #374151;
+            --t9-secondary: #6B7280;
+            --t9-divider: #E5E7EB;
+            --t9-bg: #FFFFFF;
+
+            font-family: 'Poppins', 'Inter', sans-serif !important;
+            color: var(--t9-body) !important;
+            background-color: var(--t9-bg) !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: row !important;
+            width: 210mm !important;
+            min-height: 297mm !important;
+            box-sizing: border-box !important;
+            overflow: visible !important;
+        }
+
+        .template-9 .template-9-container {
+            display: flex;
+            width: 100%;
+            height: auto;
+            align-items: stretch;
+            box-sizing: border-box;
+        }
+
+        .template-9 .template-9-sidebar {
+            width: 28% !important;
+            background-color: var(--t9-sidebar-bg) !important;
+            color: #ffffff !important;
+            padding: 24px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            height: auto;
+            align-self: stretch;
+            box-sizing: border-box;
+            font-size: 0.9em;
+            align-items: stretch;
+            flex-shrink: 0;
+            overflow: visible;
+        }
+
+        .template-9 .template-9-main {
+            width: 72% !important;
+            background-color: var(--t9-bg) !important;
+            color: var(--t9-body) !important;
+            padding: 32px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: auto;
+            box-sizing: border-box;
+            overflow: visible;
+            flex-grow: 1;
+        }
+
+        /* Prevent awkward page-breaks inside entries when exporting to PDF */
+        .template-9 .education-entry,
+        .template-9 .project-entry,
+        .template-9 .experience-entry {
+            break-inside: avoid;
+        }
+
+        .template-9 .sidebar-avatar-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+
+        .template-9 .sidebar-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            outline: 1px solid var(--t9-accent);
+            background-color: #1e293b;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .template-9 .sidebar-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .template-9 .sidebar-avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            font-size: 40px;
+        }
+
+        .template-9 .sidebar-name-title {
+            text-align: center;
+            margin-bottom: 2px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .template-9 .sidebar-name {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--t9-accent);
+            text-transform: uppercase;
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+            word-wrap: break-word;
+        }
+
+        .template-9 .sidebar-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85em;
+            color: #ffffff;
+            font-weight: 500;
+            line-height: 1.3;
+            margin-top: 2px;
+        }
+
+        .template-9 .sidebar-section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--t9-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-bottom: 2px;
+            margin-bottom: 2px;
+            display: inline-block;
+        }
+
+        .template-9 .sidebar-section-underline {
+            width: 25px;
+            height: 2px;
+            background-color: var(--t9-accent);
+            margin-bottom: 8px;
+        }
+
+        .template-9 .sidebar-contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .template-9 .sidebar-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8em;
+            color: #e5e7eb;
+            transition: color 0.2s;
+            word-break: break-all;
+        }
+
+        .template-9 .sidebar-contact-item:hover {
+            color: var(--t9-accent);
+        }
+
+        .template-9 .sidebar-contact-item i {
+            font-size: 13px;
+            color: var(--t9-accent);
+            width: 14px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .template-9 .sidebar-contact-item a {
+            color: inherit !important;
+            text-decoration: none;
+        }
+
+        .template-9 .sidebar-contact-item a:hover {
+            text-decoration: underline !important;
+        }
+
+        .template-9 .sidebar-skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.85em;
+            color: #cbd5e1;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .template-9 .sidebar-bullet-list {
+            padding: 0 0 0 14px;
+            font-size: 0.8em;
+            color: #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 0;
+        }
+
+        .template-9 .sidebar-bullet-list li {
+            line-height: 1.4;
+        }
+
+        .template-9 .sidebar-bullet-list li strong {
+            color: #ffffff;
+        }
+
+        /* Right Content Styles */
+        .template-9 .main-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .template-9 .main-section-title-wrap {
+            margin-top: 2px;
+            margin-bottom: 4px;
+        }
+
+        .template-9 .main-section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25em;
+            font-weight: 700;
+            color: var(--t9-heading);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 2px 0;
+        }
+
+        .template-9 .main-section-underline {
+            width: 32px;
+            height: 2px;
+            background-color: var(--t9-accent);
+        }
+
+        .template-9 .main-section-divider {
+            border-bottom: 1px solid var(--t9-divider);
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .template-9 .main-section-divider:last-child {
+            display: none !important;
+        }
+
+        .template-9 .summary-text {
+            font-size: 0.95em;
+            color: var(--t9-body);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Education CSS Grid */
+        .template-9 .education-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .template-9 .education-entry {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-row-gap: 2px;
+            align-items: baseline;
+            font-size: 0.95em;
+        }
+
+        .template-9 .edu-degree {
+            font-weight: 700;
+            color: var(--t9-heading);
+        }
+
+        .template-9 .edu-school {
+            font-weight: 500;
+            color: var(--t9-secondary);
+        }
+
+        .template-9 .edu-dates {
+            text-align: right;
+            color: var(--t9-body);
+            font-weight: 500;
+        }
+
+        .template-9 .edu-gpa {
+            text-align: right;
+            font-weight: 700;
+            color: var(--t9-heading);
+        }
+
+        /* Technical Skills 2-Column Grid */
+        .template-9 .tech-skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+        }
+
+        .template-9 .tech-skill-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .template-9 .tech-skill-cat {
+            font-weight: 700;
+            color: var(--t9-heading);
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .template-9 .tech-skill-list {
+            color: var(--t9-body);
+            font-size: 13px;
+        }
+
+        /* Projects Section */
+        .template-9 .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .template-9 .project-entry {
+            margin-bottom: 0px;
+        }
+
+        .template-9 .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .template-9 .project-name {
+            font-weight: 700;
+            font-size: 0.95em;
+            color: var(--t9-heading);
+        }
+
+        .template-9 .project-dates {
+            font-size: 0.85em;
+            color: var(--t9-secondary);
+            font-weight: 500;
+        }
+
+        .template-9 .project-tech {
+            font-style: italic;
+            font-size: 0.85em;
+            color: var(--t9-secondary);
+            margin: 1px 0 3px 0;
+        }
+
+        .template-9 .project-links {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8em;
+            margin-bottom: 4px;
+        }
+
+        .template-9 .project-link-item {
+            color: var(--t9-accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .template-9 .project-link-item:hover {
+            text-decoration: underline;
+        }
+
+        /* Timeline style Experience */
+        .template-9 .experience-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            border-left: 2.5px solid var(--t9-divider);
+            padding-left: 14px;
+            margin-left: 6px;
+        }
+
+        .template-9 .experience-entry {
+            position: relative;
+        }
+
+        .template-9 .experience-entry::before {
+            content: '';
+            position: absolute;
+            left: -21.5px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--t9-accent);
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 0 1px var(--t9-divider);
+        }
+
+        .template-9 .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .template-9 .exp-role {
+            font-weight: 700;
+            font-size: 0.95em;
+            color: var(--t9-heading);
+        }
+
+        .template-9 .exp-dates {
+            font-size: 0.85em;
+            color: var(--t9-secondary);
+            font-weight: 500;
+        }
+
+        .template-9 .exp-company-location {
+            font-weight: 600;
+            font-size: 0.85em;
+            color: var(--t9-secondary);
+            margin: 1px 0 4px 0;
+        }
+
+        /* General bullet lists */
+        .template-9 .desc-list {
+            padding-left: 14px;
+            margin: 2px 0 0 0;
+            font-size: 0.9em;
+            color: var(--t9-body);
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .template-9 .desc-list li {
+            line-height: 1.4;
+        }
+
+        /* Declaration */
+        .template-9 .declaration-text {
+            font-size: 0.9em;
+            color: var(--t9-body);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .template-9 .signature-row {
+            font-size: 0.9em;
+            color: var(--t9-heading);
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* Print Media Overrides specific for Template 9 A4 */
+        @media print {
+            .preview-sheet.template-9 {
+                width: 210mm !important;
+                min-height: 297mm !important;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                background-color: #FFFFFF !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .template-9 .template-9-sidebar {
+                background-color: #101827 !important;
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                align-self: stretch !important;
+                height: auto !important;
+            }
+        }
+
+        /* =======================================================
+           TEMPLATE 10: Enhancv Minimalist
+           ======================================================= */
+        .preview-sheet.template-10 {
+            --t10-primary: var(--primary, #1E3A8A);
+            --t10-accent: #ff6f3c;
+            --t10-heading: #111827;
+            --t10-body: #374151;
+            --t10-secondary: #6B7280;
+            --t10-divider: #E5E7EB;
+            --t10-bg: #FFFFFF;
+
+            font-family: 'Poppins', 'Inter', sans-serif !important;
+            color: var(--t10-body) !important;
+            background-color: var(--t10-bg) !important;
+            padding: 40px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 22px !important;
+            width: 210mm !important;
+            min-height: 297mm !important;
+            box-sizing: border-box !important;
+            overflow: visible !important;
+        }
+
+        .template-10 .t10-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--t10-primary);
+            padding-bottom: 20px;
+        }
+
+        .template-10 .t10-header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .template-10 .t10-name {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: var(--t10-primary);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .template-10 .t10-subtitle {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--t10-accent);
+            margin: 0;
+        }
+
+        .template-10 .t10-contacts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 16px;
+            margin-top: 8px;
+            font-size: 0.85em;
+        }
+
+        .template-10 .t10-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--t10-body);
+        }
+
+        .template-10 .t10-contact-item i {
+            color: var(--t10-accent);
+            width: 14px;
+            text-align: center;
+        }
+
+        .template-10 .t10-contact-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .template-10 .t10-header-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+
+        .template-10 .t10-header-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .template-10 .t10-philosophy {
+            border-left: 3px solid var(--t10-accent);
+            padding-left: 14px;
+            margin: 4px 0;
+            font-style: italic;
+            font-size: 0.95em;
+            color: var(--t10-secondary);
+        }
+
+        .template-10 .t10-philosophy-quote {
+            color: var(--t10-accent);
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .template-10 .t10-philosophy-author {
+            font-size: 0.85em;
+            text-align: right;
+            margin: 2px 0 0 0;
+            color: var(--t10-secondary);
+        }
+
+        .template-10 .t10-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .template-10 .t10-section-title {
+            font-size: 1.25em;
+            font-weight: 800;
+            color: var(--t10-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0;
+            border-bottom: 2px solid var(--t10-divider);
+            padding-bottom: 4px;
+        }
+
+        .template-10 .t10-summary {
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Two Column Strengths */
+        .template-10 .t10-strengths-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+        }
+
+        .template-10 .t10-strength-item {
+            display: flex;
+            gap: 10px;
+        }
+
+        .template-10 .t10-strength-icon {
+            font-size: 1.2em;
+            color: var(--t10-accent);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .template-10 .t10-strength-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .template-10 .t10-strength-name {
+            font-weight: 700;
+            color: var(--t10-heading);
+            font-size: 0.95em;
+        }
+
+        .template-10 .t10-strength-desc {
+            font-size: 0.85em;
+            color: var(--t10-secondary);
+            line-height: 1.5;
+        }
+
+        /* Modern Timeline Layout */
+        .template-10 .t10-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .template-10 .t10-timeline-entry {
+            display: flex;
+            gap: 16px;
+        }
+
+        .template-10 .t10-timeline-left {
+            width: 25%;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-size: 0.85em;
+            color: var(--t10-secondary);
+            flex-shrink: 0;
+        }
+
+        .template-10 .t10-timeline-dates {
+            font-weight: 700;
+            color: var(--t10-primary);
+        }
+
+        .template-10 .t10-timeline-location {
+            font-style: italic;
+        }
+
+        .template-10 .t10-timeline-axis {
+            width: 2px;
+            background-color: var(--t10-divider);
+            align-self: stretch;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .template-10 .t10-timeline-axis::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--t10-primary);
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 0 1px var(--t10-divider);
+        }
+
+        .template-10 .t10-timeline-right {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .template-10 .t10-timeline-title {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: var(--t10-heading);
+            margin: 0;
+        }
+
+        .template-10 .t10-timeline-subtitle {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: var(--t10-accent);
+            margin: 0;
+        }
+
+        .template-10 .t10-timeline-tech {
+            font-size: 0.85em;
+            font-style: italic;
+            color: var(--t10-secondary);
+            margin-top: 2px;
+        }
+
+        .template-10 .t10-timeline-links {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8em;
+            margin-top: 2px;
+        }
+
+        .template-10 .t10-timeline-link-item {
+            color: var(--t10-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .template-10 .t10-timeline-link-item:hover {
+            text-decoration: underline;
+        }
+
+        .template-10 .t10-desc-list {
+            padding-left: 14px;
+            margin: 4px 0 0 0;
+            font-size: 0.85em;
+            color: var(--t10-body);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            line-height: 1.5;
+        }
+
+        /* Flat Badges with bottom border */
+        .template-10 .t10-skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+        }
+
+        .template-10 .t10-skill-badge {
+            border-bottom: 2px solid var(--t10-divider);
+            padding: 4px 6px;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--t10-heading);
+            transition: border-color 0.2s;
+        }
+
+        .template-10 .t10-skill-badge:hover {
+            border-color: var(--t10-accent);
+        }
+
+        /* =======================================================
+           TEMPLATE 11: Enhancv Split Teal (Sidebar)
+           ======================================================= */
+        .preview-sheet.template-11 {
+            --t11-primary: var(--primary, #005F60);
+            --t11-heading: #111827;
+            --t11-body: #374151;
+            --t11-secondary: #6B7280;
+            --t11-divider: #E5E7EB;
+            --t11-bg: #FFFFFF;
+
+            font-family: 'Poppins', 'Inter', sans-serif !important;
+            color: var(--t11-body) !important;
+            background-color: var(--t11-bg) !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: row !important;
+            width: 210mm !important;
+            min-height: 297mm !important;
+            box-sizing: border-box !important;
+            overflow: visible !important;
+        }
+
+        .template-11 .t11-container {
+            display: flex;
+            width: 100%;
+            height: auto;
+            align-items: stretch;
+            box-sizing: border-box;
+        }
+
+        .template-11 .t11-sidebar {
+            width: 32% !important;
+            background-color: var(--t11-primary) !important;
+            color: #ffffff !important;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            height: auto;
+            align-self: stretch;
+            box-sizing: border-box;
+            font-size: 0.85em;
+            align-items: stretch;
+            flex-shrink: 0;
+            overflow: visible;
+        }
+
+        .template-11 .t11-main {
+            width: 68% !important;
+            background-color: var(--t11-bg) !important;
+            color: var(--t11-body) !important;
+            padding: 35px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: auto;
+            box-sizing: border-box;
+            overflow: visible;
+            flex-grow: 1;
+        }
+
+        /* Sidebar Elements */
+        .template-11 .t11-sidebar-avatar-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+
+        .template-11 .t11-sidebar-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.2);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .template-11 .t11-sidebar-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .template-11 .t11-sidebar-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .template-11 .t11-sidebar-section-title {
+            font-size: 1.05em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 1.5px solid rgba(255,255,255,0.25);
+            padding-bottom: 4px;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .template-11 .t11-sidebar-philosophy {
+            font-style: italic;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.85);
+            margin: 0;
+        }
+
+        .template-11 .t11-sidebar-philosophy-author {
+            font-size: 0.85em;
+            text-align: right;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+        }
+
+        .template-11 .t11-sidebar-strengths {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .template-11 .t11-sidebar-strength-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .template-11 .t11-sidebar-strength-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 750;
+            color: #ffffff;
+        }
+
+        .template-11 .t11-sidebar-strength-icon {
+            color: #ffb703; /* warm highlight color */
+            font-size: 0.95em;
+            width: 14px;
+        }
+
+        .template-11 .t11-sidebar-strength-desc {
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.4;
+            padding-left: 20px;
+        }
+
+        .template-11 .t11-sidebar-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .template-11 .t11-sidebar-skill-pill {
+            background-color: rgba(255,255,255,0.12);
+            color: #ffffff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .template-11 .t11-sidebar-achievements {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .template-11 .t11-sidebar-achievement-item {
+            display: flex;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
+        .template-11 .t11-sidebar-achievement-icon {
+            color: #ffb703;
+            margin-top: 2px;
+            font-size: 1.05em;
+            flex-shrink: 0;
+        }
+
+        .template-11 .t11-sidebar-achievement-text {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .template-11 .t11-sidebar-achievement-text strong {
+            color: #ffffff;
+            display: block;
+        }
+
+        .template-11 .t11-sidebar-certs-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .template-11 .t11-sidebar-certs-list li {
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .template-11 .t11-sidebar-certs-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #ffb703;
+        }
+
+        .template-11 .t11-sidebar-footer {
+            margin-top: auto;
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Main Content Elements */
+        .template-11 .t11-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            border-bottom: 2px solid var(--t11-primary);
+            padding-bottom: 12px;
+            margin-bottom: 6px;
+        }
+
+        .template-11 .t11-name {
+            font-size: 2.1em;
+            font-weight: 800;
+            color: var(--t11-heading);
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+
+        .template-11 .t11-subtitle {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: var(--t11-primary);
+            margin: 0;
+        }
+
+        .template-11 .t11-contacts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            margin-top: 6px;
+            font-size: 0.85em;
+        }
+
+        .template-11 .t11-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--t11-body);
+        }
+
+        .template-11 .t11-contact-item i {
+            color: var(--t11-primary);
+            font-size: 0.95em;
+        }
+
+        .template-11 .t11-contact-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .template-11 .t11-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .template-11 .t11-section-title {
+            font-size: 1.15em;
+            font-weight: 750;
+            color: var(--t11-heading);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .template-11 .t11-section-title::after {
+            content: '';
+            flex-grow: 1;
+            margin-left: 12px;
+            border-bottom: 1.5px solid var(--t11-divider);
+        }
+
+        .template-11 .t11-summary {
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .template-11 .t11-main-entries {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .template-11 .t11-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .template-11 .t11-entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .template-11 .t11-entry-title {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: var(--t11-heading);
+            margin: 0;
+        }
+
+        .template-11 .t11-entry-dates {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--t11-secondary);
+        }
+
+        .template-11 .t11-entry-subheader {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: var(--t11-primary);
+        }
+
+        .template-11 .t11-entry-location {
+            font-style: italic;
+            color: var(--t11-secondary);
+        }
+
+        .template-11 .t11-entry-tech {
+            font-size: 0.85em;
+            font-style: italic;
+            color: var(--t11-secondary);
+            margin: 1px 0;
+        }
+
+        .template-11 .t11-entry-links {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8em;
+            margin: 1px 0;
+        }
+
+        .template-11 .t11-entry-link-item {
+            color: var(--t11-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .template-11 .t11-entry-link-item:hover {
+            text-decoration: underline;
+        }
+
+        .template-11 .t11-desc-list {
+            padding-left: 14px;
+            margin: 2px 0 0 0;
+            font-size: 0.85em;
+            color: var(--t11-body);
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            line-height: 1.5;
+        }
+
+        /* Languages Rating dots */
+        .template-11 .t11-langs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 24px;
+        }
+
+        .template-11 .t11-lang-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .template-11 .t11-lang-name {
+            font-weight: 700;
+            color: var(--t11-heading);
+        }
+
+        .template-11 .t11-lang-rating-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .template-11 .t11-lang-level {
+            font-size: 0.8em;
+            color: var(--t11-secondary);
+        }
+
+        .template-11 .t11-rating-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .template-11 .t11-rating-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--t11-divider);
+        }
+
+        .template-11 .t11-rating-dot.active {
+            background-color: var(--t11-primary);
+        }
+
+        /* Passions with outline icons */
+        .template-11 .t11-passions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .template-11 .t11-passion-card {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid var(--t11-divider);
+            border-radius: 20px;
+            font-size: 0.85em;
+            background-color: #FAFBFD;
+        }
+
+        .template-11 .t11-passion-icon {
+            color: var(--t11-primary);
+            font-size: 1.1em;
+            width: 16px;
+            text-align: center;
+        }
+
+        .template-11 .t11-passion-text {
+            font-weight: 600;
+            color: var(--t11-heading);
+        }
+
+        /* Print overrides for T10 and T11 */
+        @media print {
+            .preview-sheet.template-10,
+            .preview-sheet.template-11 {
+                width: 210mm !important;
+                min-height: 297mm !important;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                background-color: #FFFFFF !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .template-11 .t11-sidebar {
+                background-color: var(--primary, #005F60) !important;
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                align-self: stretch !important;
+                height: auto !important;
+            }
+        }
+
+        /* =======================================================
+           TEMPLATE 12: Enhancv Warm Sidebar
+           ======================================================= */
+        .preview-sheet.template-12 {
+            --t12-primary: var(--primary, #B48C57);
+            --t12-sidebar-bg: #F7F2EB;
+            --t12-heading: #111827;
+            --t12-body: #374151;
+            --t12-secondary: #6B7280;
+            --t12-divider: #E5E7EB;
+            --t12-bg: #FFFFFF;
+
+            font-family: 'Poppins', 'Inter', sans-serif !important;
+            color: var(--t12-body) !important;
+            background-color: var(--t12-bg) !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: row !important;
+            width: 210mm !important;
+            min-height: 297mm !important;
+            box-sizing: border-box !important;
+            overflow: visible !important;
+        }
+
+        .template-12 .t12-container {
+            display: flex;
+            width: 100%;
+            height: auto;
+            align-items: stretch;
+            box-sizing: border-box;
+        }
+
+        .template-12 .t12-sidebar {
+            width: 30% !important;
+            background-color: var(--t12-sidebar-bg) !important;
+            color: var(--t12-body) !important;
+            padding: 0 0 30px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            height: auto;
+            align-self: stretch;
+            box-sizing: border-box;
+            font-size: 0.85em;
+            align-items: stretch;
+            flex-shrink: 0;
+            overflow: visible;
+        }
+
+        .template-12 .t12-sidebar-avatar-wrap {
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .template-12 .t12-sidebar-avatar {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+        }
+
+        .template-12 .t12-sidebar-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .template-12 .t12-sidebar-content-padding {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .template-12 .t12-sidebar-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .template-12 .t12-sidebar-section-title {
+            font-size: 1.1em;
+            font-weight: 750;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 2px solid var(--t12-primary);
+            padding-bottom: 4px;
+            margin: 0;
+            color: var(--t12-primary);
+        }
+
+        .template-12 .t12-sidebar-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .template-12 .t12-sidebar-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--t12-body);
+        }
+
+        .template-12 .t12-sidebar-contact-item i {
+            color: var(--t12-primary);
+            font-size: 1.05em;
+            width: 16px;
+            text-align: center;
+        }
+
+        .template-12 .t12-sidebar-contact-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .template-12 .t12-sidebar-skills-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .template-12 .t12-sidebar-skills-list li {
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .template-12 .t12-sidebar-skills-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--t12-primary);
+        }
+
+        .template-12 .t12-main {
+            width: 70% !important;
+            background-color: var(--t12-bg) !important;
+            color: var(--t12-body) !important;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            height: auto;
+            box-sizing: border-box;
+            overflow: visible;
+            flex-grow: 1;
+        }
+
+        .template-12 .t12-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+
+        .template-12 .t12-name {
+            font-size: 2.3em;
+            font-weight: 800;
+            color: var(--t12-primary);
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+
+        .template-12 .t12-subtitle {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: var(--t12-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .template-12 .t12-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .template-12 .t12-section-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--t12-primary);
+        }
+
+        .template-12 .t12-section-icon {
+            font-size: 1.25em;
+            background-color: #374151;
+            color: #ffffff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .template-12 .t12-section-title {
+            font-size: 1.2em;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin: 0;
+        }
+
+        .template-12 .t12-main-entries {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-left: 16px;
+            border-left: 2px solid var(--t12-divider);
+            margin-left: 15px;
+        }
+
+        .template-12 .t12-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            position: relative;
+        }
+
+        .template-12 .t12-entry::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--t12-primary);
+            border: 2px solid #ffffff;
+        }
+
+        .template-12 .t12-entry-title {
+            font-size: 0.95em;
+            font-weight: 750;
+            color: var(--t12-heading);
+            margin: 0;
+        }
+
+        .template-12 .t12-entry-title span {
+            font-weight: 600;
+            color: var(--t12-secondary);
+        }
+
+        .template-12 .t12-entry-meta {
+            font-size: 0.85em;
+            color: var(--t12-secondary);
+            font-weight: 650;
+            margin-bottom: 2px;
+        }
+
+        .template-12 .t12-entry-tech {
+            font-size: 0.85em;
+            font-style: italic;
+            color: var(--t12-secondary);
+            margin: 1px 0;
+        }
+
+        .template-12 .t12-entry-links {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8em;
+            margin: 1px 0;
+        }
+
+        .template-12 .t12-entry-link-item {
+            color: var(--t12-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .template-12 .t12-entry-link-item:hover {
+            text-decoration: underline;
+        }
+
+        /* =======================================================
+           TEMPLATE 13: Enhancv Overlap Header
+           ======================================================= */
+        .preview-sheet.template-13 {
+            --t13-primary: var(--primary, #00A896);
+            --t13-header-bg: #E0F4F5;
+            --t13-heading: #111827;
+            --t13-body: #374151;
+            --t13-secondary: #6B7280;
+            --t13-divider: #E5E7EB;
+            --t13-bg: #FFFFFF;
+
+            font-family: 'Poppins', 'Inter', sans-serif !important;
+            color: var(--t13-body) !important;
+            background-color: var(--t13-bg) !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            width: 210mm !important;
+            min-height: 297mm !important;
+            box-sizing: border-box !important;
+            overflow: visible !important;
+        }
+
+        .template-13 .t13-header {
+            background-color: var(--t13-header-bg);
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            border-bottom: 3px solid var(--t13-primary);
+        }
+
+        .template-13 .t13-header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex-grow: 1;
+        }
+
+        .template-13 .t13-name {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: var(--t13-heading);
+            margin: 0;
+        }
+
+        .template-13 .t13-subtitle {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: var(--t13-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .template-13 .t13-contacts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 16px;
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+
+        .template-13 .t13-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--t13-primary);
+            font-weight: 600;
+        }
+
+        .template-13 .t13-contact-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .template-13 .t13-header-avatar-wrap {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+
+        .template-13 .t13-header-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .template-13 .t13-body {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+            box-sizing: border-box;
+            flex-grow: 1;
+        }
+
+        .template-13 .t13-main {
+            width: 62% !important;
+            padding: 30px 25px 30px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-sizing: border-box;
+        }
+
+        .template-13 .t13-sidebar {
+            width: 38% !important;
+            padding: 30px 40px 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            box-sizing: border-box;
+        }
+
+        .template-13 .t13-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .template-13 .t13-section-title {
+            font-size: 1.15em;
+            font-weight: 800;
+            color: var(--t13-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .template-13 .t13-section-title::after {
+            content: '';
+            flex-grow: 1;
+            margin-left: 10px;
+            border-bottom: 2px solid var(--t13-divider);
+        }
+
+        /* Timeline for main */
+        .template-13 .t13-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .template-13 .t13-timeline-entry {
+            display: flex;
+            gap: 16px;
+        }
+
+        .template-13 .t13-timeline-left {
+            width: 25%;
+            text-align: right;
+            font-size: 0.8em;
+            font-weight: 700;
+            color: var(--t13-secondary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .template-13 .t13-timeline-axis {
+            width: 2px;
+            background-color: var(--t13-primary);
+            align-self: stretch;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .template-13 .t13-timeline-axis::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--t13-primary);
+            border: 2px solid #ffffff;
+        }
+
+        .template-13 .t13-timeline-right {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .template-13 .t13-timeline-title {
+            font-size: 0.95em;
+            font-weight: 750;
+            color: var(--t13-heading);
+            margin: 0;
+        }
+
+        .template-13 .t13-timeline-subtitle {
+            font-size: 0.9em;
+            font-weight: 650;
+            color: var(--t13-primary);
+            margin: 0;
+        }
+
+        .template-13 .t13-timeline-tech {
+            font-size: 0.85em;
+            font-style: italic;
+            color: var(--t13-secondary);
+            margin-top: 2px;
+        }
+
+        .template-13 .t13-timeline-links {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8em;
+            margin-top: 2px;
+        }
+
+        .template-13 .t13-timeline-link-item {
+            color: var(--t13-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .template-13 .t13-timeline-link-item:hover {
+            text-decoration: underline;
+        }
+
+        .template-13 .t13-sidebar-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .template-13 .t13-sidebar-item-title {
+            font-size: 1.05em;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 2px solid var(--t13-divider);
+            padding-bottom: 4px;
+            margin: 0;
+            color: var(--t13-heading);
+        }
+
+        .template-13 .t13-summary {
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .template-13 .t13-sidebar-bullets {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.9em;
+        }
+
+        .template-13 .t13-sidebar-bullets li {
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .template-13 .t13-sidebar-bullets li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--t13-primary);
+        }
+
+        /* =======================================================
+           TEMPLATE 14: Enhancv Minimalist Split Sidebar
+           ======================================================= */
+        .preview-sheet.template-14 {
+            --t14-primary: var(--primary, #2C3E50);
+            --t14-sidebar-bg: #FAFAFA;
+            --t14-heading: #111827;
+            --t14-body: #374151;
+            --t14-secondary: #6B7280;
+            --t14-divider: #E5E7EB;
+            --t14-bg: #FFFFFF;
+
+            font-family: 'Poppins', 'Inter', sans-serif !important;
+            color: var(--t14-body) !important;
+            background-color: var(--t14-bg) !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: row !important;
+            width: 210mm !important;
+            min-height: 297mm !important;
+            box-sizing: border-box !important;
+            overflow: visible !important;
+        }
+
+        .template-14 .t14-container {
+            display: flex;
+            width: 100%;
+            height: auto;
+            align-items: stretch;
+            box-sizing: border-box;
+        }
+
+        .template-14 .t14-sidebar {
+            width: 32% !important;
+            background-color: var(--t14-sidebar-bg) !important;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            height: auto;
+            align-self: stretch;
+            box-sizing: border-box;
+            font-size: 0.85em;
+            align-items: stretch;
+            flex-shrink: 0;
+            overflow: visible;
+        }
+
+        .template-14 .t14-sidebar-avatar-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .template-14 .t14-sidebar-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .template-14 .t14-sidebar-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .template-14 .t14-sidebar-name {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--t14-heading);
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0;
+        }
+
+        .template-14 .t14-sidebar-subtitle {
+            font-size: 0.95em;
+            font-weight: 650;
+            color: var(--t14-primary);
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .template-14 .t14-sidebar-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .template-14 .t14-sidebar-section-title {
+            font-size: 1.05em;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 2px solid var(--t14-primary);
+            padding-bottom: 4px;
+            margin: 0;
+            color: var(--t14-heading);
+        }
+
+        .template-14 .t14-sidebar-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .template-14 .t14-sidebar-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--t14-body);
+        }
+
+        .template-14 .t14-sidebar-contact-item i {
+            color: var(--t14-primary);
+            width: 16px;
+            text-align: center;
+        }
+
+        .template-14 .t14-sidebar-contact-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .template-14 .t14-main {
+            width: 68% !important;
+            background-color: var(--t14-bg) !important;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            box-sizing: border-box;
+            flex-grow: 1;
+        }
+
+        .template-14 .t14-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .template-14 .t14-section-title {
+            font-size: 1.15em;
+            font-weight: 800;
+            color: var(--t14-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin: 0;
+            border-bottom: 2px solid var(--t14-divider);
+            padding-bottom: 4px;
+        }
+
+        .template-14 .t14-main-entries {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .template-14 .t14-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .template-14 .t14-entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .template-14 .t14-entry-title {
+            font-size: 0.95em;
+            font-weight: 750;
+            color: var(--t14-heading);
+            margin: 0;
+        }
+
+        .template-14 .t14-entry-dates {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--t14-secondary);
+        }
+
+        .template-14 .t14-entry-subheader {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            font-weight: 650;
+            color: var(--t14-primary);
+        }
+
+        .template-14 .t14-entry-location {
+            font-style: italic;
+            color: var(--t14-secondary);
+        }
+
+        .template-14 .t14-entry-tech {
+            font-size: 0.85em;
+            font-style: italic;
+            color: var(--t14-secondary);
+            margin: 1px 0;
+        }
+
+        .template-14 .t14-entry-links {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8em;
+            margin: 1px 0;
+        }
+
+        .template-14 .t14-entry-link-item {
+            color: var(--t14-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .template-14 .t14-entry-link-item:hover {
+            text-decoration: underline;
+        }
+
+        /* =======================================================
+           TEMPLATE 15: Classic Two-Column Teal
+           ======================================================= */
+        .preview-sheet.template-15 {
+            --t15-primary: var(--primary, #3F888F);
+            --t15-heading: #111827;
+            --t15-body: #374151;
+            --t15-secondary: #6B7280;
+            --t15-divider: #E5E7EB;
+            --t15-bg: #FFFFFF;
+
+            font-family: 'Poppins', 'Inter', sans-serif !important;
+            color: var(--t15-body) !important;
+            background-color: var(--t15-bg) !important;
+            padding: 40px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 22px !important;
+            width: 210mm !important;
+            min-height: 297mm !important;
+            box-sizing: border-box !important;
+            overflow: visible !important;
+        }
+
+        .template-15 .t15-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--t15-divider);
+            padding-bottom: 16px;
+        }
+
+        .template-15 .t15-header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 40%;
+        }
+
+        .template-15 .t15-name {
+            font-size: 2.1em;
+            font-weight: 800;
+            color: var(--t15-primary);
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .template-15 .t15-subtitle {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: var(--t15-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .template-15 .t15-header-center {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--t15-primary);
+            flex-shrink: 0;
+        }
+
+        .template-15 .t15-header-center img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .template-15 .t15-header-right {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.8em;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .template-15 .t15-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--t15-body);
+        }
+
+        .template-15 .t15-contact-item i {
+            color: var(--t15-primary);
+            font-size: 1.1em;
+        }
+
+        .template-15 .t15-contact-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .template-15 .t15-body {
+            display: flex;
+            width: 100%;
+            gap: 24px;
+            align-items: stretch;
+            box-sizing: border-box;
+        }
+
+        .template-15 .t15-left {
+            width: 35% !important;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-sizing: border-box;
+        }
+
+        .template-15 .t15-right {
+            width: 65% !important;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-sizing: border-box;
+        }
+
+        .template-15 .t15-box {
+            border: 1px solid var(--t15-divider);
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #FAFBFD;
+        }
+
+        .template-15 .t15-box-header {
+            background-color: var(--t15-primary);
+            color: #ffffff;
+            font-size: 0.9em;
+            font-weight: 750;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 8px 12px;
+            margin: 0;
+        }
+
+        .template-15 .t15-box-content {
+            padding: 12px;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+
+        .template-15 .t15-box-bullets {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .template-15 .t15-box-bullets li {
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .template-15 .t15-box-bullets li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--t15-primary);
+        }
+
+        /* Timeline for right column */
+        .template-15 .t15-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .template-15 .t15-timeline-entry {
+            display: flex;
+            gap: 12px;
+        }
+
+        .template-15 .t15-timeline-left {
+            width: 25%;
+            font-size: 0.8em;
+            font-weight: 700;
+            color: var(--t15-secondary);
+            text-align: right;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .template-15 .t15-timeline-axis {
+            width: 2px;
+            background-color: var(--t15-primary);
+            align-self: stretch;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .template-15 .t15-timeline-axis::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--t15-primary);
+            border: 2px solid #ffffff;
+        }
+
+        .template-15 .t15-timeline-right {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-size: 0.85em;
+        }
+
+        .template-15 .t15-timeline-title {
+            font-size: 1em;
+            font-weight: 750;
+            color: var(--t15-heading);
+            margin: 0;
+        }
+
+        .template-15 .t15-timeline-subtitle {
+            font-size: 0.95em;
+            font-weight: 650;
+            color: var(--t15-primary);
+            margin: 0;
+        }
+
+        .template-15 .t15-timeline-tech {
+            font-size: 0.85em;
+            font-style: italic;
+            color: var(--t15-secondary);
+            margin-top: 2px;
+        }
+
+        .template-15 .t15-timeline-links {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8em;
+            margin-top: 2px;
+        }
+
+        .template-15 .t15-timeline-link-item {
+            color: var(--t15-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .template-15 .t15-timeline-link-item:hover {
+            text-decoration: underline;
+        }
+
+        /* Print overrides for T12 - T15 */
+        @media print {
+            .preview-sheet.template-12,
+            .preview-sheet.template-13,
+            .preview-sheet.template-14,
+            .preview-sheet.template-15 {
+                width: 210mm !important;
+                min-height: 297mm !important;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                background-color: #FFFFFF !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .template-12 .t12-sidebar {
+                background-color: #F7F2EB !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                align-self: stretch !important;
+                height: auto !important;
+            }
+            .template-13 .t13-header {
+                background-color: #E0F4F5 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .template-14 .t14-sidebar {
+                background-color: #FAFAFA !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                align-self: stretch !important;
+                height: auto !important;
+            }
+        }
+
         /* ─── TEMPLATE GALLERY ─── */
         .template-gallery-grid {
             display: grid;
@@ -2080,6 +4438,13 @@
                 <option value="6">Bold Modernist</option>
                 <option value="7">Slate Clean & Elegant</option>
                 <option value="8">Silicon Valley Technical</option>
+                <option value="9">Cognizant Template 1</option>
+                <option value="10">Cognizant Template 2</option>
+                <option value="11">Cognizant Template 3</option>
+                <option value="12">Cognizant Template 4</option>
+                <option value="13">Cognizant Template 5</option>
+                <option value="14">Cognizant Template 6</option>
+                <option value="15">Cognizant Template 7</option>
             </select>
         </div>
     </div>
@@ -2160,6 +4525,13 @@
                 <option value="6">Bold Modernist</option>
                 <option value="7">Slate Clean &amp; Elegant</option>
                 <option value="8">Silicon Valley Technical</option>
+                <option value="9">Cognizant Template 1</option>
+                <option value="10">Cognizant Template 2</option>
+                <option value="11">Cognizant Template 3</option>
+                <option value="12">Cognizant Template 4</option>
+                <option value="13">Cognizant Template 5</option>
+                <option value="14">Cognizant Template 6</option>
+                <option value="15">Cognizant Template 7</option>
             </select>
         </div>
         <div class="mobile-menu-section-label">Actions</div>
@@ -2235,6 +4607,26 @@
                     <p>Start with your name, job title, and contact information.</p>
                 </div>
                 <div class="form-grid">
+                    <div class="form-group form-group-full" style="background: var(--surface-2); padding: 15px; border-radius: var(--radius-md); border: 1px solid var(--border); margin-bottom: 10px;">
+                        <label style="font-weight: 600; margin-bottom: 8px;"><i class="fa-solid fa-image"></i> Profile Picture (Optional - Cognizant Campus Template)</label>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div id="profile-image-preview-container" style="width: 60px; height: 60px; border-radius: 50%; border: 2px dashed var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--surface); flex-shrink: 0;">
+                                <i class="fa-solid fa-user-tie" style="font-size: 24px; color: var(--text-4);"></i>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <div style="display: flex; gap: 8px;">
+                                    <input type="file" id="profile_photo_upload" accept="image/*" onchange="uploadProfilePhoto(event)" style="display: none;">
+                                    <button type="button" class="btn btn-sm btn-ghost" onclick="document.getElementById('profile_photo_upload').click()" style="padding: 6px 12px; font-size: 12px; height: auto;">
+                                        <i class="fa-solid fa-upload"></i> Upload
+                                    </button>
+                                    <button type="button" id="btn-remove-photo" class="btn btn-sm btn-ghost" onclick="removeProfilePhoto()" style="padding: 6px 12px; font-size: 12px; height: auto; color: var(--danger); display: none; border-color: var(--border);">
+                                        <i class="fa-solid fa-trash"></i> Remove
+                                    </button>
+                                </div>
+                                <span style="font-size: 11px; color: var(--text-3);">Upload a square image. It will render in the sidebar as a perfect circle.</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label><i class="fa-solid fa-user"></i> First Name</label>
                         <input type="text" id="header_first_name" oninput="updateField('first_name', this.value)" placeholder="John">
@@ -2363,6 +4755,11 @@
                 <button class="add-item-btn" onclick="addItem('languages')">
                     <i class="fa-solid fa-plus"></i> Add Language
                 </button>
+                <div style="font-weight:600; font-size:13px; color:var(--text-2); margin-top:12px;">Achievements (Optional - Cognizant Campus Template)</div>
+                <div class="dynamic-list-container" id="achievement-list"></div>
+                <button class="add-item-btn" onclick="addItem('achievements')">
+                    <i class="fa-solid fa-plus"></i> Add Achievement
+                </button>
             </div>
 
             <!-- STEP 8: FINISH -->
@@ -2443,6 +4840,55 @@
                                 <div class="template-gallery-desc">Monospace highlights. Code aesthetic.</div>
                             </div>
                         </div>
+                        <div class="template-gallery-card" onclick="switchTemplate(9)" id="tgc-9">
+                            <div class="template-thumb-overlay" style="background:#0A1C3A; color:#eab308; font-weight: bold;">T9</div>
+                            <div class="template-gallery-info">
+                                <div class="template-gallery-title">Cognizant Template 1</div>
+                                <div class="template-gallery-desc">Split sidebar layout. Premium dark theme.</div>
+                            </div>
+                        </div>
+                        <div class="template-gallery-card" onclick="switchTemplate(10)" id="tgc-10">
+                            <div class="template-thumb-overlay" style="background:#FFF; color:#1E3A8A; border: 1px solid #ddd; font-weight: bold;">T10</div>
+                            <div class="template-gallery-info">
+                                <div class="template-gallery-title">Cognizant Template 2</div>
+                                <div class="template-gallery-desc">Callout quote, dual column strengths, modern timeline.</div>
+                            </div>
+                        </div>
+                        <div class="template-gallery-card" onclick="switchTemplate(11)" id="tgc-11">
+                            <div class="template-thumb-overlay" style="background:#005F60; color:#FFF; font-weight: bold;">T11</div>
+                            <div class="template-gallery-info">
+                                <div class="template-gallery-title">Cognizant Template 3</div>
+                                <div class="template-gallery-desc">Full teal sidebar, strengths and rating dots.</div>
+                            </div>
+                        </div>
+                        <div class="template-gallery-card" onclick="switchTemplate(12)" id="tgc-12">
+                            <div class="template-thumb-overlay" style="background:#F7F2EB; color:#B48C57; font-weight: bold;">T12</div>
+                            <div class="template-gallery-info">
+                                <div class="template-gallery-title">Cognizant Template 4</div>
+                                <div class="template-gallery-desc">Flat sidebar profile image, warm beige, graphic design timeline.</div>
+                            </div>
+                        </div>
+                        <div class="template-gallery-card" onclick="switchTemplate(13)" id="tgc-13">
+                            <div class="template-thumb-overlay" style="background:#E0F4F5; color:#00A896; font-weight: bold;">T13</div>
+                            <div class="template-gallery-info">
+                                <div class="template-gallery-title">Cognizant Template 5</div>
+                                <div class="template-gallery-desc">Floating rectangular photo, split top block.</div>
+                            </div>
+                        </div>
+                        <div class="template-gallery-card" onclick="switchTemplate(14)" id="tgc-14">
+                            <div class="template-thumb-overlay" style="background:#FAFAFA; color:#2C3E50; font-weight: bold;">T14</div>
+                            <div class="template-gallery-info">
+                                <div class="template-gallery-title">Cognizant Template 6</div>
+                                <div class="template-gallery-desc">Centered sidebar photo, clean right-aligned timeline.</div>
+                            </div>
+                        </div>
+                        <div class="template-gallery-card" onclick="switchTemplate(15)" id="tgc-15">
+                            <div class="template-thumb-overlay" style="background:#3F888F; color:#FFF; font-weight: bold;">T15</div>
+                            <div class="template-gallery-info">
+                                <div class="template-gallery-title">Cognizant Template 7</div>
+                                <div class="template-gallery-desc">Symmetric header layout, structured container blocks.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2457,6 +4903,9 @@
                             <div style="display:flex; gap:8px; align-items:center;">
                                 <input type="color" id="theme_primary_color" onchange="updateThemeColor(this.value)" style="width:42px; height:34px; padding:2px; border-radius:var(--radius-sm); border:1px solid var(--border); cursor:pointer;">
                                 <span style="font-size:12px; font-family:'Fira Code',monospace; color:var(--text-3);" id="theme_color_hex">#5B6AF0</span>
+                                <button type="button" onclick="resetThemeColorToDefault()" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 11px; height: auto; border: 1px solid var(--border); display: inline-flex; align-items: center; gap: 4px;" title="Reset to Template Default Accent Color">
+                                    <i class="fa-solid fa-rotate-left"></i> Default
+                                </button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -2722,7 +5171,17 @@
     function renameSection(k, v) { themeSettings.sectionNames[k] = v; saveThemeSettings(); renderPreview(); }
 
     function getDefaultTemplateColor(i) {
-        return ['#5B6AF0','#111827','#06b6d4','#5B6AF0','#000000','#0f766e','#1e293b','#6366f1'][i-1] || '#5B6AF0';
+        return ['#5B6AF0','#111827','#06b6d4','#5B6AF0','#000000','#0f766e','#1e293b','#6366f1','#F4B400','#1E3A8A','#005F60','#B48C57','#00A896','#2C3E50','#3F888F'][i-1] || '#5B6AF0';
+    }
+
+    function resetThemeColorToDefault() {
+        themeSettings.primaryColor = '';
+        saveThemeSettings();
+        const defaultColor = getDefaultTemplateColor(currentTemplate);
+        document.getElementById('theme_primary_color').value = defaultColor;
+        document.getElementById('theme_color_hex').innerText = defaultColor;
+        applyThemeSettings();
+        renderPreview();
     }
 
     function applyThemeSettings() {
@@ -2737,10 +5196,14 @@
             sheet.style.fontFamily = '';
             sheet.querySelectorAll('*').forEach(el => { if (!el.classList.contains('tech-badge') && el.tagName !== 'CODE') el.style.fontFamily = ''; });
         }
-        let pv = '15mm';
-        if (themeSettings.margins === 'compact') pv = '10mm';
-        if (themeSettings.margins === 'spacious') pv = '20mm';
-        sheet.style.padding = pv;
+        if (currentTemplate === 9) {
+            sheet.style.padding = '0';
+        } else {
+            let pv = '15mm';
+            if (themeSettings.margins === 'compact') pv = '10mm';
+            if (themeSettings.margins === 'spacious') pv = '20mm';
+            sheet.style.padding = pv;
+        }
         let baseSize = '10pt', lineH = '1.4';
         if (themeSettings.fontSize === 'small') { baseSize = '9pt'; lineH = '1.3'; }
         else if (themeSettings.fontSize === 'large') { baseSize = '11pt'; lineH = '1.5'; }
@@ -2773,13 +5236,26 @@
         education:[{school:"University of California, Berkeley",degree:"Bachelor of Science",field:"Computer Science",start_date:"2016-09-01",end_date:"2020-05-30",gpa:"3.85"}],
         skills:[{category:"Languages",list:"Python, Go, JavaScript, SQL, Bash"},{category:"Frameworks & Databases",list:"Flask, FastAPI, PostgreSQL, Redis, React"},{category:"Tools & DevOps",list:"Docker, Kubernetes, AWS, Git, CI/CD Pipelines"}],
         certifications:[{name:"AWS Certified Solutions Architect",issuer:"Amazon Web Services"}],
-        languages:[{language:"English",level:"Native / Bilingual"},{language:"Spanish",level:"Professional Working"}]
+        languages:[{language:"English",level:"Native / Bilingual"},{language:"Spanish",level:"Professional Working"}],
+        achievements:[
+            {title:"Solved 300+ problems on LeetCode"},
+            {title:"5 Star in Python on HackerRank"},
+            {title:"Participated in Smart India Hackathon"},
+            {title:"Volunteer in NSS and Campus Events"}
+        ],
+        profile_image:""
     };
 
     window.addEventListener('DOMContentLoaded', () => {
         initTheme();
         const savedData = localStorage.getItem('resufit_data');
-        if (savedData) { try { resumeData = JSON.parse(savedData); } catch(e) {} }
+        if (savedData) { 
+            try { 
+                resumeData = JSON.parse(savedData); 
+                if (!resumeData.profile_image) resumeData.profile_image = '';
+                if (!resumeData.achievements) resumeData.achievements = [];
+            } catch(e) {} 
+        }
         migrateProjectDates(resumeData);
         loadThemeSettings();
         if (localStorage.getItem('resufit_data_backup')) {
@@ -2794,10 +5270,25 @@
         renderSkillsList();
         renderCertificationList();
         renderLanguageList();
+        renderAchievementList();
         renderPreview();
         handleZoomSlider(0.75);
         autoFitScale();
-        syncMobileStepUI();
+        
+        // Restore step from cache:
+        let savedStep = localStorage.getItem('resufit_builder_step');
+        if (savedStep) {
+            let parsedStep = parseInt(savedStep, 10);
+            if (!isNaN(parsedStep) && parsedStep >= 1 && parsedStep <= totalSteps) {
+                currentStep = 1; // temporarily reset so jumpToStep handles classes correctly
+                jumpToStep(parsedStep);
+            } else {
+                syncMobileStepUI();
+            }
+        } else {
+            syncMobileStepUI();
+        }
+
         const mobileTplSwitch = document.getElementById('mobile-template-switch');
         if (mobileTplSwitch) mobileTplSwitch.value = String(currentTemplate);
     });
@@ -2813,6 +5304,7 @@
         document.getElementById('header_github').value = resumeData.github || '';
         document.getElementById('header_portfolio').value = resumeData.portfolio || '';
         document.getElementById('summary_content').value = resumeData.summary || '';
+        updateProfilePhotoUI();
     }
 
     function saveToCache() { localStorage.setItem('resufit_data', JSON.stringify(resumeData)); }
@@ -2835,6 +5327,10 @@
         }
         const nextBtn = document.getElementById('next-btn-text');
         nextBtn.innerHTML = currentStep === totalSteps ? 'Print / Finish <i class="fa-solid fa-wand-magic-sparkles"></i>' : 'Next <i class="fa-solid fa-arrow-right"></i>';
+        
+        // Save current step to cache
+        localStorage.setItem('resufit_builder_step', currentStep);
+        
         syncMobileStepUI();
         const editorScroll = document.querySelector('.editor-content');
         if (editorScroll) editorScroll.scrollTop = 0;
@@ -2957,6 +5453,7 @@
         if (listKey === 'skills') renderSkillsList();
         if (listKey === 'certifications') renderCertificationList();
         if (listKey === 'languages') renderLanguageList();
+        if (listKey === 'achievements') renderAchievementList();
     }
 
     function deleteItem(listKey, index) {
@@ -2968,6 +5465,7 @@
         if (listKey === 'skills') renderSkillsList();
         if (listKey === 'certifications') renderCertificationList();
         if (listKey === 'languages') renderLanguageList();
+        if (listKey === 'achievements') renderAchievementList();
         updateATSChecklist();
     }
 
@@ -2979,6 +5477,7 @@
         else if (listKey === 'skills') newItem = {category:'',list:''};
         else if (listKey === 'certifications') newItem = {name:'',issuer:''};
         else if (listKey === 'languages') newItem = {language:'',level:'Fluent'};
+        else if (listKey === 'achievements') newItem = {title:''};
         resumeData[listKey].push(newItem);
         saveToCache(); renderPreview();
         if (listKey === 'experience') { renderExperienceList(); openLastAccordion('experience-list'); }
@@ -2987,6 +5486,7 @@
         if (listKey === 'skills') { renderSkillsList(); openLastAccordion('skills-list'); }
         if (listKey === 'certifications') { renderCertificationList(); openLastAccordion('certification-list'); }
         if (listKey === 'languages') { renderLanguageList(); openLastAccordion('language-list'); }
+        if (listKey === 'achievements') { renderAchievementList(); openLastAccordion('achievement-list'); }
         updateATSChecklist();
     }
 
@@ -3013,8 +5513,73 @@
                 if (listKey === 'skills') card.querySelector('.accordion-main-title').innerText = resumeData.skills[index].category || 'New Skill Group';
                 if (listKey === 'certifications') card.querySelector('.accordion-main-title').innerText = resumeData.certifications[index].name || 'New Certification';
                 if (listKey === 'languages') card.querySelector('.accordion-main-title').innerText = resumeData.languages[index].language || 'New Language';
+                if (listKey === 'achievements') card.querySelector('.accordion-main-title').innerText = resumeData.achievements[index].title || 'New Achievement';
             }
         }
+    }
+
+    function uploadProfilePhoto(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            resumeData.profile_image = e.target.result;
+            saveToCache();
+            updateProfilePhotoUI();
+            renderPreview();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function removeProfilePhoto() {
+        resumeData.profile_image = '';
+        saveToCache();
+        updateProfilePhotoUI();
+        renderPreview();
+        document.getElementById('profile_photo_upload').value = '';
+    }
+
+    function updateProfilePhotoUI() {
+        const container = document.getElementById('profile-image-preview-container');
+        if (!container) return;
+        const removeBtn = document.getElementById('btn-remove-photo');
+        if (resumeData.profile_image) {
+            container.innerHTML = `<img src="${resumeData.profile_image}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            if (removeBtn) removeBtn.style.display = 'inline-flex';
+        } else {
+            container.innerHTML = `<i class="fa-solid fa-user-tie" style="font-size: 20px; color: var(--text-4);"></i>`;
+            if (removeBtn) removeBtn.style.display = 'none';
+        }
+    }
+
+    function renderAchievementList() {
+        const container = document.getElementById('achievement-list');
+        if (!container) return;
+        container.innerHTML = '';
+        if (!resumeData.achievements) resumeData.achievements = [];
+        resumeData.achievements.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'accordion-card';
+            card.innerHTML = `
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div class="accordion-title-box">
+                        <span class="accordion-main-title">${item.title||'New Achievement'}</span>
+                    </div>
+                    <div class="accordion-actions" onclick="event.stopPropagation()">
+                        <button class="action-icon-btn" onclick="moveItem('achievements',${index},-1)"><i class="fa-solid fa-arrow-up"></i></button>
+                        <button class="action-icon-btn" onclick="moveItem('achievements',${index},1)"><i class="fa-solid fa-arrow-down"></i></button>
+                        <button class="action-icon-btn delete-btn" onclick="deleteItem('achievements',${index})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-trophy"></i> Achievement Description</label>
+                        <input type="text" value="${item.title||''}" oninput="updateListItem('achievements',${index},'title',this.value)" placeholder="Solved 300+ problems on LeetCode">
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
     }
 
     function renderExperienceList() {
@@ -3252,8 +5817,8 @@
     }
 
     function switchTemplate(index) {
-        if (index < 1 || index > 8) return;
-        for (let i = 1; i <= 8; i++) { const g = document.getElementById('tgc-' + i); if (g) g.classList.remove('active'); }
+        if (index < 1 || index > 15) return;
+        for (let i = 1; i <= 15; i++) { const g = document.getElementById('tgc-' + i); if (g) g.classList.remove('active'); }
         const gc = document.getElementById('tgc-' + index);
         if (gc) gc.classList.add('active');
         document.getElementById('direct-template-switch').value = index;
@@ -3262,10 +5827,26 @@
         currentTemplate = index;
         const sheet = document.getElementById('preview-sheet');
         sheet.className = 'preview-sheet template-' + currentTemplate;
-        if (!themeSettings.primaryColor) {
-            document.getElementById('theme_primary_color').value = getDefaultTemplateColor(index);
-            document.getElementById('theme_color_hex').innerText = getDefaultTemplateColor(index);
-        }
+        
+        // Reset Design Settings to defaults on template switch
+        themeSettings.primaryColor = '';
+        themeSettings.fontFamily = '';
+        themeSettings.margins = 'normal';
+        themeSettings.fontSize = 'medium';
+        themeSettings.spacing = 'normal';
+        themeSettings.headerAlign = 'default';
+        saveThemeSettings();
+        
+        // Sync UI inputs
+        document.getElementById('theme_primary_color').value = getDefaultTemplateColor(index);
+        document.getElementById('theme_color_hex').innerText = getDefaultTemplateColor(index);
+        document.getElementById('theme_font_family').value = '';
+        document.getElementById('theme_margins').value = 'normal';
+        document.getElementById('theme_font_size').value = 'medium';
+        document.getElementById('theme_spacing').value = 'normal';
+        document.getElementById('theme_header_align').value = 'default';
+        
+        applyThemeSettings();
         renderPreview();
     }
 
@@ -3401,7 +5982,1357 @@
             bodyContent += `</div>`;
         }
 
-        sheet.innerHTML = `<div class="header-section">${headerContent}</div><div class="body-section">${bodyContent}</div>`;
+        if (currentTemplate === 9) {
+            // Render Profile Picture
+            let avatarHtml = '';
+            if (data.profile_image) {
+                avatarHtml = `
+                    <div class="sidebar-avatar-wrap">
+                        <div class="sidebar-avatar">
+                            <img src="${data.profile_image}" alt="Profile Picture">
+                        </div>
+                    </div>
+                `;
+            } else {
+                avatarHtml = `
+                    <div class="sidebar-avatar-wrap">
+                        <div class="sidebar-avatar">
+                            <div class="sidebar-avatar-placeholder">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Render Name & Subtitle
+            const nameHtml = `
+                <header class="sidebar-name-title">
+                    <h1 class="sidebar-name">${data.first_name||''} ${data.last_name||''}</h1>
+                    <div class="sidebar-title">${data.job_title||''}</div>
+                </header>
+            `;
+
+            // Contact Info
+            let contactHtml = '';
+            if (data.phone || data.email || data.location || data.linkedin || data.github || data.portfolio) {
+                contactHtml += `
+                    <section class="sidebar-section">
+                        <h2 class="sidebar-section-title">Contact</h2>
+                        <div class="sidebar-section-underline"></div>
+                        <ul class="sidebar-contact-list">
+                `;
+                if (data.phone) contactHtml += `<li class="sidebar-contact-item"><i class="fa-solid fa-phone"></i><span>${data.phone}</span></li>`;
+                if (data.email) contactHtml += `<li class="sidebar-contact-item"><i class="fa-regular fa-envelope"></i><span><a href="mailto:${data.email}">${data.email}</a></span></li>`;
+                if (data.location) contactHtml += `<li class="sidebar-contact-item"><i class="fa-solid fa-location-dot"></i><span>${data.location}</span></li>`;
+                if (data.linkedin) contactHtml += `<li class="sidebar-contact-item"><i class="fa-brands fa-linkedin-in"></i><span><a href="${formatHref(data.linkedin)}" target="_blank">${data.linkedin.replace(/^(https?:\/\/)?(www\.)?linkedin\.com\/in\//, '')}</a></span></li>`;
+                if (data.github) contactHtml += `<li class="sidebar-contact-item"><i class="fa-brands fa-github"></i><span><a href="${formatHref(data.github)}" target="_blank">${data.github.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '')}</a></span></li>`;
+                if (data.portfolio) contactHtml += `<li class="sidebar-contact-item"><i class="fa-solid fa-globe"></i><span><a href="${formatHref(data.portfolio)}" target="_blank">${data.portfolio}</a></span></li>`;
+                contactHtml += '</ul></section>';
+            }
+
+            // Skills flat list in sidebar
+            let sidebarSkillsHtml = '';
+            if (data.skills && data.skills.length > 0) {
+                sidebarSkillsHtml += `
+                    <section class="sidebar-section">
+                        <h2 class="sidebar-section-title">${nameSkills}</h2>
+                        <div class="sidebar-section-underline"></div>
+                        <ul class="sidebar-skills-list">
+                `;
+                data.skills.forEach(s => {
+                    s.list.split(',').forEach(item => {
+                        if (item.trim()) {
+                            sidebarSkillsHtml += `<li>${item.trim()}</li>`;
+                        }
+                    });
+                });
+                sidebarSkillsHtml += `</ul></section>`;
+            }
+
+            // Certifications bullet list in sidebar
+            let sidebarCertsHtml = '';
+            if (data.certifications && data.certifications.length > 0) {
+                sidebarCertsHtml += `
+                    <section class="sidebar-section">
+                        <h2 class="sidebar-section-title">Certifications</h2>
+                        <div class="sidebar-section-underline"></div>
+                        <ul class="sidebar-bullet-list">
+                `;
+                data.certifications.forEach(c => {
+                    sidebarCertsHtml += `<li><strong>${c.name}</strong>${c.issuer ? ` – ${c.issuer}` : ''}</li>`;
+                });
+                sidebarCertsHtml += `</ul></section>`;
+            }
+
+            // Languages in sidebar
+            let sidebarLangsHtml = '';
+            if (data.languages && data.languages.length > 0) {
+                sidebarLangsHtml += `
+                    <section class="sidebar-section">
+                        <h2 class="sidebar-section-title">Languages</h2>
+                        <div class="sidebar-section-underline"></div>
+                        <ul class="sidebar-bullet-list">
+                `;
+                data.languages.forEach(l => {
+                    sidebarLangsHtml += `<li><strong>${l.language}</strong>${l.level ? `: ${l.level}` : ''}</li>`;
+                });
+                sidebarLangsHtml += `</ul></section>`;
+            }
+
+            // Left Sidebar compilation (Skills, Certifications, and Languages stay here)
+            let sidebarContent = `
+                ${avatarHtml}
+                ${nameHtml}
+                ${contactHtml}
+                ${sidebarSkillsHtml}
+                ${sidebarCertsHtml}
+                ${sidebarLangsHtml}
+            `;
+
+            // Right Main Content Compilation
+            let mainContent = '';
+
+            // 1. Professional Summary
+            if (data.summary) {
+                mainContent += `
+                    <section class="main-section">
+                        <div class="main-section-title-wrap">
+                            <h2 class="main-section-title">${nameSummary}</h2>
+                            <div class="main-section-underline"></div>
+                        </div>
+                        <p class="summary-text">${data.summary}</p>
+                    </section>
+                    <div class="main-section-divider"></div>
+                `;
+            }
+
+            // 2. Education
+            if (data.education && data.education.length > 0) {
+                mainContent += `
+                    <section class="main-section">
+                        <div class="main-section-title-wrap">
+                            <h2 class="main-section-title">${nameEducation}</h2>
+                            <div class="main-section-underline"></div>
+                        </div>
+                        <div class="education-grid">
+                `;
+                data.education.forEach(edu => {
+                    const dateStr = (edu.start_date ? formatDateString(edu.start_date) + ' — ' : '') + formatDateString(edu.end_date);
+                    const degreeField = edu.degree && edu.field ? `${edu.degree} in ${edu.field}` : (edu.degree || edu.field || '');
+                    const gpaVal = edu.gpa ? (edu.gpa.toLowerCase().includes('gpa') || edu.gpa.toLowerCase().includes('percentage') ? edu.gpa : `CGPA: ${edu.gpa}`) : '';
+
+                    mainContent += `
+                        <div class="education-entry">
+                            <span class="edu-degree">${degreeField}</span>
+                            <span class="edu-dates">${dateStr}</span>
+                            <span class="edu-school">${edu.school || ''}</span>
+                            <span class="edu-gpa">${gpaVal}</span>
+                        </div>
+                    `;
+                });
+                mainContent += `
+                        </div>
+                    </section>
+                    <div class="main-section-divider"></div>
+                `;
+            }
+
+            // 3. Projects
+            if (data.projects && data.projects.length > 0) {
+                mainContent += `
+                    <section class="main-section">
+                        <div class="main-section-title-wrap">
+                            <h2 class="main-section-title">${nameProjects}</h2>
+                            <div class="main-section-underline"></div>
+                        </div>
+                        <div class="projects-list">
+                `;
+                data.projects.forEach((proj, idx) => {
+                    const dateStr = proj.end_date ? formatDateString(proj.end_date) : (proj.start_date ? formatDateString(proj.start_date) : '');
+                    const techHtml = proj.technologies ? `<div class="project-tech">Tech Stack: <em>${proj.technologies}</em></div>` : '';
+                    
+                    let linkHtml = '';
+                    if (proj.link) {
+                        const cleanLink = proj.link.trim().replace(/^(https?:\/\/)?(www\.)?/, '');
+                        const isGithub = cleanLink.toLowerCase().includes('github.com');
+                        const label = isGithub ? '<i class="fa-brands fa-github"></i> GitHub' : '<i class="fa-solid fa-earth-americas"></i> Live Demo';
+                        linkHtml = `<div class="project-links"><a href="${formatHref(proj.link)}" target="_blank" class="project-link-item">${label}</a></div>`;
+                    }
+
+                    mainContent += `
+                        <article class="project-entry">
+                            <div class="project-header">
+                                <h3 class="project-name">${idx + 1}. ${proj.name || 'Project'}</h3>
+                                <span class="project-dates">${dateStr}</span>
+                            </div>
+                            ${techHtml}
+                            ${linkHtml}
+                            ${formatDescriptionToList(proj.description)}
+                        </article>
+                    `;
+                });
+                mainContent += `
+                        </div>
+                    </section>
+                    <div class="main-section-divider"></div>
+                `;
+            }
+
+            // 4. Experience / Work History
+            if (data.experience && data.experience.length > 0) {
+                mainContent += `
+                    <section class="main-section">
+                        <div class="main-section-title-wrap">
+                            <h2 class="main-section-title">${nameExperience}</h2>
+                            <div class="main-section-underline"></div>
+                        </div>
+                        <div class="experience-timeline">
+                `;
+                data.experience.forEach(exp => {
+                    const dr = formatDateString(exp.start_date) + ' — ' + (exp.current ? 'Present' : formatDateString(exp.end_date));
+                    let company = exp.company ? exp.company.trim() : '';
+                    let location = exp.location ? exp.location.trim() : '';
+                    let sub = company && location ? `${company} | ${location}` : (company || location || '');
+                    mainContent += `
+                        <article class="experience-entry">
+                            <div class="exp-header">
+                                <h3 class="exp-role">${exp.role || 'Job Role'}</h3>
+                                <span class="exp-dates">${dr}</span>
+                            </div>
+                            ${sub ? `<div class="exp-company-location">${sub}</div>` : ''}
+                            ${formatDescriptionToList(exp.description)}
+                        </article>
+                    `;
+                });
+                mainContent += `
+                        </div>
+                    </section>
+                    <div class="main-section-divider"></div>
+                `;
+            }
+
+
+
+            // 6. Achievements (on Main Page)
+            if (data.achievements && data.achievements.length > 0) {
+                mainContent += `
+                    <section class="main-section">
+                        <div class="main-section-title-wrap">
+                            <h2 class="main-section-title">Achievements</h2>
+                            <div class="main-section-underline"></div>
+                        </div>
+                        <ul class="desc-list">
+                `;
+                data.achievements.forEach(a => {
+                    mainContent += `<li>${a.title}</li>`;
+                });
+                mainContent += `
+                        </ul>
+                    </section>
+                    <div class="main-section-divider"></div>
+                `;
+            }
+
+
+
+            sheet.innerHTML = `
+                <div class="template-9-container">
+                    <aside class="template-9-sidebar">${sidebarContent}</aside>
+                    <main class="template-9-main">${mainContent}</main>
+                </div>
+            `;
+        } else if (currentTemplate === 10) {
+            // Render Profile Picture
+            let avatarHtml = '';
+            if (data.profile_image) {
+                avatarHtml = `<div class="t10-header-avatar"><img src="${data.profile_image}" alt="Avatar"></div>`;
+            }
+
+            // Contact Info
+            let contactsHtml = '';
+            if (data.phone || data.email || data.location || data.linkedin || data.github || data.portfolio) {
+                if (data.phone) contactsHtml += `<div class="t10-contact-item"><i class="fa-solid fa-phone"></i><span>${data.phone}</span></div>`;
+                if (data.email) contactsHtml += `<div class="t10-contact-item"><i class="fa-regular fa-envelope"></i><span><a href="mailto:${data.email}">${data.email}</a></span></div>`;
+                if (data.location) contactsHtml += `<div class="t10-contact-item"><i class="fa-solid fa-location-dot"></i><span>${data.location}</span></div>`;
+                if (data.linkedin) contactsHtml += `<div class="t10-contact-item"><i class="fa-brands fa-linkedin-in"></i><span><a href="${formatHref(data.linkedin)}" target="_blank">${data.linkedin.replace(/^(https?:\/\/)?(www\.)?linkedin\.com\/in\//, '')}</a></span></div>`;
+                if (data.github) contactsHtml += `<div class="t10-contact-item"><i class="fa-brands fa-github"></i><span><a href="${formatHref(data.github)}" target="_blank">${data.github.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '')}</a></span></div>`;
+                if (data.portfolio) contactsHtml += `<div class="t10-contact-item"><i class="fa-solid fa-globe"></i><span><a href="${formatHref(data.portfolio)}" target="_blank">${data.portfolio}</a></span></div>`;
+            }
+
+            // Summary
+            let summaryHtml = '';
+            if (data.summary) {
+                summaryHtml = `
+                    <section class="t10-section">
+                        <h2 class="t10-section-title">${nameSummary}</h2>
+                        <p class="t10-summary">${data.summary}</p>
+                    </section>
+                `;
+            }
+
+            // Experience (Timeline style)
+            let experienceHtml = '';
+            if (data.experience && data.experience.length > 0) {
+                experienceHtml += `
+                    <section class="t10-section">
+                        <h2 class="t10-section-title">${nameExperience}</h2>
+                        <div class="t10-timeline">
+                `;
+                data.experience.forEach(exp => {
+                    const dr = formatDateString(exp.start_date) + ' — ' + (exp.current ? 'Present' : formatDateString(exp.end_date));
+                    experienceHtml += `
+                        <div class="t10-timeline-entry">
+                            <div class="t10-timeline-left">
+                                <div class="t10-timeline-dates">${dr}</div>
+                                <div class="t10-timeline-location">${exp.location || ''}</div>
+                            </div>
+                            <div class="t10-timeline-axis"></div>
+                            <div class="t10-timeline-right">
+                                <h3 class="t10-timeline-title">${exp.role || ''}</h3>
+                                <h4 class="t10-timeline-subtitle">${exp.company || ''}</h4>
+                                ${formatDescriptionToList(exp.description)}
+                            </div>
+                        </div>
+                    `;
+                });
+                experienceHtml += `</div></section>`;
+            }
+
+            // Education (Timeline style)
+            let educationHtml = '';
+            if (data.education && data.education.length > 0) {
+                educationHtml += `
+                    <section class="t10-section">
+                        <h2 class="t10-section-title">${nameEducation}</h2>
+                        <div class="t10-timeline">
+                `;
+                data.education.forEach(edu => {
+                    const dateStr = (edu.start_date ? formatDateString(edu.start_date) + ' — ' : '') + formatDateString(edu.end_date);
+                    const degreeField = edu.degree && edu.field ? `${edu.degree} in ${edu.field}` : (edu.degree || edu.field || '');
+                    const gpaVal = edu.gpa ? (edu.gpa.toLowerCase().includes('gpa') || edu.gpa.toLowerCase().includes('percentage') ? edu.gpa : `CGPA: ${edu.gpa}`) : '';
+                    educationHtml += `
+                        <div class="t10-timeline-entry">
+                            <div class="t10-timeline-left">
+                                <div class="t10-timeline-dates">${dateStr}</div>
+                                <div class="t10-timeline-location">${gpaVal}</div>
+                            </div>
+                            <div class="t10-timeline-axis"></div>
+                            <div class="t10-timeline-right">
+                                <h3 class="t10-timeline-title">${degreeField}</h3>
+                                <h4 class="t10-timeline-subtitle">${edu.school || ''}</h4>
+                            </div>
+                        </div>
+                    `;
+                });
+                educationHtml += `</div></section>`;
+            }
+
+            // Projects (Timeline style)
+            let projectsHtml = '';
+            if (data.projects && data.projects.length > 0) {
+                projectsHtml += `
+                    <section class="t10-section">
+                        <h2 class="t10-section-title">${nameProjects}</h2>
+                        <div class="t10-timeline">
+                `;
+                data.projects.forEach((proj, idx) => {
+                    const dateStr = proj.end_date ? formatDateString(proj.end_date) : (proj.start_date ? formatDateString(proj.start_date) : '');
+                    const techHtml = proj.technologies ? `<div class="t10-timeline-tech">Tech Stack: <em>${proj.technologies}</em></div>` : '';
+                    
+                    let linkHtml = '';
+                    if (proj.link) {
+                        const cleanLink = proj.link.trim().replace(/^(https?:\/\/)?(www\.)?/, '');
+                        const isGithub = cleanLink.toLowerCase().includes('github.com');
+                        const label = isGithub ? '<i class="fa-brands fa-github"></i> GitHub' : '<i class="fa-solid fa-earth-americas"></i> Live Demo';
+                        linkHtml = `<div class="t10-timeline-links"><a href="${formatHref(proj.link)}" target="_blank" class="t10-timeline-link-item">${label}</a></div>`;
+                    }
+
+                    projectsHtml += `
+                        <div class="t10-timeline-entry">
+                            <div class="t10-timeline-left">
+                                <div class="t10-timeline-dates">${dateStr}</div>
+                            </div>
+                            <div class="t10-timeline-axis"></div>
+                            <div class="t10-timeline-right">
+                                <h3 class="t10-timeline-title">${idx + 1}. ${proj.name || 'Project'}</h3>
+                                ${techHtml}
+                                ${linkHtml}
+                                ${formatDescriptionToList(proj.description)}
+                            </div>
+                        </div>
+                    `;
+                });
+                projectsHtml += `</div></section>`;
+            }
+
+            // Skills (Pill boxes)
+            let skillsHtml = '';
+            if (data.skills && data.skills.length > 0) {
+                skillsHtml += `
+                    <section class="t10-section">
+                        <h2 class="t10-section-title">${nameSkills}</h2>
+                        <div class="t10-skills-wrap">
+                `;
+                data.skills.forEach(s => {
+                    s.list.split(',').forEach(item => {
+                        if (item.trim()) {
+                            skillsHtml += `<div class="t10-skill-badge">${item.trim()}</div>`;
+                        }
+                    });
+                });
+                skillsHtml += `</div></section>`;
+            }
+
+            // Certifications
+            let certsHtml = '';
+            if (data.certifications && data.certifications.length > 0) {
+                certsHtml += `
+                    <section class="t10-section">
+                        <h2 class="t10-section-title">Certifications</h2>
+                        <ul class="desc-list">
+                `;
+                data.certifications.forEach(c => {
+                    certsHtml += `<li><strong>${c.name}</strong>${c.issuer ? ` – ${c.issuer}` : ''}</li>`;
+                });
+                certsHtml += `</ul></section>`;
+            }
+
+            // Achievements
+            let achievementsHtml = '';
+            if (data.achievements && data.achievements.length > 0) {
+                achievementsHtml += `
+                    <section class="t10-section">
+                        <h2 class="t10-section-title">Achievements</h2>
+                        <ul class="desc-list">
+                `;
+                data.achievements.forEach(a => {
+                    achievementsHtml += `<li>${a.title}</li>`;
+                });
+                achievementsHtml += `</ul></section>`;
+            }
+
+            sheet.innerHTML = `
+                <div class="t10-header">
+                    <div class="t10-header-left">
+                        <h1 class="t10-name">${data.first_name||''} ${data.last_name||''}</h1>
+                        <div class="t10-subtitle">${data.job_title||''}</div>
+                        <div class="t10-contacts">${contactsHtml}</div>
+                    </div>
+                    ${avatarHtml}
+                </div>
+                ${summaryHtml}
+                ${experienceHtml}
+                ${educationHtml}
+                ${projectsHtml}
+                ${skillsHtml}
+                ${certsHtml}
+                ${achievementsHtml}
+            `;
+        } else if (currentTemplate === 11) {
+            // Render template 11 (Enhancv Split Teal)
+            let t11AvatarHtml = '';
+            if (data.profile_image) {
+                t11AvatarHtml = `<div class="t11-sidebar-avatar-wrap"><div class="t11-sidebar-avatar"><img src="${data.profile_image}" alt="Avatar"></div></div>`;
+            }
+
+            let t11SkillsHtml = '';
+            if (data.skills && data.skills.length > 0) {
+                t11SkillsHtml += `
+                    <section class="t11-sidebar-section">
+                        <h3 class="t11-sidebar-section-title">${nameSkills}</h3>
+                        <div class="t11-sidebar-skills">
+                `;
+                data.skills.forEach(s => {
+                    s.list.split(',').forEach(item => {
+                        if (item.trim()) {
+                            t11SkillsHtml += `<span class="t11-sidebar-skill-pill">${item.trim()}</span>`;
+                        }
+                    });
+                });
+                t11SkillsHtml += `</div></section>`;
+            }
+
+            let t11AchievementsHtml = '';
+            if (data.achievements && data.achievements.length > 0) {
+                t11AchievementsHtml += `
+                    <section class="t11-sidebar-section">
+                        <h3 class="t11-sidebar-section-title">Key Achievements</h3>
+                        <div class="t11-sidebar-achievements">
+                `;
+                data.achievements.forEach(a => {
+                    t11AchievementsHtml += `
+                        <div class="t11-sidebar-achievement-item">
+                            <i class="fa-solid fa-star t11-sidebar-achievement-icon"></i>
+                            <div class="t11-sidebar-achievement-text">${a.title}</div>
+                        </div>
+                    `;
+                });
+                t11AchievementsHtml += `</div></section>`;
+            }
+
+            let t11CertsHtml = '';
+            if (data.certifications && data.certifications.length > 0) {
+                t11CertsHtml += `
+                    <section class="t11-sidebar-section">
+                        <h3 class="t11-sidebar-section-title">Certifications</h3>
+                        <ul class="t11-sidebar-certs-list">
+                `;
+                data.certifications.forEach(c => {
+                    t11CertsHtml += `<li><strong>${c.name}</strong>${c.issuer ? ` – ${c.issuer}` : ''}</li>`;
+                });
+                t11CertsHtml += `</ul></section>`;
+            }
+
+            let sidebarContent = `
+                ${t11AvatarHtml}
+                ${t11SkillsHtml}
+                ${t11AchievementsHtml}
+                ${t11CertsHtml}
+                <div class="t11-sidebar-footer">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Powered by ResuFit
+                </div>
+            `;
+
+            // Main panel
+            let mainContent = '';
+
+            let t11HeaderHtml = `
+                <header class="t11-header">
+                    <h1 class="t11-name">${data.first_name||''} ${data.last_name||''}</h1>
+                    <div class="t11-subtitle">${data.job_title||''}</div>
+                    <div class="t11-contacts">
+            `;
+            if (data.phone) t11HeaderHtml += `<div class="t11-contact-item"><i class="fa-solid fa-phone"></i><span>${data.phone}</span></div>`;
+            if (data.email) t11HeaderHtml += `<div class="t11-contact-item"><i class="fa-regular fa-envelope"></i><span><a href="mailto:${data.email}">${data.email}</a></span></div>`;
+            if (data.location) t11HeaderHtml += `<div class="t11-contact-item"><i class="fa-solid fa-location-dot"></i><span>${data.location}</span></div>`;
+            if (data.linkedin) t11HeaderHtml += `<div class="t11-contact-item"><i class="fa-brands fa-linkedin-in"></i><span><a href="${formatHref(data.linkedin)}" target="_blank">${data.linkedin.replace(/^(https?:\/\/)?(www\.)?linkedin\.com\/in\//, '')}</a></span></div>`;
+            if (data.github) t11HeaderHtml += `<div class="t11-contact-item"><i class="fa-brands fa-github"></i><span><a href="${formatHref(data.github)}" target="_blank">${data.github.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '')}</a></span></div>`;
+            if (data.portfolio) t11HeaderHtml += `<div class="t11-contact-item"><i class="fa-solid fa-globe"></i><span><a href="${formatHref(data.portfolio)}" target="_blank">${data.portfolio}</a></span></div>`;
+            t11HeaderHtml += `</div></header>`;
+
+            let t11SummaryHtml = '';
+            if (data.summary) {
+                t11SummaryHtml = `
+                    <section class="t11-section">
+                        <h2 class="t11-section-title">${nameSummary}</h2>
+                        <p class="t11-summary">${data.summary}</p>
+                    </section>
+                `;
+            }
+
+            let t11ExperienceHtml = '';
+            if (data.experience && data.experience.length > 0) {
+                t11ExperienceHtml += `
+                    <section class="t11-section">
+                        <h2 class="t11-section-title">${nameExperience}</h2>
+                        <div class="t11-main-entries">
+                `;
+                data.experience.forEach(exp => {
+                    const dr = formatDateString(exp.start_date) + ' — ' + (exp.current ? 'Present' : formatDateString(exp.end_date));
+                    let sub = exp.company ? exp.company : '';
+                    t11ExperienceHtml += `
+                        <article class="t11-entry">
+                            <div class="t11-entry-header">
+                                <h3 class="t11-entry-title">${exp.role || ''}</h3>
+                                <span class="t11-entry-dates">${dr}</span>
+                            </div>
+                            <div class="t11-entry-subheader">
+                                <span>${sub}</span>
+                                <span class="t11-entry-location">${exp.location || ''}</span>
+                            </div>
+                            ${formatDescriptionToList(exp.description)}
+                        </article>
+                    `;
+                });
+                t11ExperienceHtml += `</div></section>`;
+            }
+
+            let t11EducationHtml = '';
+            if (data.education && data.education.length > 0) {
+                t11EducationHtml += `
+                    <section class="t11-section">
+                        <h2 class="t11-section-title">${nameEducation}</h2>
+                        <div class="t11-main-entries">
+                `;
+                data.education.forEach(edu => {
+                    const dateStr = (edu.start_date ? formatDateString(edu.start_date) + ' — ' : '') + formatDateString(edu.end_date);
+                    const degreeField = edu.degree && edu.field ? `${edu.degree} in ${edu.field}` : (edu.degree || edu.field || '');
+                    const gpaVal = edu.gpa ? (edu.gpa.toLowerCase().includes('gpa') || edu.gpa.toLowerCase().includes('percentage') ? edu.gpa : `CGPA: ${edu.gpa}`) : '';
+                    t11EducationHtml += `
+                        <article class="t11-entry">
+                            <div class="t11-entry-header">
+                                <h3 class="t11-entry-title">${degreeField}</h3>
+                                <span class="t11-entry-dates">${dateStr}</span>
+                            </div>
+                            <div class="t11-entry-subheader">
+                                <span>${edu.school || ''}</span>
+                                <span class="t11-entry-location">${gpaVal}</span>
+                            </div>
+                        </article>
+                    `;
+                });
+                t11EducationHtml += `</div></section>`;
+            }
+
+            let t11ProjectsHtml = '';
+            if (data.projects && data.projects.length > 0) {
+                t11ProjectsHtml += `
+                    <section class="t11-section">
+                        <h2 class="t11-section-title">${nameProjects}</h2>
+                        <div class="t11-main-entries">
+                `;
+                data.projects.forEach((proj, idx) => {
+                    const dateStr = proj.end_date ? formatDateString(proj.end_date) : (proj.start_date ? formatDateString(proj.start_date) : '');
+                    const techHtml = proj.technologies ? `<div class="t11-entry-tech">Tech Stack: <em>${proj.technologies}</em></div>` : '';
+                    
+                    let linkHtml = '';
+                    if (proj.link) {
+                        const cleanLink = proj.link.trim().replace(/^(https?:\/\/)?(www\.)?/, '');
+                        const isGithub = cleanLink.toLowerCase().includes('github.com');
+                        const label = isGithub ? '<i class="fa-brands fa-github"></i> GitHub' : '<i class="fa-solid fa-earth-americas"></i> Live Demo';
+                        linkHtml = `<div class="t11-entry-links"><a href="${formatHref(proj.link)}" target="_blank" class="t11-entry-link-item">${label}</a></div>`;
+                    }
+
+                    t11ProjectsHtml += `
+                        <article class="t11-entry">
+                            <div class="t11-entry-header">
+                                <h3 class="t11-entry-title">${idx + 1}. ${proj.name || 'Project'}</h3>
+                                <span class="t11-entry-dates">${dateStr}</span>
+                            </div>
+                            ${techHtml}
+                            ${linkHtml}
+                            ${formatDescriptionToList(proj.description)}
+                        </article>
+                    `;
+                });
+                t11ProjectsHtml += `</div></section>`;
+            }
+
+            let t11LanguagesHtml = '';
+            if (data.languages && data.languages.length > 0) {
+                t11LanguagesHtml += `
+                    <section class="t11-section">
+                        <h2 class="t11-section-title">Languages</h2>
+                        <div class="t11-langs-grid">
+                `;
+                data.languages.forEach(l => {
+                    let dotsCount = 4;
+                    const lvl = (l.level || '').toLowerCase();
+                    if (lvl.includes('native') || lvl.includes('bilingual')) dotsCount = 5;
+                    else if (lvl.includes('full') || lvl.includes('fluent')) dotsCount = 5;
+                    else if (lvl.includes('professional') || lvl.includes('working')) dotsCount = 4;
+                    else if (lvl.includes('intermediate') || lvl.includes('conversational')) dotsCount = 3;
+                    else if (lvl.includes('elementary') || lvl.includes('basic')) dotsCount = 2;
+
+                    let dotsHtml = '';
+                    for (let i = 1; i <= 5; i++) {
+                        dotsHtml += `<div class="t11-rating-dot ${i <= dotsCount ? 'active' : ''}"></div>`;
+                    }
+
+                    t11LanguagesHtml += `
+                        <div class="t11-lang-row">
+                            <span class="t11-lang-name">${l.language}</span>
+                            <div class="t11-lang-rating-wrap">
+                                <span class="t11-lang-level">${l.level || ''}</span>
+                                <div class="t11-rating-dots">${dotsHtml}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                t11LanguagesHtml += `</div></section>`;
+            }
+
+            sheet.innerHTML = `
+                <div class="t11-container">
+                    <aside class="t11-sidebar">${sidebarContent}</aside>
+                    <main class="t11-main">
+                        ${t11HeaderHtml}
+                        ${t11SummaryHtml}
+                        ${t11ExperienceHtml}
+                        ${t11EducationHtml}
+                        ${t11ProjectsHtml}
+                        ${t11LanguagesHtml}
+                    </main>
+                </div>
+            `;
+        } else if (currentTemplate === 12) {
+            // Render Profile Picture
+            let avatarHtml = '';
+            if (data.profile_image) {
+                avatarHtml = `<div class="t12-sidebar-avatar-wrap"><div class="t12-sidebar-avatar"><img src="${data.profile_image}" alt="Avatar"></div></div>`;
+            }
+
+            // Contact Info
+            let contactHtml = '';
+            if (data.phone || data.email || data.location || data.linkedin || data.github || data.portfolio) {
+                contactHtml += `<div class="t12-sidebar-section"><h3 class="t12-sidebar-section-title">Contact</h3><div class="t12-sidebar-contacts">`;
+                if (data.phone) contactHtml += `<div class="t12-sidebar-contact-item"><i class="fa-solid fa-phone"></i><span>${data.phone}</span></div>`;
+                if (data.location) contactHtml += `<div class="t12-sidebar-contact-item"><i class="fa-solid fa-location-dot"></i><span>${data.location}</span></div>`;
+                if (data.email) contactHtml += `<div class="t12-sidebar-contact-item"><i class="fa-regular fa-envelope"></i><span><a href="mailto:${data.email}">${data.email}</a></span></div>`;
+                if (data.linkedin) contactHtml += `<div class="t12-sidebar-contact-item"><i class="fa-brands fa-linkedin-in"></i><span><a href="${formatHref(data.linkedin)}" target="_blank">${data.linkedin.replace(/^(https?:\/\/)?(www\.)?linkedin\.com\/in\//, '')}</a></span></div>`;
+                if (data.github) contactHtml += `<div class="t12-sidebar-contact-item"><i class="fa-brands fa-github"></i><span><a href="${formatHref(data.github)}" target="_blank">${data.github.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '')}</a></span></div>`;
+                if (data.portfolio) contactHtml += `<div class="t12-sidebar-contact-item"><i class="fa-solid fa-globe"></i><span><a href="${formatHref(data.portfolio)}" target="_blank">${data.portfolio}</a></span></div>`;
+                contactHtml += `</div></div>`;
+            }
+
+            // Summary
+            let summaryHtml = '';
+            if (data.summary) {
+                summaryHtml = `
+                    <div class="t12-sidebar-section">
+                        <h3 class="t12-sidebar-section-title">Professional Profile</h3>
+                        <p style="line-height:1.5; margin:0;">${data.summary}</p>
+                    </div>
+                `;
+            }
+
+            // Skills
+            let skillsHtml = '';
+            if (data.skills && data.skills.length > 0) {
+                skillsHtml += `<div class="t12-sidebar-section"><h3 class="t12-sidebar-section-title">${nameSkills}</h3><ul class="t12-sidebar-skills-list">`;
+                data.skills.forEach(s => {
+                    s.list.split(',').forEach(item => {
+                        if (item.trim()) {
+                            skillsHtml += `<li>${item.trim()}</li>`;
+                        }
+                    });
+                });
+                skillsHtml += `</ul></div>`;
+            }
+
+            let sidebarContent = `
+                ${avatarHtml}
+                <div class="t12-sidebar-content-padding">
+                    ${contactHtml}
+                    ${summaryHtml}
+                    ${skillsHtml}
+                </div>
+            `;
+
+            // Right main content
+            let mainContent = '';
+
+            let headerHtml = `
+                <header class="t12-header">
+                    <h1 class="t12-name">${data.first_name||''} ${data.last_name||''}</h1>
+                    <div class="t12-subtitle">${data.job_title||''}</div>
+                </header>
+            `;
+
+            // Experience
+            let experienceHtml = '';
+            if (data.experience && data.experience.length > 0) {
+                experienceHtml += `
+                    <section class="t12-section">
+                        <div class="t12-section-title-wrap">
+                            <span class="t12-section-icon"><i class="fa-solid fa-briefcase"></i></span>
+                            <h2 class="t12-section-title">${nameExperience}</h2>
+                        </div>
+                        <div class="t12-main-entries">
+                `;
+                data.experience.forEach(exp => {
+                    const dr = formatDateString(exp.start_date) + ' — ' + (exp.current ? 'Present' : formatDateString(exp.end_date));
+                    let sub = exp.company ? exp.company : '';
+                    if (exp.location) sub += ` – ${exp.location}`;
+                    experienceHtml += `
+                        <article class="t12-entry">
+                            <h3 class="t12-entry-title">${exp.role || ''} <span>– ${sub}</span></h3>
+                            <div class="t12-entry-meta">${dr}</div>
+                            ${formatDescriptionToList(exp.description)}
+                        </article>
+                    `;
+                });
+                experienceHtml += `</div></section>`;
+            }
+
+            // Education
+            let educationHtml = '';
+            if (data.education && data.education.length > 0) {
+                educationHtml += `
+                    <section class="t12-section">
+                        <div class="t12-section-title-wrap">
+                            <span class="t12-section-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                            <h2 class="t12-section-title">${nameEducation}</h2>
+                        </div>
+                        <div class="t12-main-entries">
+                `;
+                data.education.forEach(edu => {
+                    const dateStr = (edu.start_date ? formatDateString(edu.start_date) + ' — ' : '') + formatDateString(edu.end_date);
+                    const degreeField = edu.degree && edu.field ? `${edu.degree} in ${edu.field}` : (edu.degree || edu.field || '');
+                    let sub = edu.school || '';
+                    if (edu.location) sub += `, ${edu.location}`;
+                    const gpaVal = edu.gpa ? (edu.gpa.toLowerCase().includes('gpa') || edu.gpa.toLowerCase().includes('percentage') ? edu.gpa : `GPA: ${edu.gpa}`) : '';
+                    educationHtml += `
+                        <article class="t12-entry">
+                            <h3 class="t12-entry-title">${degreeField} <span>– ${sub}</span></h3>
+                            <div class="t12-entry-meta">${dateStr} ${gpaVal ? `| ${gpaVal}` : ''}</div>
+                        </article>
+                    `;
+                });
+                educationHtml += `</div></section>`;
+            }
+
+            // Projects
+            let projectsHtml = '';
+            if (data.projects && data.projects.length > 0) {
+                projectsHtml += `
+                    <section class="t12-section">
+                        <div class="t12-section-title-wrap">
+                            <span class="t12-section-icon"><i class="fa-solid fa-diagram-project"></i></span>
+                            <h2 class="t12-section-title">${nameProjects}</h2>
+                        </div>
+                        <div class="t12-main-entries">
+                `;
+                data.projects.forEach((proj, idx) => {
+                    const dateStr = proj.end_date ? formatDateString(proj.end_date) : (proj.start_date ? formatDateString(proj.start_date) : '');
+                    const techHtml = proj.technologies ? `<div class="t12-entry-tech">Tech Stack: <em>${proj.technologies}</em></div>` : '';
+                    let linkHtml = '';
+                    if (proj.link) {
+                        const cleanLink = proj.link.trim().replace(/^(https?:\/\/)?(www\.)?/, '');
+                        const isGithub = cleanLink.toLowerCase().includes('github.com');
+                        const label = isGithub ? '<i class="fa-brands fa-github"></i> GitHub' : '<i class="fa-solid fa-earth-americas"></i> Live Demo';
+                        linkHtml = `<div class="t12-entry-links"><a href="${formatHref(proj.link)}" target="_blank" class="t12-entry-link-item">${label}</a></div>`;
+                    }
+                    projectsHtml += `
+                        <article class="t12-entry">
+                            <h3 class="t12-entry-title">${idx + 1}. ${proj.name || 'Project'}</h3>
+                            <div class="t12-entry-meta">${dateStr}</div>
+                            ${techHtml}
+                            ${linkHtml}
+                            ${formatDescriptionToList(proj.description)}
+                        </article>
+                    `;
+                });
+                projectsHtml += `</div></section>`;
+            }
+
+            // Certifications
+            let certsHtml = '';
+            if (data.certifications && data.certifications.length > 0) {
+                certsHtml += `
+                    <section class="t12-section">
+                        <div class="t12-section-title-wrap">
+                            <span class="t12-section-icon"><i class="fa-solid fa-certificate"></i></span>
+                            <h2 class="t12-section-title">Certifications</h2>
+                        </div>
+                        <div class="t12-main-entries">
+                `;
+                data.certifications.forEach(c => {
+                    certsHtml += `
+                        <article class="t12-entry">
+                            <h3 class="t12-entry-title">${c.name} <span>${c.issuer ? `– ${c.issuer}` : ''}</span></h3>
+                        </article>
+                    `;
+                });
+                certsHtml += `</div></section>`;
+            }
+
+            sheet.innerHTML = `
+                <div class="t12-container">
+                    <aside class="t12-sidebar">${sidebarContent}</aside>
+                    <main class="t12-main">
+                        ${headerHtml}
+                        ${experienceHtml}
+                        ${educationHtml}
+                        ${projectsHtml}
+                        ${certsHtml}
+                    </main>
+                </div>
+            `;
+        } else if (currentTemplate === 13) {
+            // Render template 13 (Enhancv Overlap Header)
+            let avatarHtml = '';
+            if (data.profile_image) {
+                avatarHtml = `<div class="t13-header-avatar-wrap"><div class="t13-header-avatar"><img src="${data.profile_image}" alt="Avatar"></div></div>`;
+            }
+
+            // Contact Info
+            let contactsHtml = '';
+            if (data.phone || data.email || data.location || data.linkedin || data.github || data.portfolio) {
+                contactsHtml += `<div class="t13-contacts">`;
+                if (data.phone) contactsHtml += `<div class="t13-contact-item"><i class="fa-solid fa-phone"></i><span>${data.phone}</span></div>`;
+                if (data.location) contactsHtml += `<div class="t13-contact-item"><i class="fa-solid fa-location-dot"></i><span>${data.location}</span></div>`;
+                if (data.email) contactsHtml += `<div class="t13-contact-item"><i class="fa-regular fa-envelope"></i><span><a href="mailto:${data.email}">${data.email}</a></span></div>`;
+                if (data.linkedin) contactsHtml += `<div class="t13-contact-item"><i class="fa-brands fa-linkedin-in"></i><span><a href="${formatHref(data.linkedin)}" target="_blank">${data.linkedin.replace(/^(https?:\/\/)?(www\.)?linkedin\.com\/in\//, '')}</a></span></div>`;
+                if (data.github) contactsHtml += `<div class="t13-contact-item"><i class="fa-brands fa-github"></i><span><a href="${formatHref(data.github)}" target="_blank">${data.github.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '')}</a></span></div>`;
+                if (data.portfolio) contactsHtml += `<div class="t13-contact-item"><i class="fa-solid fa-globe"></i><span><a href="${formatHref(data.portfolio)}" target="_blank">${data.portfolio}</a></span></div>`;
+                contactsHtml += `</div>`;
+            }
+
+            let headerContent = `
+                <div class="t13-header">
+                    <div class="t13-header-left">
+                        <h1 class="t13-name">${data.first_name||''} ${data.last_name||''}</h1>
+                        <div class="t13-subtitle">${data.job_title||''}</div>
+                        ${contactsHtml}
+                    </div>
+                    ${avatarHtml}
+                </div>
+            `;
+
+            // Left Main column
+            let mainContent = '';
+
+            // Experience
+            if (data.experience && data.experience.length > 0) {
+                mainContent += `
+                    <section class="t13-section">
+                        <h2 class="t13-section-title">${nameExperience}</h2>
+                        <div class="t13-timeline">
+                `;
+                data.experience.forEach(exp => {
+                    const dr = formatDateString(exp.start_date) + ' — ' + (exp.current ? 'Present' : formatDateString(exp.end_date));
+                    let sub = exp.company ? exp.company : '';
+                    if (exp.location) sub += `, ${exp.location}`;
+                    mainContent += `
+                        <div class="t13-timeline-entry">
+                            <div class="t13-timeline-left">${dr}</div>
+                            <div class="t13-timeline-axis"></div>
+                            <div class="t13-timeline-right">
+                                <h3 class="t13-timeline-title">${exp.role || ''}</h3>
+                                <h4 class="t13-timeline-subtitle">${sub}</h4>
+                                ${formatDescriptionToList(exp.description)}
+                            </div>
+                        </div>
+                    `;
+                });
+                mainContent += `</div></section>`;
+            }
+
+            // Projects
+            if (data.projects && data.projects.length > 0) {
+                mainContent += `
+                    <section class="t13-section">
+                        <h2 class="t13-section-title">${nameProjects}</h2>
+                        <div class="t13-timeline">
+                `;
+                data.projects.forEach((proj, idx) => {
+                    const dateStr = proj.end_date ? formatDateString(proj.end_date) : (proj.start_date ? formatDateString(proj.start_date) : '');
+                    const techHtml = proj.technologies ? `<div class="t13-timeline-tech">Tech Stack: <em>${proj.technologies}</em></div>` : '';
+                    let linkHtml = '';
+                    if (proj.link) {
+                        const cleanLink = proj.link.trim().replace(/^(https?:\/\/)?(www\.)?/, '');
+                        const isGithub = cleanLink.toLowerCase().includes('github.com');
+                        const label = isGithub ? '<i class="fa-brands fa-github"></i> GitHub' : '<i class="fa-solid fa-earth-americas"></i> Live Demo';
+                        linkHtml = `<div class="t13-timeline-links"><a href="${formatHref(proj.link)}" target="_blank" class="t13-timeline-link-item">${label}</a></div>`;
+                    }
+                    mainContent += `
+                        <div class="t13-timeline-entry">
+                            <div class="t13-timeline-left">${dateStr}</div>
+                            <div class="t13-timeline-axis"></div>
+                            <div class="t13-timeline-right">
+                                <h3 class="t13-timeline-title">${idx + 1}. ${proj.name || 'Project'}</h3>
+                                ${techHtml}
+                                ${linkHtml}
+                                ${formatDescriptionToList(proj.description)}
+                            </div>
+                        </div>
+                    `;
+                });
+                mainContent += `</div></section>`;
+            }
+
+            // Right Sidebar Column
+            let sidebarContent = '';
+
+            // Profile
+            if (data.summary) {
+                sidebarContent += `
+                    <div class="t13-sidebar-item">
+                        <h3 class="t13-sidebar-item-title">Profile</h3>
+                        <p class="t13-summary">${data.summary}</p>
+                    </div>
+                `;
+            }
+
+            // Education
+            if (data.education && data.education.length > 0) {
+                sidebarContent += `<div class="t13-sidebar-item"><h3 class="t13-sidebar-item-title">${nameEducation}</h3><ul class="t13-sidebar-bullets">`;
+                data.education.forEach(edu => {
+                    const dateStr = (edu.start_date ? formatDateString(edu.start_date) + ' — ' : '') + formatDateString(edu.end_date);
+                    const degreeField = edu.degree && edu.field ? `${edu.degree} in ${edu.field}` : (edu.degree || edu.field || '');
+                    const gpaVal = edu.gpa ? ` (CGPA: ${edu.gpa})` : '';
+                    sidebarContent += `<li><strong>${degreeField}</strong> at ${edu.school || ''} – ${dateStr}${gpaVal}</li>`;
+                });
+                sidebarContent += `</ul></div>`;
+            }
+
+            // Key Skills
+            if (data.skills && data.skills.length > 0) {
+                sidebarContent += `<div class="t13-sidebar-item"><h3 class="t13-sidebar-item-title">${nameSkills}</h3><ul class="t13-sidebar-bullets">`;
+                data.skills.forEach(s => {
+                    s.list.split(',').forEach(item => {
+                        if (item.trim()) {
+                            sidebarContent += `<li>${item.trim()}</li>`;
+                        }
+                    });
+                });
+                sidebarContent += `</ul></div>`;
+            }
+
+            // Languages
+            if (data.languages && data.languages.length > 0) {
+                sidebarContent += `<div class="t13-sidebar-item"><h3 class="t13-sidebar-item-title">Languages</h3><ul class="t13-sidebar-bullets">`;
+                data.languages.forEach(l => {
+                    sidebarContent += `<li><strong>${l.language}</strong>${l.level ? ` (${l.level})` : ''}</li>`;
+                });
+                sidebarContent += `</ul></div>`;
+            }
+
+            sheet.innerHTML = `
+                ${headerContent}
+                <div class="t13-body">
+                    <main class="t13-main">${mainContent}</main>
+                    <aside class="t13-sidebar">${sidebarContent}</aside>
+                </div>
+            `;
+        } else if (currentTemplate === 14) {
+            // Render template 14 (Enhancv Minimalist Split Sidebar)
+            let avatarHtml = '';
+            if (data.profile_image) {
+                avatarHtml = `<div class="t14-sidebar-avatar-wrap"><div class="t14-sidebar-avatar"><img src="${data.profile_image}" alt="Avatar"></div></div>`;
+            }
+
+            // Contact Info
+            let contactHtml = '';
+            if (data.phone || data.email || data.location || data.linkedin || data.github || data.portfolio) {
+                contactHtml += `<div class="t14-sidebar-section"><h3 class="t14-sidebar-section-title">Contact</h3><div class="t14-sidebar-contacts">`;
+                if (data.phone) contactHtml += `<div class="t14-sidebar-contact-item"><i class="fa-solid fa-phone"></i><span>${data.phone}</span></div>`;
+                if (data.location) contactHtml += `<div class="t14-sidebar-contact-item"><i class="fa-solid fa-location-dot"></i><span>${data.location}</span></div>`;
+                if (data.email) contactHtml += `<div class="t14-sidebar-contact-item"><i class="fa-regular fa-envelope"></i><span><a href="mailto:${data.email}">${data.email}</a></span></div>`;
+                if (data.linkedin) contactHtml += `<div class="t14-sidebar-contact-item"><i class="fa-brands fa-linkedin-in"></i><span><a href="${formatHref(data.linkedin)}" target="_blank">${data.linkedin.replace(/^(https?:\/\/)?(www\.)?linkedin\.com\/in\//, '')}</a></span></div>`;
+                if (data.github) contactHtml += `<div class="t14-sidebar-contact-item"><i class="fa-brands fa-github"></i><span><a href="${formatHref(data.github)}" target="_blank">${data.github.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '')}</a></span></div>`;
+                if (data.portfolio) contactHtml += `<div class="t14-sidebar-contact-item"><i class="fa-solid fa-globe"></i><span><a href="${formatHref(data.portfolio)}" target="_blank">${data.portfolio}</a></span></div>`;
+                contactHtml += `</div></div>`;
+            }
+
+            // Skills
+            let skillsHtml = '';
+            if (data.skills && data.skills.length > 0) {
+                skillsHtml += `<div class="t14-sidebar-section"><h3 class="t14-sidebar-section-title">${nameSkills}</h3><div class="t14-sidebar-contacts">`;
+                data.skills.forEach(s => {
+                    s.list.split(',').forEach(item => {
+                        if (item.trim()) {
+                            skillsHtml += `<div class="t14-sidebar-contact-item"><i class="fa-solid fa-check"></i><span>${item.trim()}</span></div>`;
+                        }
+                    });
+                });
+                skillsHtml += `</div></div>`;
+            }
+
+            // Languages
+            let languagesHtml = '';
+            if (data.languages && data.languages.length > 0) {
+                languagesHtml += `<div class="t14-sidebar-section"><h3 class="t14-sidebar-section-title">Languages</h3><div class="t14-sidebar-contacts">`;
+                data.languages.forEach(l => {
+                    languagesHtml += `<div class="t14-sidebar-contact-item"><i class="fa-solid fa-language"></i><span><strong>${l.language}</strong>${l.level ? ` (${l.level})` : ''}</span></div>`;
+                });
+                languagesHtml += `</div></div>`;
+            }
+
+            let sidebarContent = `
+                ${avatarHtml}
+                <h1 class="t14-sidebar-name">${data.first_name||''} ${data.last_name||''}</h1>
+                <div class="t14-sidebar-subtitle">${data.job_title||''}</div>
+                ${contactHtml}
+                ${skillsHtml}
+                ${languagesHtml}
+            `;
+
+            // Right main content
+            let mainContent = '';
+
+            // Summary
+            if (data.summary) {
+                mainContent += `
+                    <section class="t14-section">
+                        <h2 class="t14-section-title">Profile</h2>
+                        <p style="line-height: 1.6; margin:0; font-size: 0.9em;">${data.summary}</p>
+                    </section>
+                `;
+            }
+
+            // Experience
+            if (data.experience && data.experience.length > 0) {
+                mainContent += `
+                    <section class="t14-section">
+                        <h2 class="t14-section-title">${nameExperience}</h2>
+                        <div class="t14-main-entries">
+                `;
+                data.experience.forEach(exp => {
+                    const dr = formatDateString(exp.start_date) + ' — ' + (exp.current ? 'Present' : formatDateString(exp.end_date));
+                    let sub = exp.company ? exp.company : '';
+                    mainContent += `
+                        <article class="t14-entry">
+                            <div class="t14-entry-header">
+                                <h3 class="t14-entry-title">${exp.role || ''}</h3>
+                                <span class="t14-entry-dates">${dr}</span>
+                            </div>
+                            <div class="t14-entry-subheader">
+                                <span>${sub}</span>
+                                <span class="t14-entry-location">${exp.location || ''}</span>
+                            </div>
+                            ${formatDescriptionToList(exp.description)}
+                        </article>
+                    `;
+                });
+                mainContent += `</div></section>`;
+            }
+
+            // Education
+            if (data.education && data.education.length > 0) {
+                mainContent += `
+                    <section class="t14-section">
+                        <h2 class="t14-section-title">${nameEducation}</h2>
+                        <div class="t14-main-entries">
+                `;
+                data.education.forEach(edu => {
+                    const dateStr = (edu.start_date ? formatDateString(edu.start_date) + ' — ' : '') + formatDateString(edu.end_date);
+                    const degreeField = edu.degree && edu.field ? `${edu.degree} in ${edu.field}` : (edu.degree || edu.field || '');
+                    const gpaVal = edu.gpa ? (edu.gpa.toLowerCase().includes('gpa') || edu.gpa.toLowerCase().includes('percentage') ? edu.gpa : `GPA: ${edu.gpa}`) : '';
+                    mainContent += `
+                        <article class="t14-entry">
+                            <div class="t14-entry-header">
+                                <h3 class="t14-entry-title">${degreeField}</h3>
+                                <span class="t14-entry-dates">${dateStr}</span>
+                            </div>
+                            <div class="t14-entry-subheader">
+                                <span>${edu.school || ''}</span>
+                                <span class="t14-entry-location">${gpaVal}</span>
+                            </div>
+                        </article>
+                    `;
+                });
+                mainContent += `</div></section>`;
+            }
+
+            // Projects
+            if (data.projects && data.projects.length > 0) {
+                mainContent += `
+                    <section class="t14-section">
+                        <h2 class="t14-section-title">${nameProjects}</h2>
+                        <div class="t14-main-entries">
+                `;
+                data.projects.forEach((proj, idx) => {
+                    const dateStr = proj.end_date ? formatDateString(proj.end_date) : (proj.start_date ? formatDateString(proj.start_date) : '');
+                    const techHtml = proj.technologies ? `<div class="t14-entry-tech">Tech Stack: <em>${proj.technologies}</em></div>` : '';
+                    let linkHtml = '';
+                    if (proj.link) {
+                        const cleanLink = proj.link.trim().replace(/^(https?:\/\/)?(www\.)?/, '');
+                        const isGithub = cleanLink.toLowerCase().includes('github.com');
+                        const label = isGithub ? '<i class="fa-brands fa-github"></i> GitHub' : '<i class="fa-solid fa-earth-americas"></i> Live Demo';
+                        linkHtml = `<div class="t14-entry-links"><a href="${formatHref(proj.link)}" target="_blank" class="t14-entry-link-item">${label}</a></div>`;
+                    }
+                    mainContent += `
+                        <article class="t14-entry">
+                            <div class="t14-entry-header">
+                                <h3 class="t14-entry-title">${idx + 1}. ${proj.name || 'Project'}</h3>
+                                <span class="t14-entry-dates">${dateStr}</span>
+                            </div>
+                            ${techHtml}
+                            ${linkHtml}
+                            ${formatDescriptionToList(proj.description)}
+                        </article>
+                    `;
+                });
+                mainContent += `</div></section>`;
+            }
+
+            // Certifications
+            if (data.certifications && data.certifications.length > 0) {
+                mainContent += `
+                    <section class="t14-section">
+                        <h2 class="t14-section-title">Certifications</h2>
+                        <ul class="desc-list">
+                `;
+                data.certifications.forEach(c => {
+                    mainContent += `<li><strong>${c.name}</strong>${c.issuer ? ` – ${c.issuer}` : ''}</li>`;
+                });
+                mainContent += `</ul></section>`;
+            }
+
+            sheet.innerHTML = `
+                <div class="t14-container">
+                    <aside class="t14-sidebar">${sidebarContent}</aside>
+                    <main class="t14-main">${mainContent}</main>
+                </div>
+            `;
+        } else if (currentTemplate === 15) {
+            // Render template 15 (Classic Two-column Teal)
+            let avatarHtml = '';
+            if (data.profile_image) {
+                avatarHtml = `<div class="t15-header-center"><img src="${data.profile_image}" alt="Avatar"></div>`;
+            } else {
+                avatarHtml = `<div class="t15-header-center" style="display: flex; align-items: center; justify-content: center; background: #eee;"><i class="fa-solid fa-user" style="font-size: 40px; color: #ccc;"></i></div>`;
+            }
+
+            // Contact Info
+            let contactHtml = '';
+            if (data.phone || data.email || data.location || data.linkedin || data.github || data.portfolio) {
+                contactHtml += `<div class="t15-header-right">`;
+                if (data.phone) contactHtml += `<div class="t15-contact-item"><span>${data.phone}</span> <i class="fa-solid fa-phone"></i></div>`;
+                if (data.location) contactHtml += `<div class="t15-contact-item"><span>${data.location}</span> <i class="fa-solid fa-location-dot"></i></div>`;
+                if (data.email) contactHtml += `<div class="t15-contact-item"><span><a href="mailto:${data.email}">${data.email}</a></span> <i class="fa-regular fa-envelope"></i></div>`;
+                if (data.linkedin) contactHtml += `<div class="t15-contact-item"><span><a href="${formatHref(data.linkedin)}" target="_blank">${data.linkedin.replace(/^(https?:\/\/)?(www\.)?linkedin\.com\/in\//, '')}</a></span> <i class="fa-brands fa-linkedin-in"></i></div>`;
+                if (data.github) contactHtml += `<div class="t15-contact-item"><span><a href="${formatHref(data.github)}" target="_blank">${data.github.replace(/^(https?:\/\/)?(www\.)?github\.com\//, '')}</a></span> <i class="fa-brands fa-github"></i></div>`;
+                if (data.portfolio) contactHtml += `<div class="t15-contact-item"><span><a href="${formatHref(data.portfolio)}" target="_blank">${data.portfolio}</a></span> <i class="fa-solid fa-globe"></i></div>`;
+                contactHtml += `</div>`;
+            }
+
+            let headerContent = `
+                <div class="t15-header">
+                    <div class="t15-header-left">
+                        <h1 class="t15-name">${data.first_name||''} ${data.last_name||''}</h1>
+                        <div class="t15-subtitle">${data.job_title||''}</div>
+                    </div>
+                    ${avatarHtml}
+                    ${contactHtml}
+                </div>
+            `;
+
+            // Left side boxes
+            let leftContent = '';
+
+            // Profile summary
+            if (data.summary) {
+                leftContent += `
+                    <div class="t15-box">
+                        <h3 class="t15-box-header">Profile</h3>
+                        <div class="t15-box-content">${data.summary}</div>
+                    </div>
+                `;
+            }
+
+            // Education
+            if (data.education && data.education.length > 0) {
+                leftContent += `
+                    <div class="t15-box">
+                        <h3 class="t15-box-header">${nameEducation}</h3>
+                        <div class="t15-box-content">
+                            <ul class="t15-box-bullets">
+                `;
+                data.education.forEach(edu => {
+                    const dateStr = (edu.start_date ? formatDateString(edu.start_date) + ' — ' : '') + formatDateString(edu.end_date);
+                    const degreeField = edu.degree && edu.field ? `${edu.degree} in ${edu.field}` : (edu.degree || edu.field || '');
+                    const gpaVal = edu.gpa ? ` (GPA: ${edu.gpa})` : '';
+                    leftContent += `<li><strong>${degreeField}</strong><br>${edu.school || ''} – ${dateStr}${gpaVal}</li>`;
+                });
+                leftContent += `</ul></div></div>`;
+            }
+
+            // Skills
+            if (data.skills && data.skills.length > 0) {
+                leftContent += `
+                    <div class="t15-box">
+                        <h3 class="t15-box-header">${nameSkills}</h3>
+                        <div class="t15-box-content">
+                            <ul class="t15-box-bullets">
+                `;
+                data.skills.forEach(s => {
+                    s.list.split(',').forEach(item => {
+                        if (item.trim()) {
+                            leftContent += `<li>${item.trim()}</li>`;
+                        }
+                    });
+                });
+                leftContent += `</ul></div></div>`;
+            }
+
+            // Right side timeline details
+            let rightContent = '';
+
+            // Experience
+            if (data.experience && data.experience.length > 0) {
+                rightContent += `
+                    <section class="t15-section">
+                        <h2 class="t15-section-title">${nameExperience}</h2>
+                        <div class="t15-timeline">
+                `;
+                data.experience.forEach(exp => {
+                    const dr = formatDateString(exp.start_date) + ' — ' + (exp.current ? 'Present' : formatDateString(exp.end_date));
+                    let sub = exp.company ? exp.company : '';
+                    if (exp.location) sub += `, ${exp.location}`;
+                    rightContent += `
+                        <div class="t15-timeline-entry">
+                            <div class="t15-timeline-left">${dr}</div>
+                            <div class="t15-timeline-axis"></div>
+                            <div class="t15-timeline-right">
+                                <h3 class="t15-timeline-title">${exp.role || ''}</h3>
+                                <h4 class="t15-timeline-subtitle">${sub}</h4>
+                                ${formatDescriptionToList(exp.description)}
+                            </div>
+                        </div>
+                    `;
+                });
+                rightContent += `</div></section>`;
+            }
+
+            // Projects
+            if (data.projects && data.projects.length > 0) {
+                rightContent += `
+                    <section class="t15-section">
+                        <h2 class="t15-section-title">${nameProjects}</h2>
+                        <div class="t15-timeline">
+                `;
+                data.projects.forEach((proj, idx) => {
+                    const dateStr = proj.end_date ? formatDateString(proj.end_date) : (proj.start_date ? formatDateString(proj.start_date) : '');
+                    const techHtml = proj.technologies ? `<div class="t15-timeline-tech">Tech Stack: <em>${proj.technologies}</em></div>` : '';
+                    let linkHtml = '';
+                    if (proj.link) {
+                        const cleanLink = proj.link.trim().replace(/^(https?:\/\/)?(www\.)?/, '');
+                        const isGithub = cleanLink.toLowerCase().includes('github.com');
+                        const label = isGithub ? '<i class="fa-brands fa-github"></i> GitHub' : '<i class="fa-solid fa-earth-americas"></i> Live Demo';
+                        linkHtml = `<div class="t15-timeline-links"><a href="${formatHref(proj.link)}" target="_blank" class="t15-timeline-link-item">${label}</a></div>`;
+                    }
+                    rightContent += `
+                        <div class="t15-timeline-entry">
+                            <div class="t15-timeline-left">${dateStr}</div>
+                            <div class="t15-timeline-axis"></div>
+                            <div class="t15-timeline-right">
+                                <h3 class="t15-timeline-title">${idx + 1}. ${proj.name || 'Project'}</h3>
+                                ${techHtml}
+                                ${linkHtml}
+                                ${formatDescriptionToList(proj.description)}
+                            </div>
+                        </div>
+                    `;
+                });
+                rightContent += `</div></section>`;
+            }
+
+            // Certifications
+            if (data.certifications && data.certifications.length > 0) {
+                rightContent += `
+                    <section class="t15-section">
+                        <h2 class="t15-section-title">Certifications</h2>
+                        <div class="t15-timeline">
+                `;
+                data.certifications.forEach(c => {
+                    rightContent += `
+                        <div class="t15-timeline-entry">
+                            <div class="t15-timeline-left"></div>
+                            <div class="t15-timeline-axis"></div>
+                            <div class="t15-timeline-right">
+                                <h3 class="t15-timeline-title">${c.name}</h3>
+                                <h4 class="t15-timeline-subtitle">${c.issuer || ''}</h4>
+                            </div>
+                        </div>
+                    `;
+                });
+                rightContent += `</div></section>`;
+            }
+
+            sheet.innerHTML = `
+                ${headerContent}
+                <div class="t15-body">
+                    <aside class="t15-left">${leftContent}</aside>
+                    <main class="t15-right">${rightContent}</main>
+                </div>
+            `;
+        } else {
+            sheet.innerHTML = `<div class="header-section">${headerContent}</div><div class="body-section">${bodyContent}</div>`;
+        }
         applyThemeSettings();
     }
 
@@ -3509,10 +7440,13 @@
                 const parsed = JSON.parse(e.target.result);
                 if (parsed && typeof parsed === 'object') {
                     resumeData = parsed;
+                    if (!resumeData.profile_image) resumeData.profile_image = '';
+                    if (!resumeData.achievements) resumeData.achievements = [];
                     migrateProjectDates(resumeData);
                     saveToCache(); syncStateToForm();
                     renderExperienceList(); renderProjectList(); renderEducationList();
                     renderSkillsList(); renderCertificationList(); renderLanguageList();
+                    renderAchievementList();
                     renderPreview(); updateATSChecklist();
                     alert("Resume data imported successfully!");
                 } else { alert("Invalid JSON format."); }
