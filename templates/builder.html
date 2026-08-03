@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&family=Fira+Code:wght@400;500&family=Outfit:wght@400;500;600;700;800&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     
     <style>
         /* Embedded view overrides */
@@ -3186,8 +3188,8 @@
         }
 
         .template-14 .t14-sidebar-avatar {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             border: 3px solid rgba(0,0,0,0.05);
             overflow: hidden;
@@ -4676,6 +4678,32 @@
     </div>
 </div>
 
+<!-- CROP PHOTO MODAL -->
+<div id="cropperModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 520px; width: 95%;">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-crop-simple"></i> Crop Profile Photo</h3>
+            <button class="action-icon-btn" onclick="closeCropperModal()" style="border: none; background: transparent;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div style="padding: 20px; text-align: center;">
+            <div style="max-height: 380px; width: 100%; background: #000; overflow: hidden; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                <img id="cropperImage" src="" style="max-width: 100%; max-height: 380px; display: block;">
+            </div>
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 10px;">
+                <button type="button" class="btn btn-ghost btn-sm" onclick="rotateCropper(-90)" title="Rotate Left"><i class="fa-solid fa-rotate-left"></i> Rotate Left</button>
+                <button type="button" class="btn btn-ghost btn-sm" onclick="rotateCropper(90)" title="Rotate Right"><i class="fa-solid fa-rotate-right"></i> Rotate Right</button>
+                <button type="button" class="btn btn-ghost btn-sm" onclick="resetCropper()" title="Reset"><i class="fa-solid fa-arrows-rotate"></i> Reset</button>
+            </div>
+        </div>
+        <div style="padding: 16px 20px; border-top: 1px solid var(--border-soft); display: flex; justify-content: flex-end; gap: 10px; background: var(--surface-2);">
+            <button type="button" class="btn btn-ghost btn-sm" onclick="closeCropperModal()">Cancel</button>
+            <button type="button" class="btn btn-sm" style="background: var(--primary); color: white; border: none;" onclick="applyCroppedPhoto()">
+                <i class="fa-solid fa-check"></i> Apply &amp; Save Photo
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- MAIN BUILDER -->
 <div class="builder-container">
 
@@ -4742,11 +4770,14 @@
                                     <button type="button" class="btn btn-sm btn-ghost" onclick="document.getElementById('profile_photo_upload').click()" style="padding: 6px 12px; font-size: 12px; height: auto;">
                                         <i class="fa-solid fa-upload"></i> Upload
                                     </button>
+                                    <button type="button" id="btn-crop-photo" class="btn btn-sm btn-ghost" onclick="openCropperModal()" style="padding: 6px 12px; font-size: 12px; height: auto; display: none;">
+                                        <i class="fa-solid fa-crop-simple"></i> Crop Photo
+                                    </button>
                                     <button type="button" id="btn-remove-photo" class="btn btn-sm btn-ghost" onclick="removeProfilePhoto()" style="padding: 6px 12px; font-size: 12px; height: auto; color: var(--danger); display: none; border-color: var(--border);">
                                         <i class="fa-solid fa-trash"></i> Remove
                                     </button>
                                 </div>
-                                <span style="font-size: 11px; color: var(--text-3);">Upload a square image. It will render in the sidebar as a perfect circle.</span>
+                                <span style="font-size: 11px; color: var(--text-3);">Upload &amp; crop photo. It will render in the sidebar as a perfect circle.</span>
                             </div>
                         </div>
                     </div>
@@ -5711,17 +5742,86 @@
         }
     }
 
+    let cropperInstance = null;
+
     function uploadProfilePhoto(event) {
         const file = event.target.files[0];
         if (!file) return;
         const reader = new FileReader();
         reader.onload = function(e) {
-            resumeData.profile_image = e.target.result;
+            const rawImageData = e.target.result;
+            openCropperModal(rawImageData);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function openCropperModal(imageSrc) {
+        const src = imageSrc || resumeData.profile_image;
+        if (!src) return;
+        const cropperImg = document.getElementById('cropperImage');
+        const modal = document.getElementById('cropperModal');
+        cropperImg.src = src;
+        modal.style.display = 'flex';
+
+        if (cropperInstance) {
+            cropperInstance.destroy();
+            cropperInstance = null;
+        }
+
+        setTimeout(() => {
+            cropperInstance = new Cropper(cropperImg, {
+                aspectRatio: 1,
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 0.9,
+                restore: false,
+                guides: true,
+                center: true,
+                highlight: false,
+                cropBoxMovable: true,
+                cropBoxResizable: true,
+                toggleDragModeOnDblclick: false
+            });
+        }, 150);
+    }
+
+    function rotateCropper(degree) {
+        if (cropperInstance) {
+            cropperInstance.rotate(degree);
+        }
+    }
+
+    function resetCropper() {
+        if (cropperInstance) {
+            cropperInstance.reset();
+        }
+    }
+
+    function closeCropperModal() {
+        const modal = document.getElementById('cropperModal');
+        modal.style.display = 'none';
+        if (cropperInstance) {
+            cropperInstance.destroy();
+            cropperInstance = null;
+        }
+        document.getElementById('profile_photo_upload').value = '';
+    }
+
+    function applyCroppedPhoto() {
+        if (!cropperInstance) return;
+        const canvas = cropperInstance.getCroppedCanvas({
+            width: 400,
+            height: 400,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: 'high'
+        });
+        if (canvas) {
+            resumeData.profile_image = canvas.toDataURL('image/jpeg', 0.92);
             saveToCache();
             updateProfilePhotoUI();
             renderPreview();
-        };
-        reader.readAsDataURL(file);
+        }
+        closeCropperModal();
     }
 
     function removeProfilePhoto() {
@@ -5736,12 +5836,15 @@
         const container = document.getElementById('profile-image-preview-container');
         if (!container) return;
         const removeBtn = document.getElementById('btn-remove-photo');
+        const cropBtn = document.getElementById('btn-crop-photo');
         if (resumeData.profile_image) {
             container.innerHTML = `<img src="${resumeData.profile_image}" style="width: 100%; height: 100%; object-fit: cover;">`;
             if (removeBtn) removeBtn.style.display = 'inline-flex';
+            if (cropBtn) cropBtn.style.display = 'inline-flex';
         } else {
             container.innerHTML = `<i class="fa-solid fa-user-tie" style="font-size: 20px; color: var(--text-4);"></i>`;
             if (removeBtn) removeBtn.style.display = 'none';
+            if (cropBtn) cropBtn.style.display = 'none';
         }
     }
 
@@ -7224,6 +7327,16 @@
                 languagesHtml += `</div></div>`;
             }
 
+            // Certifications
+            let certificationsHtml = '';
+            if (data.certifications && data.certifications.length > 0) {
+                certificationsHtml += `<div class="t14-sidebar-section"><h3 class="t14-sidebar-section-title">Certifications</h3><div class="t14-sidebar-contacts">`;
+                data.certifications.forEach(c => {
+                    certificationsHtml += `<div class="t14-sidebar-contact-item"><i class="fa-solid fa-certificate"></i><span><strong>${c.name}</strong>${c.issuer ? ` (${c.issuer})` : ''}</span></div>`;
+                });
+                certificationsHtml += `</div></div>`;
+            }
+
             let sidebarContent = `
                 ${avatarHtml}
                 <h1 class="t14-sidebar-name">${data.first_name||''} ${data.last_name||''}</h1>
@@ -7231,6 +7344,7 @@
                 ${contactHtml}
                 ${skillsHtml}
                 ${languagesHtml}
+                ${certificationsHtml}
             `;
 
             // Right main content
@@ -7330,19 +7444,6 @@
                     `;
                 });
                 mainContent += `</div></section>`;
-            }
-
-            // Certifications
-            if (data.certifications && data.certifications.length > 0) {
-                mainContent += `
-                    <section class="t14-section">
-                        <h2 class="t14-section-title">Certifications</h2>
-                        <ul class="desc-list">
-                `;
-                data.certifications.forEach(c => {
-                    mainContent += `<li><strong>${c.name}</strong>${c.issuer ? ` – ${c.issuer}` : ''}</li>`;
-                });
-                mainContent += `</ul></section>`;
             }
 
             sheet.innerHTML = `
