@@ -7332,7 +7332,7 @@
             if (data.certifications && data.certifications.length > 0) {
                 certificationsHtml += `<div class="t14-sidebar-section"><h3 class="t14-sidebar-section-title">Certifications</h3><div class="t14-sidebar-contacts">`;
                 data.certifications.forEach(c => {
-                    certificationsHtml += `<div class="t14-sidebar-contact-item"><i class="fa-solid fa-certificate"></i><span><strong>${c.name}</strong>${c.issuer ? ` (${c.issuer})` : ''}</span></div>`;
+                    certificationsHtml += `<div class="t14-sidebar-contact-item"><span><strong>${c.name}</strong>${c.issuer ? ` (${c.issuer})` : ''}</span></div>`;
                 });
                 certificationsHtml += `</div></div>`;
             }
