@@ -5322,8 +5322,16 @@
         document.getElementById('login-required-modal').style.display = 'none';
     }
 
-    function redirectToLogin() {
-        window.top.location.href = '/login?next=' + encodeURIComponent(window.top.location.pathname);
+    function redirectToLogin(actionParam) {
+        const fullPath = window.location.pathname + (window.location.search ? window.location.search : '') + (actionParam ? (window.location.search ? '&action=' + actionParam : '?action=' + actionParam) : '');
+        if (window.requireAuth) {
+            window.requireAuth(() => {
+                if (actionParam === 'download') printResume();
+                else if (actionParam === 'export') exportJSON();
+            });
+        } else {
+            window.top.location.href = '/login?next=' + encodeURIComponent(fullPath);
+        }
     }
 
     let currentTemplate = typeof defaultTemplateIndex !== 'undefined' ? defaultTemplateIndex : 1;
@@ -7689,14 +7697,15 @@
     }
 
     async function exportJSON() {
-        if (!isLoggedIn) {
-            redirectToLogin();
+        if (!(window.APP_AUTH && window.APP_AUTH.authenticated)) {
+            redirectToLogin('export');
             return;
         }
         try {
             const response = await fetch('/track_download', { method: 'POST' });
             if (response.status === 401 || response.status === 403) {
-                redirectToLogin();
+                if (window.APP_AUTH) window.APP_AUTH.authenticated = false;
+                redirectToLogin('export');
                 return;
             }
         } catch (err) {
@@ -7972,14 +7981,15 @@
 
     /* ─── PRINT ─── */
     async function printResume() {
-        if (!isLoggedIn) {
-            redirectToLogin();
+        if (!(window.APP_AUTH && window.APP_AUTH.authenticated)) {
+            redirectToLogin('download');
             return;
         }
         try {
             const response = await fetch('/track_download', { method: 'POST' });
             if (response.status === 401 || response.status === 403) {
-                redirectToLogin();
+                if (window.APP_AUTH) window.APP_AUTH.authenticated = false;
+                redirectToLogin('download');
                 return;
             }
         } catch (err) {
@@ -8071,6 +8081,44 @@
     if (window.self !== window.top || new URLSearchParams(window.location.search).get('embed') === 'true') {
         document.body.classList.add('embedded');
     }
+</script>
+
+<script>
+    window.APP_AUTH = {
+        authenticated: {{ 'true' if session.get('user_id') else 'false' }},
+        email: {{ session.get('email', '') | tojson }}
+    };
+</script>
+<script src="{{ url_for('static', filename='auth_modal.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Intercept download buttons if present
+        const downloadBtns = document.querySelectorAll('.btn-download, [data-action="download"], #downloadPdfBtn');
+        downloadBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (!window.requireAuth(() => { printResume(); })) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+        // Resume pending download or export action after login redirect if action parameter exists
+        const params = new URLSearchParams(window.location.search);
+        const actionParam = params.get('action');
+        if (actionParam && window.APP_AUTH && window.APP_AUTH.authenticated) {
+            if (actionParam === 'download') {
+                setTimeout(() => { printResume(); }, 300);
+            } else if (actionParam === 'export') {
+                setTimeout(() => { exportJSON(); }, 300);
+            }
+            // Clean action query parameter without page reload
+            params.delete('action');
+            const cleanSearch = params.toString();
+            const cleanUrl = window.location.pathname + (cleanSearch ? '?' + cleanSearch : '') + window.location.hash;
+            window.history.replaceState({}, '', cleanUrl);
+        }
+    });
 </script>
 </body>
 </html>

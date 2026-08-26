@@ -998,6 +998,55 @@
             }
         });
     </script>
+    <script>
+        window.APP_AUTH = {
+            authenticated: {{ 'true' if session.get('user_id') else 'false' }},
+            email: {{ session.get('email', '') | tojson }}
+        };
+    </script>
+    <script src="{{ url_for('static', filename='auth_modal.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const form = document.getElementById('jdForm');
+            const fileInput = document.getElementById('fileInput');
+
+            // Check if there is a pending file saved in IndexedDB from prior OAuth / redirect flow
+            if (window.ResuFitStorage) {
+                try {
+                    const pending = await window.ResuFitStorage.getPendingFile();
+                    if (pending && pending.file && window.APP_AUTH && window.APP_AUTH.authenticated) {
+                        const dt = new DataTransfer();
+                        dt.items.add(pending.file);
+                        if (fileInput) {
+                            fileInput.files = dt.files;
+                            fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                        await window.ResuFitStorage.clearPendingFile();
+                        if (form) {
+                            setTimeout(() => {
+                                if (typeof form.requestSubmit === 'function') {
+                                    form.requestSubmit();
+                                } else {
+                                    form.submit();
+                                }
+                            }, 250);
+                        }
+                    }
+                } catch (err) {
+                    console.warn("Could not restore pending file:", err);
+                }
+            }
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    if (!window.requireAuth(() => { form.submit(); })) {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+            }
+        });
+    </script>
     <nav class="bottom-nav">
         <a href="/dashboard" class="bottom-nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
         <a href="/builder" class="bottom-nav-item"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Builder</span></a>

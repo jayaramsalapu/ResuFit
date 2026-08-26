@@ -2,15 +2,150 @@ import os
 import json
 import re
 import ast
+import logging
 from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
+logger = logging.getLogger("groq_api")
 
 try:
     client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 except Exception:
     client = None
+
+
+def repair_truncated_json(json_str: str) -> str:
+    """
+    Attempt to repair a truncated JSON string by closing unclosed strings,
+    arrays, and objects if the LLM output was cut off mid-response.
+    """
+    if not json_str:
+        return json_str
+
+    s = json_str.strip()
+
+    # 1. Close unclosed string if output ended mid-string
+    in_string = False
+    i = 0
+    while i < len(s):
+        c = s[i]
+        if c == '\\' and in_string:
+            i += 2
+            continue
+        if c == '"':
+            in_string = not in_string
+        i += 1
+
+    if in_string:
+        s += '"'
+
+    # 2. Clean trailing comma or unclosed key-value pair
+    s = re.sub(r',\s*$', '', s)
+    s = re.sub(r':\s*$', ': ""', s)
+    s = re.sub(r',\s*([\}\]])', r'\1', s)
+
+    # 3. Track open brackets '{' and '['
+    stack = []
+    in_str = False
+    i = 0
+    while i < len(s):
+        c = s[i]
+        if c == '\\' and in_str:
+            i += 2
+            continue
+        if c == '"':
+            in_str = not in_str
+        elif not in_str:
+            if c in '{[':
+                stack.append(c)
+            elif c in '}]':
+                if stack:
+                    if (c == '}' and stack[-1] == '{') or (c == ']' and stack[-1] == '['):
+                        stack.pop()
+        i += 1
+
+    # Close remaining open brackets in reverse order
+    while stack:
+        b = stack.pop()
+        if b == '{':
+            s += '}'
+        elif b == '[':
+            s += ']'
+
+    return s
+
+
+def _clean_and_parse_json(content: str, fallback_dict: dict = None) -> dict:
+    """
+    Robust JSON parser for Groq AI responses.
+    Handles raw JSON, markdown code blocks, outermost JSON object extraction,
+    and truncated JSON auto-repair.
+    """
+    if not content or not isinstance(content, str):
+        logger.error("Groq returned empty or invalid response content")
+        return fallback_dict or {"error": "AI returned empty response"}
+
+    logger.info("Groq response received: type=%s length=%d", type(content).__name__, len(content))
+
+    # 1. Try direct JSON parsing
+    try:
+        data = json.loads(content)
+        if isinstance(data, dict):
+            logger.info("Groq response parsed successfully via direct json.loads()")
+            return data
+    except Exception:
+        pass
+
+    # 2. Try removing markdown code blocks (e.g. ```json ... ```)
+    cleaned = re.sub(r'^```(?:json)?\s*', '', content.strip(), flags=re.IGNORECASE)
+    cleaned = re.sub(r'\s*```$', '', cleaned).strip()
+    try:
+        data = json.loads(cleaned)
+        if isinstance(data, dict):
+            logger.info("Groq response parsed successfully after removing markdown code blocks")
+            return data
+    except Exception:
+        pass
+
+    # 3. Try extracting outermost JSON object using regex
+    match = re.search(r'\{[\s\S]*\}', content)
+    if match:
+        extracted = match.group(0)
+        try:
+            data = json.loads(extracted)
+            if isinstance(data, dict):
+                logger.info("Groq response parsed successfully via regex object extraction")
+                return data
+        except Exception:
+            # 4. Clean stray markdown syntax or trailing commas within extracted block
+            extracted_cleaned = re.sub(r'```(?:json)?', '', extracted)
+            extracted_cleaned = re.sub(r',\s*([\}\]])', r'\1', extracted_cleaned)
+            try:
+                data = json.loads(extracted_cleaned)
+                if isinstance(data, dict):
+                    logger.info("Groq response parsed successfully after cleaning inner markdown/syntax")
+                    return data
+            except Exception:
+                pass
+
+    # 5. Try repairing truncated JSON if the response was cut off mid-sentence
+    try:
+        repaired = repair_truncated_json(content)
+        data = json.loads(repaired)
+        if isinstance(data, dict):
+            logger.info("Groq response parsed successfully after JSON truncation repair")
+            return data
+    except Exception as e:
+        logger.debug(f"JSON repair attempt failed: {e}")
+
+    logger.error("Groq JSON parse failed. First 1000 chars: %s", content[:1000])
+    if fallback_dict is not None:
+        fallback = dict(fallback_dict)
+        fallback["error"] = "AI response could not be parsed as valid JSON"
+        return fallback
+
+    return {"error": "AI response could not be parsed as valid JSON"}
 
 
 # ---------------------------
@@ -25,7 +160,6 @@ TASK:
 Perform a COMPLETE resume review.
 
 Review the resume from:
-
 1. Recruiter perspective
 2. Hiring manager perspective
 3. Resume writer perspective
@@ -33,7 +167,6 @@ Review the resume from:
 5. ATS compatibility perspective
 
 PROCESS (internal, do not output):
-
 1. Extract structured resume data.
 2. Review every section line-by-line.
 3. Identify ALL grammar, spelling, wording, and formatting issues.
@@ -43,7 +176,6 @@ PROCESS (internal, do not output):
 7. Return ALL issues found.
 
 IMPORTANT:
-
 * Review every sentence.
 * Review every bullet point.
 * Review every section.
@@ -57,78 +189,62 @@ RESUME:
 
 OUTPUT FORMAT (STRICT JSON ONLY):
 {{
-"personal_info": {{
-"name": "",
-"email": "",
-"phone": "",
-"linkedin": "",
-"github": "",
-"portfolio": ""
-}},
-
-"summary": "",
-
-"skills": [],
-
-"experience": [
-{{
-"role": "",
-"company": "",
-"duration": "",
-"description": ""
-}}
-],
-
-"projects": [
-{{
-"title": "",
-"description": "",
-"technologies": []
-}}
-],
-
-"education": [
-{{
-"degree": "",
-"institution": "",
-"year": ""
-}}
-],
-
-"certifications": [],
-
-"analysis": {{
-"grammar_and_spelling_mistakes": [
-{{
-"mistake": "",
-"correction": "",
-"explanation": ""
-}}
-],
-
-```
-"content_improvements": [
-  {{
-    "original_text": "",
-    "improved_text": "",
-    "reason": ""
+  "personal_info": {{
+    "name": "",
+    "email": "",
+    "phone": "",
+    "linkedin": "",
+    "github": "",
+    "portfolio": ""
+  }},
+  "summary": "",
+  "skills": [],
+  "experience": [
+    {{
+      "role": "",
+      "company": "",
+      "duration": "",
+      "description": ""
+    }}
+  ],
+  "projects": [
+    {{
+      "title": "",
+      "description": "",
+      "technologies": []
+    }}
+  ],
+  "education": [
+    {{
+      "degree": "",
+      "institution": "",
+      "year": ""
+    }}
+  ],
+  "certifications": [],
+  "analysis": {{
+    "grammar_and_spelling_mistakes": [
+      {{
+        "mistake": "",
+        "correction": "",
+        "explanation": ""
+      }}
+    ],
+    "content_improvements": [
+      {{
+        "original_text": "",
+        "improved_text": "",
+        "reason": ""
+      }}
+    ],
+    "improvements_to_stand_out": [],
+    "formatting_and_structure_feedback": "",
+    "missing_information": [],
+    "recruiter_concerns": []
   }}
-],
-
-"improvements_to_stand_out": [],
-
-"formatting_and_structure_feedback": "",
-
-"missing_information": [],
-
-"recruiter_concerns": []
-```
-
-}}
 }}
 
 STRICT OUTPUT RULES:
-
 * Output MUST be valid JSON.
 * Output ONLY JSON.
 * No markdown.
@@ -141,13 +257,11 @@ STRICT OUTPUT RULES:
 * Use [] for empty arrays.
 
 grammar_and_spelling_mistakes:
-
 * Extract exact text containing the issue.
 * Provide corrected version.
 * Explain the issue briefly.
 
 content_improvements:
-
 * Rewrite weak content professionally.
 * Improve clarity.
 * Improve readability.
@@ -156,7 +270,6 @@ content_improvements:
 * Make content recruiter-friendly.
 
 Experience descriptions:
-
 * Must be concise.
 * Must be professional.
 * Must be achievement-focused where possible.
@@ -164,25 +277,58 @@ Experience descriptions:
 Return ALL issues found throughout the resume.
 """
 
+    if not client:
+        logger.error("Groq client is not initialized. Check GROQ_API_KEY.")
+        return {
+            "error": "Groq API key not configured",
+            "personal_info": {"name": "", "email": "", "phone": "", "linkedin": "", "github": "", "portfolio": ""},
+            "summary": "", "skills": [], "experience": [], "projects": [], "education": [], "certifications": [],
+            "analysis": {"grammar_and_spelling_mistakes": [], "content_improvements": [], "improvements_to_stand_out": [], "formatting_and_structure_feedback": "", "missing_information": [], "recruiter_concerns": []}
+        }
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.2
+        temperature=0.2,
+        max_tokens=4096
     )
 
     content = response.choices[0].message.content.strip()
 
-    try:
-        return json.loads(content)
-    except:
-        match = re.search(r'\{[\s\S]*\}', content)
-        if match:
-            try:
-                return json.loads(match.group())
-            except:
-                return {}
-    return {}
+    fallback_schema = {
+        "personal_info": {"name": "", "email": "", "phone": "", "linkedin": "", "github": "", "portfolio": ""},
+        "summary": "",
+        "skills": [],
+        "experience": [],
+        "projects": [],
+        "education": [],
+        "certifications": [],
+        "analysis": {
+            "grammar_and_spelling_mistakes": [],
+            "content_improvements": [],
+            "improvements_to_stand_out": [],
+            "formatting_and_structure_feedback": "",
+            "missing_information": [],
+            "recruiter_concerns": []
+        }
+    }
+
+    result = _clean_and_parse_json(content, fallback_schema)
+
+    if isinstance(result, dict) and not result.get("error"):
+        p_info = result.get("personal_info", {})
+        analysis = result.get("analysis", {})
+        logger.info(
+            "Parsed Groq result summary: name='%s', skills=%d, experience=%d, projects=%d, grammar_errors=%d, improvements=%d",
+            p_info.get("name") if isinstance(p_info, dict) else "",
+            len(result.get("skills", [])) if isinstance(result.get("skills"), list) else 0,
+            len(result.get("experience", [])) if isinstance(result.get("experience"), list) else 0,
+            len(result.get("projects", [])) if isinstance(result.get("projects"), list) else 0,
+            len(analysis.get("grammar_and_spelling_mistakes", [])) if isinstance(analysis, dict) and isinstance(analysis.get("grammar_and_spelling_mistakes"), list) else 0,
+            len(analysis.get("content_improvements", [])) if isinstance(analysis, dict) and isinstance(analysis.get("content_improvements"), list) else 0
+        )
+
+    return result
 
 
 # ---------------------------
@@ -290,23 +436,13 @@ QUALITY RULES:
 """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.2
     )
 
     content = response.choices[0].message.content.strip()
-
-    try:
-        return json.loads(content)
-    except:
-        match = re.search(r'\{[\s\S]*\}', content)
-        if match:
-            try:
-                return json.loads(match.group())
-            except:
-                return {}
-    return {}
+    return _clean_and_parse_json(content)
 
 # ==========================
 # AI POLISH
@@ -382,7 +518,7 @@ No markdown.
 """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=[
             {"role": "user", "content": prompt}
         ],
@@ -621,7 +757,7 @@ def tailor_resume_with_groq(resume_data, job_desc):
 
 
   response = client.chat.completions.create(
-    model="llama-3.3-70b-versatile",
+    model="openai/gpt-oss-120b",
     messages=[
       {
         "role": "user",
@@ -719,7 +855,7 @@ RULES:
 """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=[
             {"role": "user", "content": prompt}
         ],
@@ -826,7 +962,7 @@ RESUME TEXT:
 """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.1
     )

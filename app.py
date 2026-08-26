@@ -9,9 +9,9 @@ import re
 from dotenv import load_dotenv
 import random
 from werkzeug.utils import secure_filename
-from PyPDF2 import PdfReader
 from docx import Document
 from groq_api import analyze_resume_with_groq, analyze_jd_with_groq ,  optimize_text_with_groq, tailor_resume_with_groq, analyze_keywords_with_groq, parse_resume_to_json_with_groq
+from document_extractor import extract_document_text, is_good_text, get_tesseract_status
 from datetime import timedelta
 load_dotenv()
 
@@ -104,19 +104,13 @@ def get_stats():
     }
 
 def extract_text(filepath):
-    text = ""
-
-    if filepath.endswith(".pdf"):
-        reader = PdfReader(filepath)
-        for page in reader.pages:
-            text += page.extract_text() or ""
-
-    elif filepath.endswith(".docx"):
-        doc = Document(filepath)
-        for para in doc.paragraphs:
-            text += para.text + "\n"
-
-    return text
+    """
+    Extract text from a resume document (PDF, DOCX, TXT) using the robust
+    multi-layered extraction pipeline (layout-aware PyMuPDF -> PyPDF -> OCR).
+    """
+    extracted_text, metadata = extract_document_text(filepath)
+    app.logger.info(f"Extracted document '{os.path.basename(filepath)}': length={len(extracted_text)}, meta={metadata}")
+    return extracted_text
 
 # ---------------- ROUTES ---------------- #
 
@@ -126,21 +120,52 @@ def index():
     return render_template('index.html', stats=stats)
 
 
+from urllib.parse import urlparse, urljoin
+
+from flask import has_request_context
+
+def is_safe_next_url(target):
+    """
+    Validate that target is a safe internal URL path to prevent open redirects to external domains.
+    """
+    if not target or not isinstance(target, str):
+        return False
+    target = target.strip()
+    if not target.startswith('/'):
+        return False
+    if target.startswith('//') or target.startswith('\\\\') or target.startswith('/\\') or target.startswith('/%5C'):
+        return False
+    if '://' in target or '\\' in target:
+        return False
+    if any(ord(c) < 32 or ord(c) == 127 for c in target):
+        return False
+    if has_request_context():
+        ref_url = urlparse(request.host_url)
+        test_url = urlparse(urljoin(request.host_url, target))
+        return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
+    return True
+
+
 # ---------- REGISTER ---------- #
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if 'user_id' in session:
-        return redirect('/dashboard')
+        raw_next = request.args.get('next') or session.pop('next_url', None)
+        target = raw_next if is_safe_next_url(raw_next) else url_for('dashboard')
+        return redirect(target)
 
-    next_url = request.args.get('next') or request.form.get('next') or url_for('dashboard')
+    raw_next = request.args.get('next') or request.form.get('next') or session.get('next_url')
+    next_url = raw_next if is_safe_next_url(raw_next) else None
+    if next_url:
+        session['next_url'] = next_url
 
     if request.method == 'POST':
-        email = request.form['email']
+        email = request.form['email'].strip()
         password = request.form['password']
         confirm_password = request.form['confirm_password']
 
         if password != confirm_password:
-            return render_template('register.html', error="Passwords do not match", next=next_url)
+            return render_template('register.html', error="Passwords do not match", next=next_url or '')
 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
@@ -152,25 +177,42 @@ def register():
             )
             conn.commit()
         except:
-            return render_template('register.html', error="User already exists", next=next_url)
+            conn.close()
+            return render_template('register.html', error="User already exists", next=next_url or '')
 
+        # Log user in directly upon successful registration
+        user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
         conn.close()
 
-        return redirect(url_for('login', next=next_url))
+        if user:
+            session['user_id'] = user['id']
+            session['email'] = user['email']
+            session.permanent = True
 
-    return render_template('register.html', next=next_url)
+        target = session.pop('next_url', None) or next_url or url_for('dashboard')
+        if not is_safe_next_url(target):
+            target = url_for('dashboard')
+
+        return redirect(target)
+
+    return render_template('register.html', next=next_url or '')
 
 
 # ---------- LOGIN ---------- #
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'user_id' in session:
-        return redirect('/dashboard')
+        raw_next = request.args.get('next') or session.pop('next_url', None)
+        target = raw_next if is_safe_next_url(raw_next) else url_for('dashboard')
+        return redirect(target)
 
-    next_url = request.args.get('next') or request.form.get('next') or url_for('dashboard')
+    raw_next = request.args.get('next') or request.form.get('next') or session.get('next_url')
+    next_url = raw_next if is_safe_next_url(raw_next) else None
+    if next_url:
+        session['next_url'] = next_url
 
     if request.method == 'POST':
-        email = request.form['email']
+        email = request.form['email'].strip()
         password = request.form['password']
 
         conn = get_db()
@@ -184,19 +226,23 @@ def login():
             session['user_id'] = user['id']
             session['email'] = user['email']
             session.permanent = True
-            return redirect(next_url)
 
-        return render_template('login.html', error="Invalid email or password", next=next_url)
+            target = session.pop('next_url', None) or next_url or url_for('dashboard')
+            if not is_safe_next_url(target):
+                target = url_for('dashboard')
+            return redirect(target)
 
-    return render_template('login.html', next=next_url)
+        return render_template('login.html', error="Invalid email or password", next=next_url or '')
+
+    return render_template('login.html', next=next_url or '')
 
 
 # ---------- GOOGLE LOGIN ---------- #
 @app.route("/google/login")
 def google_login():
-    next_url = request.args.get('next')
-    if next_url:
-        session['next_url'] = next_url
+    raw_next = request.args.get('next') or session.get('next_url')
+    if is_safe_next_url(raw_next):
+        session['next_url'] = raw_next
 
     flow = Flow.from_client_config(
         GOOGLE_CLIENT_CONFIG,
@@ -275,8 +321,84 @@ def google_callback():
     session["email"] = user["email"]
     session.permanent = True
 
-    next_url = session.pop('next_url', None) or url_for("dashboard")
-    return redirect(next_url)
+    target = session.pop('next_url', None) or url_for("dashboard")
+    if not is_safe_next_url(target):
+        target = url_for("dashboard")
+    return redirect(target)
+
+
+# ---------- API AUTH ENDPOINTS (FOR MODAL & GATING) ---------- #
+@app.route('/api/auth-status')
+def api_auth_status():
+    return jsonify({
+        "authenticated": 'user_id' in session,
+        "email": session.get('email', '')
+    })
+
+@app.route('/api/pending-action', methods=['GET', 'POST', 'DELETE'])
+def api_pending_action():
+    if request.method == 'POST':
+        data = request.get_json() or {}
+        session['pending_action'] = data
+        return jsonify({"success": True})
+    elif request.method == 'DELETE':
+        session.pop('pending_action', None)
+        return jsonify({"success": True})
+    return jsonify(session.get('pending_action', {}))
+
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    data = request.get_json() or {}
+    email = data.get('email', '').strip()
+    password = data.get('password', '')
+
+    if not email or not password:
+        return jsonify({"success": False, "error": "Email and password required"}), 400
+
+    conn = get_db()
+    user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+    conn.close()
+
+    if user and user['password'] != 'google_auth' and bcrypt.check_password_hash(user['password'], password):
+        session['user_id'] = user['id']
+        session['email'] = user['email']
+        session.permanent = True
+        return jsonify({"success": True, "email": user['email']})
+
+    return jsonify({"success": False, "error": "Invalid email or password"}), 401
+
+
+@app.route('/api/register', methods=['POST'])
+def api_register():
+    data = request.get_json() or {}
+    email = data.get('email', '').strip()
+    password = data.get('password', '')
+    confirm_password = data.get('confirm_password', '')
+
+    if not email or not password:
+        return jsonify({"success": False, "error": "Email and password required"}), 400
+
+    if password != confirm_password:
+        return jsonify({"success": False, "error": "Passwords do not match"}), 400
+
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    conn = get_db()
+    try:
+        conn.execute("INSERT INTO users (email, password) VALUES (?, ?)", (email, hashed_password))
+        conn.commit()
+    except Exception:
+        conn.close()
+        return jsonify({"success": False, "error": "User already exists"}), 400
+
+    user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+    conn.close()
+
+    if user:
+        session['user_id'] = user['id']
+        session['email'] = user['email']
+        session.permanent = True
+
+    return jsonify({"success": True, "email": email})
 
 
 def send_otp_email(to_email, otp):
@@ -393,15 +515,64 @@ def analyze_resume():
     file = request.files.get('resume')
 
     if not file or file.filename == '':
-        return "No file selected"
+        if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({"error": "No file selected"}), 400
+        return "No file selected", 400
 
     filename = secure_filename(file.filename)
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    file.save(filepath)
-    resume_text = extract_text(filepath)
-    os.remove(filepath)
+
+    try:
+        file.save(filepath)
+        resume_text = extract_text(filepath)
+    except Exception as e:
+        app.logger.error(f"File upload/saving failed for {filename}: {e}")
+        if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({"error": "Could not process uploaded file."}), 400
+        return "Could not process uploaded file.", 400
+    finally:
+        if os.path.exists(filepath):
+            try:
+                os.remove(filepath)
+            except Exception:
+                pass
+
+    if not resume_text or not is_good_text(resume_text):
+        app.logger.warning(f"Text extraction failed or yielded unusable content for {filename}")
+        err_msg = "Could not extract readable text from this PDF/DOCX file. Please ensure the file is not password-protected, encrypted, or corrupted."
+        if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({"error": err_msg}), 400
+        return render_template('check_resume.html', name=session.get('email', 'Guest'), error=err_msg), 400
+
     result = analyze_resume_with_groq(resume_text)
     
+    app.logger.info(
+        "Resume AI result keys: %s",
+        list(result.keys()) if isinstance(result, dict) else type(result)
+    )
+
+    if isinstance(result, dict):
+        p_info = result.get("personal_info") or {}
+        analysis = result.get("analysis") or {}
+        app.logger.info(
+            "Resume AI sections: name='%s', personal_info=%s summary=%s skills=%d experience=%d projects=%d grammar=%d improvements=%d",
+            p_info.get("name") if isinstance(p_info, dict) else "",
+            bool(result.get("personal_info")),
+            bool(result.get("summary")),
+            len(result.get("skills", [])) if isinstance(result.get("skills"), list) else 0,
+            len(result.get("experience", [])) if isinstance(result.get("experience"), list) else 0,
+            len(result.get("projects", [])) if isinstance(result.get("projects"), list) else 0,
+            len(analysis.get("grammar_and_spelling_mistakes", [])) if isinstance(analysis, dict) and isinstance(analysis.get("grammar_and_spelling_mistakes"), list) else 0,
+            len(analysis.get("content_improvements", [])) if isinstance(analysis, dict) and isinstance(analysis.get("content_improvements"), list) else 0
+        )
+
+        if result.get("error") and not result.get("personal_info", {}).get("name"):
+            app.logger.error("AI Analysis failed: %s", result.get("error"))
+            err_msg = f"AI analysis error: {result.get('error')}"
+            if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return jsonify({"error": err_msg}), 400
+            return render_template('check_resume.html', name=session.get('email', 'Guest'), error=err_msg), 400
+
     email = session.get('email', '')
     name = re.sub(r'\d+', '', email.split('@')[0]) if email else 'Guest'
 
@@ -425,13 +596,35 @@ def analyze_jd():
     jd_text = request.form.get('jd_text', '')
 
     if not file or file.filename == '':
-        return "No file selected"
+        if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({"error": "No file selected"}), 400
+        return "No file selected", 400
 
     filename = secure_filename(file.filename)
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    file.save(filepath)
-    resume_text = extract_text(filepath)
-    os.remove(filepath)
+
+    try:
+        file.save(filepath)
+        resume_text = extract_text(filepath)
+    except Exception as e:
+        app.logger.error(f"File upload/saving failed for {filename}: {e}")
+        if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({"error": "Could not process uploaded file."}), 400
+        return "Could not process uploaded file.", 400
+    finally:
+        if os.path.exists(filepath):
+            try:
+                os.remove(filepath)
+            except Exception:
+                pass
+
+    if not resume_text or not is_good_text(resume_text):
+        app.logger.warning(f"Text extraction failed or yielded unusable content for {filename}")
+        err_msg = "Could not extract readable text from this PDF/DOCX file. Please ensure the file is not password-protected, encrypted, or corrupted."
+        if request.headers.get('Accept') == 'application/json' or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({"error": err_msg}), 400
+        return render_template('jd_analysis.html', name=session.get('email', 'Guest'), error=err_msg, jd_text=jd_text), 400
+
     result = analyze_jd_with_groq(resume_text, jd_text)
     
     email = session.get('email', '')
@@ -600,13 +793,20 @@ def import_resume():
     try:
         file.save(filepath)
         resume_text = extract_text(filepath)
+        if not resume_text or not is_good_text(resume_text):
+            return jsonify({"error": "Could not extract readable text from this PDF/DOCX file. Please check if the file is encrypted or corrupted."}), 400
+
         parsed_data = parse_resume_to_json_with_groq(resume_text)
         return jsonify(parsed_data)
     except Exception as e:
+        app.logger.error(f"Error in import_resume: {e}")
         return jsonify({"error": str(e)}), 500
     finally:
         if os.path.exists(filepath):
-            os.remove(filepath)
+            try:
+                os.remove(filepath)
+            except Exception:
+                pass
 
 
 # ==========================
